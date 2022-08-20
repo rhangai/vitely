@@ -36,7 +36,8 @@ type VitelyHookDevResult = (devServerOptions: VitelyCoreDevServerOptions) => voi
  * Build hook context
  */
 type VitelyHookBuildContext = {
-	viteConfig: InlineConfig;
+	viteConfig: VitelyHookConfigViteInlineConfig;
+	addViteConfig: (config: InlineConfig) => void;
 	options: VitelyCoreOptions;
 };
 

@@ -1,5 +1,5 @@
 import { AsyncSeriesBailHook, AsyncSeriesHook } from 'tapable';
-import { build, createServer as createViteServer } from 'vite';
+import { build, createServer as createViteServer, InlineConfig } from 'vite';
 import { VitelyHookConfigViteInlineConfig, VitelyHooks } from './hooks.js';
 import { VitelyCoreOptions } from './options.js';
 
@@ -20,9 +20,12 @@ export class VitelyCore {
 	 */
 	async setup() {
 		const { plugins } = this.options;
+		console.log(plugins);
 		if (plugins) {
 			for (const plugin of plugins) {
-				await plugin({ hooks: this.hooks });
+				await plugin.install({
+					hooks: this.hooks,
+				});
 			}
 		}
 	}
@@ -49,7 +52,6 @@ export class VitelyCore {
 	 */
 	async startDevServer() {
 		const viteConfig = await this.getViteConfig();
-		console.log(viteConfig);
 		const vite = await createViteServer(viteConfig);
 		const result = await this.hooks.dev.promise({
 			vite,
@@ -68,11 +70,18 @@ export class VitelyCore {
 	 */
 	async build() {
 		const viteConfig = await this.getViteConfig();
+		const viteConfigs: InlineConfig[] = [viteConfig];
+		const addViteConfig = (config: InlineConfig) => {
+			viteConfigs.push(config);
+		};
 		await this.hooks.build.promise({
 			viteConfig,
+			addViteConfig,
 			options: this.options,
 		});
-		await build(viteConfig);
+		for (const config of viteConfigs) {
+			await build(config);
+		}
 	}
 }
 

@@ -4,4 +4,6 @@ export type VitelyPluginContext = {
 	hooks: VitelyHooks;
 };
 
-export type VitelyPlugin = (ctx: VitelyPluginContext) => void | Promise<void>;
+export type VitelyPlugin = {
+	install(ctx: VitelyPluginContext): void | Promise<void>;
+};
