@@ -7,3 +7,6 @@ dist
 # Yarn berry
 .yarn/*
 !.yarn/releases
+
+# Tmp files
+/demo

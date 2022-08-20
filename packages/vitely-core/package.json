@@ -3,6 +3,9 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json"
   },
+  "dependencies": {
+    "vite": "^3.0.9"
+  },
   "devDependencies": {
     "typescript": "^4.7.4"
   }

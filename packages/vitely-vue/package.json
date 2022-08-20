@@ -1,16 +1,18 @@
 {
-  "name": "@vitely/server-dev",
+  "name": "@vitely/vue",
   "type": "module",
   "scripts": {
     "build": "tsc -p tsconfig.build.json"
   },
   "dependencies": {
     "@fastify/middie": "^8.0.0",
+    "@vitejs/plugin-vue": "^3.0.3",
     "@vitely/core": "*",
     "fastify": "^4.5.2",
     "vite": "^3.0.9"
   },
   "devDependencies": {
-    "typescript": "^4.7.4"
+    "typescript": "^4.7.4",
+    "vue": "^3.2.37"
   }
 }
