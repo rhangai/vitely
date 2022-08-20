@@ -4,6 +4,7 @@
     "build": "tsc -p tsconfig.build.json"
   },
   "dependencies": {
+    "tapable": "^2.2.1",
     "vite": "^3.0.9"
   },
   "devDependencies": {

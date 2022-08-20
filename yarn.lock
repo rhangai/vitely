@@ -377,6 +377,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@vitely/core@workspace:packages/vitely-core"
   dependencies:
+    tapable: ^2.2.1
     typescript: ^4.7.4
     vite: ^3.0.9
   languageName: unknown
@@ -3390,7 +3391,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tapable@npm:^2.2.0":
+"tapable@npm:^2.2.0, tapable@npm:^2.2.1":
   version: 2.2.1
   resolution: "tapable@npm:2.2.1"
   checksum: 3b7a1b4d86fa940aad46d9e73d1e8739335efd4c48322cb37d073eb6f80f5281889bf0320c6d8ffcfa1a0dd5bfdbd0f9d037e252ef972aca595330538aac4d51
