@@ -1,0 +1,16 @@
+{
+  "name": "@vitely/server-dev",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "@fastify/middie": "^8.0.0",
+    "@vitely/core": "*",
+    "fastify": "^4.5.2",
+    "vite": "^3.0.9"
+  },
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  }
+}

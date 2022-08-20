@@ -1,0 +1,9 @@
+{
+  "name": "@vitely/core",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  }
+}

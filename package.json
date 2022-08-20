@@ -1,0 +1,11 @@
+{
+  "name": "root",
+  "private": true,
+  "packageManager": "yarn@3.2.2",
+  "workspaces": [
+    "packages/*"
+  ],
+  "resolutions": {
+    "@vitely/core": "workspace:*"
+  }
+}
