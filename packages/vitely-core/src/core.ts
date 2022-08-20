@@ -1,25 +1,42 @@
 import { AsyncSeriesBailHook, AsyncSeriesHook } from 'tapable';
-import { build, createServer as createViteServer, InlineConfig } from 'vite';
-import { VitelyHooks } from './hooks';
-import { VitelyCoreOptions } from './options';
+import { build, createServer as createViteServer } from 'vite';
+import { VitelyHookConfigViteInlineConfig, VitelyHooks } from './hooks.js';
+import { VitelyCoreOptions } from './options.js';
 
 /**
  * Core class for vitely
  */
 export class VitelyCore {
 	public readonly hooks: Readonly<VitelyHooks> = {
-		config: new AsyncSeriesBailHook(),
-		dev: new AsyncSeriesBailHook(),
-		build: new AsyncSeriesHook(),
+		config: new AsyncSeriesBailHook(['context']),
+		dev: new AsyncSeriesBailHook(['context']),
+		build: new AsyncSeriesHook(['context']),
 	};
 
 	constructor(private readonly options: VitelyCoreOptions) {}
 
 	/**
+	 * Prepare the plugin
+	 */
+	async setup() {
+		const { plugins } = this.options;
+		if (plugins) {
+			for (const plugin of plugins) {
+				await plugin({ hooks: this.hooks });
+			}
+		}
+	}
+
+	/**
 	 * Build the project
 	 */
-	async getViteConfig(): Promise<InlineConfig> {
-		const viteConfig: InlineConfig = {};
+	async getViteConfig(): Promise<VitelyHookConfigViteInlineConfig> {
+		const viteConfig: VitelyHookConfigViteInlineConfig = {
+			root: this.options.root,
+			plugins: [],
+			build: {},
+			server: {},
+		};
 		await this.hooks.config.promise({
 			viteConfig,
 			options: this.options,
@@ -32,6 +49,7 @@ export class VitelyCore {
 	 */
 	async startDevServer() {
 		const viteConfig = await this.getViteConfig();
+		console.log(viteConfig);
 		const vite = await createViteServer(viteConfig);
 		const result = await this.hooks.dev.promise({
 			vite,
@@ -56,4 +74,15 @@ export class VitelyCore {
 		});
 		await build(viteConfig);
 	}
+}
+
+/**
+ * Create a new vitely core
+ */
+export async function createVitely(
+	options: VitelyCoreOptions
+): Promise<VitelyCore> {
+	const vitely = new VitelyCore(options);
+	await vitely.setup();
+	return vitely;
 }

@@ -1,5 +1,5 @@
-import { renderToString } from 'vue/server-renderer';
 import { Component, createSSRApp } from 'vue';
+import { renderToString } from 'vue/server-renderer';
 
 type RenderOptions = {
 	component: Component;
