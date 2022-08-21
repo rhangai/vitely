@@ -21,6 +21,7 @@
   "dependencies": {
     "@fastify/static": "^6.5.0",
     "@vitely/core-runtime": "workspace:*",
+    "@vitely/vite-plugin-vue-router": "workspace:*",
     "fastify": "^4.5.2"
   },
   "devDependencies": {

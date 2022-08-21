@@ -28,6 +28,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.7.1",
     "turbo": "^1.4.3",
+    "vite": "^3.0.9",
     "vitest": "^0.22.1"
   }
 }

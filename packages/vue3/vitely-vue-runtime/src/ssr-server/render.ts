@@ -1,5 +1,5 @@
-// @ts-ignore
 import { createApp } from '@vitely/vue-runtime/ssr';
+import { createRouter } from '@vitely/vite-plugin-vue-router/runtime';
 import { renderToString } from 'vue/server-renderer';
 
 export async function render(url: string) {
