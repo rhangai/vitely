@@ -1,5 +1,5 @@
 import { createVitely } from '@vitely/core';
-import { vitelyPlugin } from './vitely-vue';
+import { vitelyPlugin } from './vitely-vue.js';
 
 export default vitelyPlugin;
 

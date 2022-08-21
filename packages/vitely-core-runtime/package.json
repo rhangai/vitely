@@ -1,7 +1,16 @@
 {
   "name": "@vitely/core-runtime",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./router": {
+      "import": "./dist/router/index.js",
+      "types": "./dist/router/index.d.ts"
+    }
+  },
   "scripts": {
     "build": "tsc -p tsconfig.build.json"
   },

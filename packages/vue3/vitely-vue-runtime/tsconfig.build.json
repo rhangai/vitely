@@ -3,6 +3,7 @@
   "include": ["./src"],
   "compilerOptions": {
     "module": "es2020",
+    "moduleResolution": "nodenext",
     "outDir": "./dist"
   }
 }

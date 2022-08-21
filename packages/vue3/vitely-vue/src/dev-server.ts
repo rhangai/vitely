@@ -1,8 +1,8 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import middie from '@fastify/middie';
+import { default as middie } from '@fastify/middie';
 import { VitelyCoreOptions } from '@vitely/core';
-import Fastify from 'fastify';
+import { default as Fastify } from 'fastify';
 import { ViteDevServer } from 'vite';
 
 export async function createDevServer(

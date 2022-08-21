@@ -1,4 +1,4 @@
-import { createApp } from '../ssr';
+import { createApp } from '../ssr/index.js';
 
 async function main() {
 	const { app } = await createApp();

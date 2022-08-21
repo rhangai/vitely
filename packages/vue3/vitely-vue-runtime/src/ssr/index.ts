@@ -1,4 +1,4 @@
-import { createRouter } from '@vitely/vite-plugin-vue-router/dist/runtime';
+import { createRouter } from '@vitely/vite-plugin-vue-router/runtime';
 // eslint-disable-next-line import/no-unresolved
 import App from 'virtual:@vitely/vue-runtime/app';
 import { createSSRApp } from 'vue';

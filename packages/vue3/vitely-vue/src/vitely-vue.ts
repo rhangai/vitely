@@ -1,14 +1,16 @@
 import { resolve } from 'node:path';
-import pluginNodeResolve from '@rollup/plugin-node-resolve';
-import pluginVue from '@vitejs/plugin-vue';
+import { default as pluginVue } from '@vitejs/plugin-vue';
 import type { VitelyPlugin, VitelyPluginContext } from '@vitely/core';
-import pluginVueRouter from '@vitely/vite-plugin-vue-router';
-import { createDevServer } from './dev-server';
+import { createDevServer } from './dev-server.js';
 
 export function vitelyPlugin(): VitelyPlugin {
 	return {
 		install({ hooks }: VitelyPluginContext) {
-			hooks.config.tap('@vitely/vue', (context) => {
+			hooks.config.tapPromise('@vitely/vue', async (context) => {
+				const { default: pluginVueRouter } = await import(
+					// @ts-ignore
+					'@vitely/vite-plugin-vue-router'
+				);
 				const { viteConfig, options } = context;
 				viteConfig.configFile = false;
 				viteConfig.plugins.push(pluginVue());
@@ -42,7 +44,7 @@ export function vitelyPlugin(): VitelyPlugin {
 							input: {
 								index: '@vitely/vue-runtime/ssr-server',
 							},
-							plugins: [pluginNodeResolve()],
+							plugins: [],
 						},
 						commonjsOptions: {
 							include: [/./],

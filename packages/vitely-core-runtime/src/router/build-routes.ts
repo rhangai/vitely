@@ -1,4 +1,4 @@
-import { RouteItem, RouteTree } from './route-tree';
+import { RouteItem, RouteTree } from './route-tree.js';
 
 type RouteMappedItem<T> = T & {
 	children?: Array<RouteMappedItem<T>>;
