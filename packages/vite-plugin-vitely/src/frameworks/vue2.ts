@@ -1,6 +1,6 @@
 import { resolve } from 'path';
-import { ModuleMap } from '../util/virtual-modules';
 import { VitelyContext } from '../context';
+import { ModuleMap } from '../util/virtual-modules';
 
 function createModuleApp(srcDir: string) {
 	return `
