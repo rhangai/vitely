@@ -13,7 +13,7 @@ export async function createDevServer(
 	const fastify = Fastify();
 	await fastify.register(middie);
 	await fastify.use(vite.middlewares);
-	fastify.get('/', async (req, res) => {
+	fastify.get('*', async (req, res) => {
 		try {
 			const { render } = await vite.ssrLoadModule(
 				'@vitely/vue-runtime/ssr-server/render'

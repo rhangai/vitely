@@ -17,7 +17,7 @@
     "vite-plugin"
   ],
   "scripts": {
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist node_modules .turbo",
     "build": "tsc -p tsconfig.build.json"
   },
   "dependencies": {

@@ -9,6 +9,10 @@
     "./ssr-server": {
       "import": "./dist/ssr-server/index.js",
       "types": "./dist/ssr-server/index.d.ts"
+    },
+    "./ssr-server/render": {
+      "import": "./dist/ssr-server/render.js",
+      "types": "./dist/ssr-server/render.d.ts"
     }
   },
   "scripts": {

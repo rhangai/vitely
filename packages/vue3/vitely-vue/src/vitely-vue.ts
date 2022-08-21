@@ -16,7 +16,7 @@ export function vitelyPlugin(): VitelyPlugin {
 				viteConfig.plugins.push(pluginVue());
 				viteConfig.plugins.push(pluginVueRouter());
 				viteConfig.appType = 'custom';
-				// viteConfig.server.middlewareMode = true;
+				viteConfig.server.middlewareMode = true;
 				viteConfig.build.outDir = resolve(options.root, '../dist');
 				viteConfig.resolve = {
 					alias: {
@@ -45,10 +45,6 @@ export function vitelyPlugin(): VitelyPlugin {
 								index: '@vitely/vue-runtime/ssr-server',
 							},
 							plugins: [],
-						},
-						commonjsOptions: {
-							include: [/./],
-							transformMixedEsModules: true,
 						},
 					},
 					ssr: {

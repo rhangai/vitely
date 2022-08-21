@@ -2,15 +2,15 @@
 import { join } from 'node:path';
 import { Plugin, ResolvedConfig } from 'vite';
 
-function createDefaultVueRouter(config: ResolvedConfig) {
+function createDefaultVueRouter() {
 	const pagesRoot = '/pages/';
 	const pagesGlob = '/pages/**/*.{vue,tsx,ts,jsx,js}';
 	return `
-import { createMemoryHistory } from 'vue-router';
+import { createMemoryHistory, createWebHistory } from 'vue-router';
 
 export const pagesRoot = ${JSON.stringify(pagesRoot)};
 export const pagesModules = import.meta.glob(${JSON.stringify(pagesGlob)});
-export const createHistory = createMemoryHistory;
+export const createHistory = import.meta.env.SSR ? createMemoryHistory : createWebHistory;
 	`;
 }
 
@@ -32,7 +32,7 @@ export default function vitePluginVueRouter(): Plugin {
 		},
 		load(id) {
 			if (id === resolvedVirtualModuleId) {
-				return createDefaultVueRouter(resolvedConfig);
+				return createDefaultVueRouter();
 			}
 		},
 	};

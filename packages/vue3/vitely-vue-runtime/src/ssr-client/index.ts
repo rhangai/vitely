@@ -1,7 +1,8 @@
 import { createApp } from '../ssr/index.js';
 
 async function main() {
-	const { app } = await createApp();
+	const { app, router } = await createApp();
+	await router.isReady();
 	app.mount('#app');
 }
 

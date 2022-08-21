@@ -12,7 +12,7 @@ async function main(clientDir: string) {
 		root: resolve(clientDir, 'assets'),
 		prefix: '/assets/',
 	});
-	fastify.get('/', async (req, res) => {
+	fastify.get('*', async (req, res) => {
 		try {
 			const { renderedHtml } = await render(req.url);
 			const ssrHtml = html.replace('<!-- vue-ssr -->', renderedHtml);
