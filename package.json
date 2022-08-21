@@ -3,7 +3,10 @@
   "private": true,
   "packageManager": "yarn@3.2.2",
   "workspaces": [
-    "packages/*"
+    "packages/vitely-core",
+    "packages/vitely-core-runtime",
+    "packages/vue2/*",
+    "packages/vue3/*"
   ],
   "scripts": {
     "build": "turbo run build"

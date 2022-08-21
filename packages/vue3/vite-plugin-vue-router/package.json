@@ -1,0 +1,21 @@
+{
+  "name": "@vitely/vite-plugin-vue-router",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "license": "MIT",
+  "keywords": [
+    "vite-plugin"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "@vitely/core-runtime": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^4.7.4",
+    "vue": "^3.2.25",
+    "vue-router": "^4"
+  }
+}
