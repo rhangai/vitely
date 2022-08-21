@@ -16,7 +16,7 @@ export async function createDevServer(
 	fastify.get('/', async (req, res) => {
 		try {
 			const { render } = await vite.ssrLoadModule(
-				'@vitely/vue-runtime/dist/ssr-server/render'
+				'@vitely/vue-runtime/ssr-server/render'
 			);
 			let html = await readFile(resolve(root, 'index.html'), 'utf8');
 			html = await vite.transformIndexHtml('/', html);

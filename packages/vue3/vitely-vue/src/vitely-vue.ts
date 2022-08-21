@@ -40,7 +40,7 @@ export function vitelyPlugin(): VitelyPlugin {
 						target: 'node16',
 						rollupOptions: {
 							input: {
-								index: '@vitely/vue-runtime/dist/ssr-server/index.js',
+								index: '@vitely/vue-runtime/ssr-server',
 							},
 							plugins: [pluginNodeResolve()],
 						},

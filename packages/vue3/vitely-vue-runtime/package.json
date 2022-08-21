@@ -1,7 +1,16 @@
 {
   "name": "@vitely/vue-runtime",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    "./ssr-client": {
+      "import": "./dist/ssr-client/index.js",
+      "types": "./dist/ssr-client/index.d.ts"
+    },
+    "./ssr-server": {
+      "import": "./dist/ssr-server/index.js",
+      "types": "./dist/ssr-server/index.d.ts"
+    }
+  },
   "scripts": {
     "clean": "rm -rf dist",
     "build": "tsc -p tsconfig.build.json"
