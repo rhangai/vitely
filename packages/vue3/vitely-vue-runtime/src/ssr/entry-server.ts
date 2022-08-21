@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import FastifyStatic from '@fastify/static';
 import { fastify as Fastify } from 'fastify';
-import { render } from './render.js';
+import { render } from './server-render.js';
 
 async function main(clientDir: string) {
 	const fastify = Fastify();

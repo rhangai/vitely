@@ -1,6 +1,6 @@
 // @ts-ignore
 import { renderToString } from 'vue/server-renderer';
-import { createApp } from '../ssr/index.js';
+import { createApp } from './create-app.js';
 
 export async function render(url: string) {
 	const { app, router } = await createApp();

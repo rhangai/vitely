@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { default as middie } from '@fastify/middie';
-import { VitelyCoreConfig } from '@vitely/core';
+import type { VitelyCoreConfig } from '@vitely/core';
 import { default as Fastify } from 'fastify';
 import { ViteDevServer } from 'vite';
 
@@ -16,7 +16,7 @@ export async function createDevServer(
 	fastify.get('*', async (req, res) => {
 		try {
 			const { render } = await vite.ssrLoadModule(
-				'@vitely/vue-runtime/ssr-server/render'
+				'@vitely/vue-runtime/ssr/server-render'
 			);
 			let html = await readFile(resolve(root, 'index.html'), 'utf8');
 			html = await vite.transformIndexHtml('/', html);

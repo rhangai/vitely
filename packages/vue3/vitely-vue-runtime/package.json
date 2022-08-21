@@ -2,17 +2,17 @@
   "name": "@vitely/vue-runtime",
   "type": "module",
   "exports": {
-    "./ssr-client": {
-      "import": "./dist/ssr-client/index.js",
-      "types": "./dist/ssr-client/index.d.ts"
+    "./ssr/entry-client": {
+      "import": "./dist/ssr/entry-client.js",
+      "types": "./dist/ssr/entry-client.d.ts"
     },
-    "./ssr-server": {
-      "import": "./dist/ssr-server/index.js",
-      "types": "./dist/ssr-server/index.d.ts"
+    "./ssr/entry-server": {
+      "import": "./dist/ssr/entry-server.js",
+      "types": "./dist/ssr/entry-server.d.ts"
     },
-    "./ssr-server/render": {
-      "import": "./dist/ssr-server/render.js",
-      "types": "./dist/ssr-server/render.d.ts"
+    "./ssr/server-render": {
+      "import": "./dist/ssr/server-render.js",
+      "types": "./dist/ssr/server-render.d.ts"
     }
   },
   "scripts": {

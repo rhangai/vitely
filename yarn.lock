@@ -4201,7 +4201,7 @@ __metadata:
     "@vitely/core": "workspace:*"
     typescript: ^4.7.4
   bin:
-    vitely: ./dist/index.js
+    vitely: ./dist/main.js
   languageName: unknown
   linkType: soft
 
