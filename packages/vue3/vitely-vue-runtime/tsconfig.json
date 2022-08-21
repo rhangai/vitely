@@ -3,7 +3,7 @@
   "compilerOptions": {
     "moduleResolution": "node16",
     "paths": {
-      "@vitely/vue-runtime/ssr": ["./src/ssr"],
+      "@vitely/vue-runtime/ssr": ["./src/ssr/index.ts"],
       "@vitely/vue-runtime/ssr-server/render": ["./src/ssr-server/render.ts"]
     }
   }

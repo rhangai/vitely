@@ -484,6 +484,7 @@ __metadata:
     "@fastify/middie": ^8.0.0
     "@vitejs/plugin-vue": ^3.0.3
     "@vitely/core": "workspace:*"
+    "@vitely/vite-plugin-vue-router": "workspace:*"
     "@vitely/vue-runtime": "workspace:*"
     fastify: ^4.5.2
     typescript: ^4.7.4

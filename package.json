@@ -9,6 +9,7 @@
     "packages/vue3/*"
   ],
   "scripts": {
+    "clean": "turbo run clean",
     "build": "turbo run build"
   },
   "resolutions": {

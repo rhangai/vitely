@@ -1,6 +1,8 @@
 {
   "name": "@vitely/vue",
+  "type": "module",
   "scripts": {
+    "clean": "rm -rf dist",
     "build": "tsc -p tsconfig.build.json",
     "dev": "node dist/index.js"
   },
@@ -8,6 +10,7 @@
     "@fastify/middie": "^8.0.0",
     "@vitejs/plugin-vue": "^3.0.3",
     "@vitely/core": "workspace:*",
+    "@vitely/vite-plugin-vue-router": "workspace:*",
     "@vitely/vue-runtime": "workspace:*",
     "fastify": "^4.5.2",
     "vite": "^3.0.9"

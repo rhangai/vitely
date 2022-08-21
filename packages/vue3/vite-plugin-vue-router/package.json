@@ -10,13 +10,15 @@
     "./runtime": {
       "import": "./dist/runtime/index.js",
       "types": "./dist/runtime/index.d.ts"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "license": "MIT",
   "keywords": [
     "vite-plugin"
   ],
   "scripts": {
+    "clean": "rm -rf dist",
     "build": "tsc -p tsconfig.build.json"
   },
   "dependencies": {

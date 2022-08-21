@@ -3,18 +3,15 @@ import { join } from 'node:path';
 import { Plugin, ResolvedConfig } from 'vite';
 
 function createDefaultVueRouter(config: ResolvedConfig) {
-	const pagesRoot = '';
-	const pagesGlob = join(pagesRoot, '**/*.{vue,tsx,ts,jsx,js}');
+	const pagesRoot = join(config.root, 'pages');
+	const pagesGlob = '/pages/**/*.{vue,tsx,ts,jsx,js}';
 	return `
 		import { createMemoryHistory as createHistory } from 'vue-router';
 		
-		const pagesRoot = ${JSON.stringify(pagesRoot)};
-		const pagesModule = import.meta.glob(${JSON.stringify(pagesGlob)})
-		export { 
-			createHistory,
-			pagesRoot,
-			pagesModule,
-		};
+		export const pagesRoot = ${JSON.stringify(pagesRoot)};
+		export const pagesModule = import.meta.glob(${JSON.stringify(pagesGlob)});
+
+		export { createHistory };
 	`;
 }
 

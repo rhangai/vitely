@@ -1,7 +1,8 @@
 import { resolve } from 'node:path';
-import pluginVue from '@vitejs/plugin-vue';
+import { default as pluginVue } from '@vitejs/plugin-vue';
 import type { VitelyPlugin, VitelyPluginContext } from '@vitely/core';
-import { createDevServer } from './dev-server';
+import { default as pluginVueRouter } from '@vitely/vite-plugin-vue-router';
+import { createDevServer } from './dev-server.js';
 
 export function vitelyPlugin(): VitelyPlugin {
 	return {
@@ -10,6 +11,7 @@ export function vitelyPlugin(): VitelyPlugin {
 				const { viteConfig, options } = context;
 				viteConfig.configFile = false;
 				viteConfig.plugins.push(pluginVue());
+				viteConfig.plugins.push(pluginVueRouter());
 				viteConfig.appType = 'custom';
 				viteConfig.server.middlewareMode = true;
 				viteConfig.build.outDir = resolve(options.root, '../dist');
