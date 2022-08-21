@@ -1,8 +1,8 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { render } from '@vitely/vue-runtime/ssr-server/render';
 import FastifyStatic from '@fastify/static';
 import Fastify from 'fastify';
+import { render } from './render.js';
 
 async function main(clientDir: string) {
 	const fastify = Fastify();

@@ -15,7 +15,10 @@ export function vitelyPlugin(): VitelyPlugin {
 				viteConfig.build.outDir = resolve(options.root, '../dist');
 				viteConfig.resolve = {
 					alias: {
-						'virtual:@vitely/app': resolve(options.root, 'app.vue'),
+						'virtual:@vitely/vue-runtime/app': resolve(
+							options.root,
+							'app.vue'
+						),
 					},
 				};
 			});
@@ -31,7 +34,6 @@ export function vitelyPlugin(): VitelyPlugin {
 						...viteConfig.build,
 						outDir: resolve(options.root, '../dist/server'),
 						ssr: true,
-						minify: 'esbuild',
 						target: 'node16',
 						rollupOptions: {
 							input: {
