@@ -6,7 +6,7 @@
     "outDir": "./dist",
     "paths": {
       "@vitely/vue-runtime/ssr": ["./src/ssr"],
-      "@vitely/vue-runtime/ssr-server": ["./src/ssr-server"]
+      "@vitely/vue-runtime/ssr-server/render": ["./src/ssr-server/render.ts"]
     }
   }
 }

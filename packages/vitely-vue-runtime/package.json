@@ -10,9 +10,9 @@
       "module": "./dist/ssr-server/index.js",
       "types": "./dist/ssr-server/index.d.ts"
     },
-    "./ssr-server/entry": {
-      "module": "./dist/ssr-server/entry.js",
-      "types": "./dist/ssr-server/entry.d.ts"
+    "./ssr-server/render": {
+      "module": "./dist/ssr-server/render.js",
+      "types": "./dist/ssr-server/render.d.ts"
     }
   },
   "scripts": {

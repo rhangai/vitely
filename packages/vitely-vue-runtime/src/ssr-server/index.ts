@@ -1,13 +1,29 @@
-// @ts-ignore
-import { createApp } from '@vitely/vue-runtime/ssr';
-import { renderToString } from 'vue/server-renderer';
+import { readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { render } from '@vitely/vue-runtime/ssr-server/render';
+import FastifyStatic from '@fastify/static';
+import Fastify from 'fastify';
 
-export async function render(url: string) {
-	const { app } = await createApp();
-	const ssrContext = {};
-	const renderedHtml = await renderToString(app, ssrContext);
-	return {
-		renderedHtml,
-		ssrContext,
-	};
+async function main(clientDir: string) {
+	const fastify = Fastify();
+
+	const html = await readFile(resolve(clientDir, 'index.html'), 'utf8');
+	await fastify.register(FastifyStatic, {
+		root: resolve(clientDir, 'assets'),
+		prefix: '/assets/',
+	});
+	fastify.get('/', async (req, res) => {
+		try {
+			const { renderedHtml } = await render(req.url);
+			const ssrHtml = html.replace('<!-- vue-ssr -->', renderedHtml);
+			await res.type('text/html').send(ssrHtml);
+		} catch (e: any) {
+			await res.status(500).send({});
+		}
+	});
+	await fastify.listen({
+		port: 3000,
+	});
 }
+
+void main(process.argv[2]);

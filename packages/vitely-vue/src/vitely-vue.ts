@@ -35,7 +35,7 @@ export function vitelyPlugin(): VitelyPlugin {
 						target: 'node16',
 						rollupOptions: {
 							input: {
-								index: '@vitely/vue-runtime/ssr-server/entry',
+								index: '@vitely/vue-runtime/ssr-server',
 							},
 						},
 					},
