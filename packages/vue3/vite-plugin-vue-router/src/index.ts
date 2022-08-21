@@ -6,12 +6,11 @@ function createDefaultVueRouter(config: ResolvedConfig) {
 	const pagesRoot = join(config.root, 'pages');
 	const pagesGlob = '/pages/**/*.{vue,tsx,ts,jsx,js}';
 	return `
-		import { createMemoryHistory as createHistory } from 'vue-router';
-		
-		export const pagesRoot = ${JSON.stringify(pagesRoot)};
-		export const pagesModule = import.meta.glob(${JSON.stringify(pagesGlob)});
+import { createMemoryHistory } from 'vue-router';
 
-		export { createHistory };
+export const pagesRoot = ${JSON.stringify(pagesRoot)};
+export const pagesModule = import.meta.glob(${JSON.stringify(pagesGlob)});
+export const createHistory = createMemoryHistory;
 	`;
 }
 
@@ -25,6 +24,7 @@ export default function vitePluginVueRouter(): Plugin {
 		name: '@vitely/vite-plugin-vue-router',
 		configResolved(config) {
 			resolvedConfig = config;
+			console.log(resolvedConfig.build);
 		},
 		resolveId(id) {
 			if (id === virtualModuleId) {

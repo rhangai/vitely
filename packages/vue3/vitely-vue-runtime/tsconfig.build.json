@@ -2,8 +2,6 @@
   "extends": "../../../tsconfig.build.json",
   "include": ["./src"],
   "compilerOptions": {
-    "module": "es2020",
-    "moduleResolution": "node16",
     "outDir": "./dist",
     "paths": {
       "@vitely/vue-runtime/ssr": ["./src/ssr/index.ts"],

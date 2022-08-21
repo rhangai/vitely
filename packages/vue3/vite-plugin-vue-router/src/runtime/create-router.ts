@@ -6,7 +6,7 @@ import {
 } from 'virtual:@vitely/vite-plugin-router/pages-modules';
 import type { App } from 'vue';
 import { createRouter as createVueRouter } from 'vue-router';
-import { buildRoutesVueRouter } from './build-vue-routes.js';
+import { buildRoutesVueRouter } from './build-vue-routes';
 
 const { routes } = buildRoutesVueRouter(pagesRoot, pagesModules);
 

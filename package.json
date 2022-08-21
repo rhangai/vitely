@@ -9,7 +9,7 @@
     "packages/vue3/*"
   ],
   "scripts": {
-    "clean": "turbo run clean",
+    "clean": "rm -rf node_modules/.cache/turbo && rm -rf dist && turbo run clean",
     "build": "turbo run build"
   },
   "resolutions": {

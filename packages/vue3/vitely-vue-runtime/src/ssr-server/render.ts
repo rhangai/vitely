@@ -1,9 +1,12 @@
-import { createApp } from '@vitely/vue-runtime/ssr';
-// @ts-ignore
 import { renderToString } from 'vue/server-renderer';
+import { createApp } from '../ssr';
 
 export async function render(url: string) {
-	const { app } = await createApp();
+	const { app, router } = await createApp();
+
+	await router.push(url);
+	await router.isReady();
+
 	const ssrContext = {};
 	const renderedHtml = await renderToString(app, ssrContext);
 	return {

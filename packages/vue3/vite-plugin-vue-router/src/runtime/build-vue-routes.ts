@@ -1,4 +1,4 @@
-import { buildRoutes } from '@vitely/core-runtime/router';
+import { buildRoutes } from '@vitely/core-runtime/dist/router';
 import { RouteRecordRaw } from 'vue-router';
 
 export function buildRoutesVueRouter(

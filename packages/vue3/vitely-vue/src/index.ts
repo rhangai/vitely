@@ -1,5 +1,5 @@
 import { createVitely } from '@vitely/core';
-import { vitelyPlugin } from './vitely-vue.js';
+import { vitelyPlugin } from './vitely-vue';
 
 export default vitelyPlugin;
 
@@ -8,7 +8,7 @@ async function main(root: string) {
 		root,
 		plugins: [vitelyPlugin()],
 	});
-	await vitely.startDevServer();
+	await vitely.build();
 }
 
 void main(process.argv[2]);

@@ -20,7 +20,6 @@ export class VitelyCore {
 	 */
 	async setup() {
 		const { plugins } = this.options;
-		console.log(plugins);
 		if (plugins) {
 			for (const plugin of plugins) {
 				await plugin.install({

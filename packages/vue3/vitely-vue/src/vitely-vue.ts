@@ -1,8 +1,9 @@
 import { resolve } from 'node:path';
-import { default as pluginVue } from '@vitejs/plugin-vue';
+import pluginNodeResolve from '@rollup/plugin-node-resolve';
+import pluginVue from '@vitejs/plugin-vue';
 import type { VitelyPlugin, VitelyPluginContext } from '@vitely/core';
-import { default as pluginVueRouter } from '@vitely/vite-plugin-vue-router';
-import { createDevServer } from './dev-server.js';
+import pluginVueRouter from '@vitely/vite-plugin-vue-router';
+import { createDevServer } from './dev-server';
 
 export function vitelyPlugin(): VitelyPlugin {
 	return {
@@ -13,7 +14,7 @@ export function vitelyPlugin(): VitelyPlugin {
 				viteConfig.plugins.push(pluginVue());
 				viteConfig.plugins.push(pluginVueRouter());
 				viteConfig.appType = 'custom';
-				viteConfig.server.middlewareMode = true;
+				// viteConfig.server.middlewareMode = true;
 				viteConfig.build.outDir = resolve(options.root, '../dist');
 				viteConfig.resolve = {
 					alias: {
@@ -39,8 +40,13 @@ export function vitelyPlugin(): VitelyPlugin {
 						target: 'node16',
 						rollupOptions: {
 							input: {
-								index: '@vitely/vue-runtime/ssr-server',
+								index: '@vitely/vue-runtime/dist/ssr-server/index.js',
 							},
+							plugins: [pluginNodeResolve()],
+						},
+						commonjsOptions: {
+							include: [/./],
+							transformMixedEsModules: true,
 						},
 					},
 					ssr: {

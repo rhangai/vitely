@@ -1,20 +1,5 @@
 {
   "name": "@vitely/vue-runtime",
-  "type": "module",
-  "exports": {
-    "./ssr": {
-      "module": "./dist/ssr/index.js",
-      "types": "./dist/ssr/index.d.ts"
-    },
-    "./ssr-server": {
-      "module": "./dist/ssr-server/index.js",
-      "types": "./dist/ssr-server/index.d.ts"
-    },
-    "./ssr-server/render": {
-      "module": "./dist/ssr-server/render.js",
-      "types": "./dist/ssr-server/render.d.ts"
-    }
-  },
   "scripts": {
     "clean": "rm -rf dist",
     "build": "tsc -p tsconfig.build.json"

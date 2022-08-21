@@ -1,19 +1,9 @@
 {
   "name": "@vitely/vite-plugin-vue-router",
   "version": "0.0.0",
-  "type": "module",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./runtime": {
-      "import": "./dist/runtime/index.js",
-      "types": "./dist/runtime/index.d.ts"
-    },
-    "./package.json": "./package.json"
-  },
   "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "keywords": [
     "vite-plugin"
   ],
