@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { default as middie } from '@fastify/middie';
-import type { VitelyCoreConfigResolved } from '@vitely/core';
+import { VitelyCoreConfigResolved } from '@vitely/core';
 import { default as Fastify } from 'fastify';
 import { ViteDevServer } from 'vite';
 
@@ -9,7 +9,7 @@ export async function createDevServer(
 	vite: ViteDevServer,
 	config: VitelyCoreConfigResolved
 ) {
-	const { root } = config;
+	const { root } = vite.config;
 	const fastify = Fastify();
 	await fastify.register(middie);
 	await fastify.use(vite.middlewares);
@@ -35,7 +35,7 @@ export async function createDevServer(
 	return {
 		async listen() {
 			await fastify.listen({
-				port: config.devServer.port,
+				port: vite.config.server.port,
 			});
 		},
 	};

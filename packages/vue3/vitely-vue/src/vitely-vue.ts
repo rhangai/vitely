@@ -12,16 +12,15 @@ export function vitelyPlugin(): VitelyPlugin {
 					'@vitely/vite-plugin-vue-router'
 				);
 				const { viteConfig, config } = context;
-				viteConfig.configFile = false;
 				viteConfig.plugins.push(pluginVue());
 				viteConfig.plugins.push(pluginVueRouter());
 				viteConfig.appType = 'custom';
 				viteConfig.server.middlewareMode = true;
-				viteConfig.build.outDir = resolve(config.root, '../dist');
+				viteConfig.build.outDir = resolve(viteConfig.root, '../dist');
 				viteConfig.resolve = {
 					alias: {
 						'virtual:@vitely/vue-runtime/app': resolve(
-							config.root,
+							viteConfig.root,
 							'app.vue'
 						),
 						'@vitely/vue-runtime': config.ssr
@@ -33,14 +32,14 @@ export function vitelyPlugin(): VitelyPlugin {
 			hooks.build.tap('@vitely/vue', (context) => {
 				const { viteConfig, config, addViteConfig } = context;
 				viteConfig.build.outDir = resolve(
-					config.root,
+					viteConfig.root,
 					'../dist/client'
 				);
 				addViteConfig({
 					...viteConfig,
 					build: {
 						...viteConfig.build,
-						outDir: resolve(config.root, '../dist/server'),
+						outDir: resolve(viteConfig.root, '../dist/server'),
 						ssr: true,
 						target: 'node16',
 						rollupOptions: {

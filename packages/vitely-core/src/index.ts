@@ -1,9 +1,4 @@
 /* istanbul ignore file */
-export { createVitely } from './core.js';
+export { vitelyBuild, vitelyDevServer } from './core.js';
 export type { VitelyPlugin, VitelyPluginContext } from './plugin.js';
-export type {
-	VitelyCoreConfig,
-	VitelyCoreDevServerConfig,
-	VitelyCoreConfigResolved,
-	VitelyCoreDevServerConfigResolved,
-} from './config.js';
+export type { VitelyCoreConfig, VitelyCoreConfigResolved } from './config.js';
