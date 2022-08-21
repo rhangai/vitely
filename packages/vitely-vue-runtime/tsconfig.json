@@ -1,3 +1,9 @@
 {
-  "extends": "../../tsconfig.json"
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@vitely/vue-runtime/ssr": ["./src/ssr"],
+      "@vitely/vue-runtime/ssr-server": ["./src/ssr-server"]
+    }
+  }
 }

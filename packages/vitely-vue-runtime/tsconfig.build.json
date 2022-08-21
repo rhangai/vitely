@@ -3,6 +3,10 @@
   "include": ["./src"],
   "compilerOptions": {
     "module": "es2020",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "paths": {
+      "@vitely/vue-runtime/ssr": ["./src/ssr"],
+      "@vitely/vue-runtime/ssr-server": ["./src/ssr-server"]
+    }
   }
 }

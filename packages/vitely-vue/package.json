@@ -1,12 +1,14 @@
 {
   "name": "@vitely/vue",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json"
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "node dist/index.js"
   },
   "dependencies": {
     "@fastify/middie": "^8.0.0",
     "@vitejs/plugin-vue": "^3.0.3",
-    "@vitely/core": "*",
+    "@vitely/core": "workspace:*",
+    "@vitely/vue-runtime": "workspace:*",
     "fastify": "^4.5.2",
     "vite": "^3.0.9"
   },

@@ -1,17 +1,13 @@
-import fastify from 'fastify';
+// @ts-ignore
+import { createApp } from '@vitely/vue-runtime/ssr';
+import { renderToString } from 'vue/server-renderer';
 
-async function main() {
-	const app = fastify();
-	app.get('/', async (req, res) => {
-		try {
-			await res.type('text/html').send('<div>Ok</div>');
-		} catch (e: any) {
-			await res.status(500).send({});
-		}
-	});
-	await app.listen({
-		port: 3000,
-	});
+export async function render(url: string) {
+	const { app } = await createApp();
+	const ssrContext = {};
+	const renderedHtml = await renderToString(app, ssrContext);
+	return {
+		renderedHtml,
+		ssrContext,
+	};
 }
-
-void main();

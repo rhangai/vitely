@@ -1,6 +1,8 @@
 import { createVitely } from '@vitely/core';
 import { vitelyPlugin } from './vitely-vue';
 
+export default vitelyPlugin;
+
 async function main(root: string) {
 	const vitely = await createVitely({
 		root,

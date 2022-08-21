@@ -5,6 +5,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "build": "turbo run build"
+  },
   "resolutions": {
     "@vitely/core": "workspace:*"
   },
