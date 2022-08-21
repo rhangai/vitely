@@ -519,10 +519,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vitely/core-runtime@workspace:*, @vitely/core-runtime@workspace:packages/vitely-core-runtime":
+  version: 0.0.0-use.local
+  resolution: "@vitely/core-runtime@workspace:packages/vitely-core-runtime"
+  dependencies:
+    "@faker-js/faker": ^7.4.0
+    tapable: ^2.2.1
+    typescript: ^4.7.4
+    vite: ^3.0.9
+    vitest: ^0.22.1
+  languageName: unknown
+  linkType: soft
+
 "@vitely/core@workspace:*, @vitely/core@workspace:packages/vitely-core":
   version: 0.0.0-use.local
   resolution: "@vitely/core@workspace:packages/vitely-core"
   dependencies:
+    "@faker-js/faker": ^7.4.0
     tapable: ^2.2.1
     typescript: ^4.7.4
     vite: ^3.0.9
@@ -560,6 +573,7 @@ __metadata:
   resolution: "@vitely/vue-runtime@workspace:packages/vitely-vue-runtime"
   dependencies:
     "@fastify/static": ^6.5.0
+    "@vitely/core-runtime": "workspace:*"
     fastify: ^4.5.2
     typescript: ^4.7.4
     vue: ^3.2.37
