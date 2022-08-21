@@ -5,7 +5,7 @@ import { createSSRApp } from 'vue';
 
 export async function createApp() {
 	const app = createSSRApp(App);
-	const { router } = createRouter(app);
+	const { router } = createRouter();
 	app.use(router);
 	return {
 		app,
