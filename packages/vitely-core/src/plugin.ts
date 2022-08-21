@@ -1,4 +1,4 @@
-import type { VitelyHooks } from './hooks';
+import type { VitelyHooks } from './hooks.js';
 
 export type VitelyPluginContext = {
 	hooks: VitelyHooks;
