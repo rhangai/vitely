@@ -31,11 +31,16 @@ export function vitelyPlugin(): VitelyPlugin {
 						...viteConfig.build,
 						outDir: resolve(options.root, '../dist/server'),
 						ssr: true,
+						minify: 'esbuild',
+						target: 'node16',
 						rollupOptions: {
 							input: {
 								index: '@vitely/vue-runtime/ssr-server/entry',
 							},
 						},
+					},
+					ssr: {
+						format: 'cjs',
 					},
 				});
 			});

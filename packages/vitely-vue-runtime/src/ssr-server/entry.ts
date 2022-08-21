@@ -1,16 +1,19 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { render } from '@vitely/vue-runtime/ssr-server';
+import FastifyStatic from '@fastify/static';
 import Fastify from 'fastify';
 
-async function main() {
+async function main(clientDir: string) {
 	const fastify = Fastify();
+
+	const html = await readFile(resolve(clientDir, 'index.html'), 'utf8');
+	await fastify.register(FastifyStatic, {
+		root: resolve(clientDir, 'assets'),
+		prefix: '/assets/',
+	});
 	fastify.get('/', async (req, res) => {
 		try {
-			const html = await readFile(
-				resolve('./dist/client/index.html'),
-				'utf8'
-			);
 			const { renderedHtml } = await render(req.url);
 			const ssrHtml = html.replace('<!-- vue-ssr -->', renderedHtml);
 			await res.type('text/html').send(ssrHtml);
@@ -23,4 +26,4 @@ async function main() {
 	});
 }
 
-void main();
+void main(process.argv[2]);
