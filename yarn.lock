@@ -4194,6 +4194,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"vitely@workspace:packages/vitely":
+  version: 0.0.0-use.local
+  resolution: "vitely@workspace:packages/vitely"
+  dependencies:
+    "@vitely/core": "workspace:*"
+    typescript: ^4.7.4
+  bin:
+    vitely: ./dist/index.js
+  languageName: unknown
+  linkType: soft
+
 "vitest@npm:^0.22.1":
   version: 0.22.1
   resolution: "vitest@npm:0.22.1"

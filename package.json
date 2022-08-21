@@ -3,6 +3,7 @@
   "private": true,
   "packageManager": "yarn@3.2.2",
   "workspaces": [
+    "packages/vitely",
     "packages/vitely-core",
     "packages/vitely-core-runtime",
     "packages/vue2/*",
