@@ -1,4 +1,4 @@
-import { resolve } from 'node:path';
+import { resolve, join } from 'node:path';
 import { default as pluginVue } from '@vitejs/plugin-vue';
 import type { VitelyPlugin, VitelyPluginContext } from '@vitely/core';
 import { createDevServer } from './dev-server.js';
@@ -16,13 +16,9 @@ export function vitelyPlugin(): VitelyPlugin {
 				viteConfig.plugins.push(pluginVueRouter());
 				viteConfig.appType = 'custom';
 				viteConfig.server.middlewareMode = true;
-				viteConfig.build.outDir = resolve(viteConfig.root, '../dist');
 				viteConfig.resolve = {
 					alias: {
-						'virtual:@vitely/vue-runtime/app': resolve(
-							viteConfig.root,
-							'app.vue'
-						),
+						'virtual:@vitely/vue-runtime/app': '/app.vue',
 						'@vitely/vue-runtime': config.ssr
 							? '@vitely/vue-runtime/ssr/entry-client'
 							: '@vitely/vue-runtime/spa/entry-client',
@@ -31,15 +27,14 @@ export function vitelyPlugin(): VitelyPlugin {
 			});
 			hooks.build.tap('@vitely/vue', (context) => {
 				const { viteConfig, config, addViteConfig } = context;
-				viteConfig.build.outDir = resolve(
-					viteConfig.root,
-					'../dist/client'
-				);
+
+				const outDir = viteConfig.build.outDir ?? 'dist';
+				viteConfig.build.outDir = join(outDir, 'client');
 				addViteConfig({
 					...viteConfig,
 					build: {
 						...viteConfig.build,
-						outDir: resolve(viteConfig.root, '../dist/server'),
+						outDir: join(outDir, 'server'),
 						ssr: true,
 						target: 'node16',
 						rollupOptions: {
@@ -52,7 +47,7 @@ export function vitelyPlugin(): VitelyPlugin {
 						},
 					},
 					ssr: {
-						format: 'cjs',
+						format: 'esm',
 					},
 				});
 			});

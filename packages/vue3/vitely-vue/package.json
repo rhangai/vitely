@@ -1,15 +1,15 @@
 {
   "name": "@vitely/vue",
-  "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js",
+      "types": "./dist/esm/index.d.ts"
     }
   },
   "scripts": {
     "clean": "rm -rf dist node_modules .turbo",
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsc -p tsconfig.build.json && tsc -p tsconfig.build-cjs.json && echo '{\"type\":\"module\"}' > dist/esm/package.json",
     "dev": "node dist/index.js"
   },
   "dependencies": {

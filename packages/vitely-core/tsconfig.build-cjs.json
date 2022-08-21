@@ -2,8 +2,8 @@
   "extends": "../../tsconfig.build.json",
   "include": ["./src"],
   "compilerOptions": {
-    "module": "es2020",
-    "moduleResolution": "nodenext",
-    "outDir": "./dist/esm"
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "./dist/cjs"
   }
 }

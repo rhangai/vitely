@@ -1,6 +1,5 @@
 {
   "name": "@vitely/core-runtime",
-  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/index.js",

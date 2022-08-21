@@ -3,7 +3,8 @@ import { resolve } from 'node:path';
 import { default as middie } from '@fastify/middie';
 import { VitelyCoreConfigResolved } from '@vitely/core';
 import { default as Fastify } from 'fastify';
-import { ViteDevServer } from 'vite';
+// @ts-ignore
+import type { ViteDevServer } from 'vite';
 
 export async function createDevServer(
 	vite: ViteDevServer,

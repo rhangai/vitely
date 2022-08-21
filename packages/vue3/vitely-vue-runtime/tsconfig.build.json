@@ -4,6 +4,6 @@
   "compilerOptions": {
     "module": "es2020",
     "moduleResolution": "nodenext",
-    "outDir": "./dist"
+    "outDir": "./dist/esm"
   }
 }

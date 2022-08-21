@@ -1,6 +1,7 @@
 /* eslint-disable consistent-return */
 import { join } from 'node:path';
-import { Plugin, ResolvedConfig } from 'vite';
+// @ts-ignore
+import type { Plugin, ResolvedConfig } from 'vite';
 
 function createDefaultVueRouter() {
 	const pagesRoot = '/pages/';

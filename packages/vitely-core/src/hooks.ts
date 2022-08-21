@@ -1,11 +1,12 @@
 import type { AsyncSeriesHook, AsyncSeriesBailHook } from 'tapable';
-import { InlineConfig as ViteInlineConfig, type ViteDevServer } from 'vite';
+// @ts-ignore
+import type { InlineConfig as ViteInlineConfig, ViteDevServer } from 'vite';
 import type { VitelyCoreConfigResolved } from './config.js';
 
 type MarkRequired<T, RK extends keyof T> = Omit<T, RK> & Required<Pick<T, RK>>;
 
 // prettier-ignore
-export type VitelyHookViteConfig = MarkRequired<ViteInlineConfig, 'plugins' | 'root' | 'server' | 'build'>
+export type VitelyHookViteConfig = MarkRequired<ViteInlineConfig, 'plugins' | 'server' | 'build'>
 
 /**
  * Config hook context

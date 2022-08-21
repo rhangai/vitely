@@ -5,6 +5,7 @@ import {
 	InlineConfig as ViteInlineConfig,
 	ResolvedConfig as ViteResolvedConfig,
 	resolveConfig as viteResolveConfig,
+	// @ts-ignore
 } from 'vite';
 import { VitelyCoreConfigResolved } from './config.js';
 import { VitelyHooks, VitelyHookViteConfig } from './hooks.js';
@@ -48,9 +49,10 @@ export class VitelyCore {
 	 */
 	async getViteConfig(): Promise<VitelyHookViteConfig> {
 		const viteConfig: VitelyHookViteConfig = {
-			...this.viteConfig,
-			plugins: [...this.viteConfig.plugins],
-			assetsInclude: undefined,
+			...this.viteConfig.inlineConfig,
+			plugins: [],
+			build: {},
+			server: {},
 		};
 		await this.hooks.config.promise({
 			viteConfig,
@@ -86,17 +88,10 @@ export class VitelyCore {
 	 */
 	async build() {
 		const viteConfig = await this.getViteConfig();
-		const viteConfigs: ViteInlineConfig[] = [];
+		const viteConfigs: ViteInlineConfig[] = [viteConfig];
 		const addViteConfig = (config: ViteInlineConfig) => {
-			viteConfigs.push({
-				...config,
-				configFile: false,
-			});
+			viteConfigs.push({ ...config });
 		};
-		addViteConfig({
-			...viteConfig,
-			assetsInclude: [],
-		});
 		await this.hooks.build.promise({
 			viteConfig,
 			addViteConfig,
@@ -115,6 +110,7 @@ export async function vitelyBuild(
 	configParam: ViteInlineConfig
 ): Promise<void> {
 	const viteConfig = await viteResolveConfig(configParam, 'build');
+	console.log(viteConfig);
 	const vitely = new VitelyCore(viteConfig);
 	await vitely.setup();
 	await vitely.build();
