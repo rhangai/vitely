@@ -1,4 +1,4 @@
-import type { VitelyPlugin } from './plugin.js';
+import type { VitelyPlugin } from './plugin';
 
 export type VitelyCoreDevServerOptions = {
 	port?: number;

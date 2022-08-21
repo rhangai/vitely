@@ -11,7 +11,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@vitely/runtime": "*",
+    "@vitely/vue-runtime": "workspace:*",
     "fastify": "^3.27.0",
     "fastify-static": "^4.5.0"
   },

@@ -1,0 +1,27 @@
+{
+  "name": "@vitely/vue-runtime",
+  "type": "module",
+  "exports": {
+    "./ssr": {
+      "module": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./ssr-server": {
+      "module": "./dist/ssr-server/index.js",
+      "types": "./dist/ssr-server/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "fastify": "^4.5.2"
+  },
+  "devDependencies": {
+    "typescript": "^4.7.4",
+    "vue": "^3.2.37"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.37"
+  }
+}

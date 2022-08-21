@@ -1,7 +1,7 @@
 import { AsyncSeriesBailHook, AsyncSeriesHook } from 'tapable';
 import { build, createServer as createViteServer, InlineConfig } from 'vite';
-import { VitelyHookConfigViteInlineConfig, VitelyHooks } from './hooks.js';
-import { VitelyCoreOptions } from './options.js';
+import { VitelyHookConfigViteInlineConfig, VitelyHooks } from './hooks';
+import { VitelyCoreOptions } from './options';
 
 /**
  * Core class for vitely

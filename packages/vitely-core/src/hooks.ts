@@ -1,9 +1,6 @@
 import { type AsyncSeriesHook, type AsyncSeriesBailHook } from 'tapable';
 import { InlineConfig, type ViteDevServer } from 'vite';
-import {
-	VitelyCoreDevServerOptions,
-	type VitelyCoreOptions,
-} from './options.js';
+import { VitelyCoreDevServerOptions, type VitelyCoreOptions } from './options';
 
 type MarkRequired<T, RK extends keyof T> = Omit<T, RK> & Required<Pick<T, RK>>;
 
