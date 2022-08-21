@@ -1,5 +1,7 @@
 {
   "name": "@vitely/vue-runtime",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "clean": "rm -rf dist",
     "build": "tsc -p tsconfig.build.json"

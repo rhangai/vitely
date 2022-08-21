@@ -2,10 +2,6 @@
   "extends": "../../../tsconfig.build.json",
   "include": ["./src"],
   "compilerOptions": {
-    "outDir": "./dist",
-    "paths": {
-      "@vitely/vue-runtime/ssr": ["./src/ssr/index.ts"],
-      "@vitely/vue-runtime/ssr-server/render": ["./src/ssr-server/render.ts"]
-    }
+    "outDir": "./dist"
   }
 }
