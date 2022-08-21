@@ -2,6 +2,18 @@
   "name": "@vitely/vue-runtime",
   "type": "module",
   "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./spa/entry-client": {
+      "import": "./dist/spa/entry-client.js",
+      "types": "./dist/spa/entry-client.d.ts"
+    },
+    "./spa/entry-server": {
+      "import": "./dist/spa/entry-server.js",
+      "types": "./dist/spa/entry-server.d.ts"
+    },
     "./ssr/entry-client": {
       "import": "./dist/ssr/entry-client.js",
       "types": "./dist/ssr/entry-client.d.ts"

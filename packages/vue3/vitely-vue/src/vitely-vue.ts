@@ -24,6 +24,8 @@ export function vitelyPlugin(): VitelyPlugin {
 							config.root,
 							'app.vue'
 						),
+						'@vitely/vue-runtime':
+							'@vitely/vue-runtime/ssr/entry-client',
 					},
 				};
 			});
