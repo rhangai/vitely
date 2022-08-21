@@ -24,8 +24,9 @@ export function vitelyPlugin(): VitelyPlugin {
 							config.root,
 							'app.vue'
 						),
-						'@vitely/vue-runtime':
-							'@vitely/vue-runtime/ssr/entry-client',
+						'@vitely/vue-runtime': config.ssr
+							? '@vitely/vue-runtime/ssr/entry-client'
+							: '@vitely/vue-runtime/spa/entry-client',
 					},
 				};
 			});
@@ -44,7 +45,9 @@ export function vitelyPlugin(): VitelyPlugin {
 						target: 'node16',
 						rollupOptions: {
 							input: {
-								index: '@vitely/vue-runtime/ssr/entry-server',
+								index: config.ssr
+									? '@vitely/vue-runtime/ssr/entry-server'
+									: '@vitely/vue-runtime/spa/entry-server',
 							},
 							plugins: [],
 						},

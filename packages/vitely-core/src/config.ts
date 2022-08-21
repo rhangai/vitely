@@ -21,3 +21,21 @@ export type VitelyCoreConfigResolved = {
 	plugins: VitelyPlugin[];
 	devServer: VitelyCoreDevServerConfigResolved;
 };
+
+/**
+ * Resolve the config
+ */
+export function resolveConfig(
+	configParam: VitelyCoreConfig
+): VitelyCoreConfigResolved {
+	const { root } = configParam;
+	return {
+		root,
+		ssr: configParam.ssr !== false,
+		plugins: configParam.plugins ?? [],
+		devServer: {
+			port: 3000,
+			...configParam.devServer,
+		},
+	};
+}

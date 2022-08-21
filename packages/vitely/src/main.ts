@@ -11,6 +11,7 @@ async function main(argv: string[]) {
 
 	const vitely = await createVitely({
 		root: resolve(root),
+		ssr: false,
 		plugins: [vitelyVue()],
 	});
 

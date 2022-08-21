@@ -1,6 +1,10 @@
 import { AsyncSeriesBailHook, AsyncSeriesHook } from 'tapable';
 import { build, createServer as createViteServer, InlineConfig } from 'vite';
-import { VitelyCoreConfig } from './config.js';
+import {
+	VitelyCoreConfig,
+	resolveConfig,
+	VitelyCoreConfigResolved,
+} from './config.js';
 import { VitelyHookConfigViteInlineConfig, VitelyHooks } from './hooks.js';
 
 /**
@@ -13,7 +17,7 @@ export class VitelyCore {
 		build: new AsyncSeriesHook(['context']),
 	};
 
-	constructor(private readonly config: VitelyCoreConfig) {}
+	constructor(private readonly config: VitelyCoreConfigResolved) {}
 
 	/**
 	 * Prepare the plugin
@@ -88,8 +92,9 @@ export class VitelyCore {
  * Create a new vitely core
  */
 export async function createVitely(
-	config: VitelyCoreConfig
+	configParam: VitelyCoreConfig
 ): Promise<VitelyCore> {
+	const config = resolveConfig(configParam);
 	const vitely = new VitelyCore(config);
 	await vitely.setup();
 	return vitely;

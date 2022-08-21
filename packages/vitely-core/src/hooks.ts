@@ -1,6 +1,9 @@
 import type { AsyncSeriesHook, AsyncSeriesBailHook } from 'tapable';
 import { InlineConfig, type ViteDevServer } from 'vite';
-import type { VitelyCoreDevServerConfig, VitelyCoreConfig } from './config.js';
+import type {
+	VitelyCoreDevServerConfigResolved,
+	VitelyCoreConfigResolved,
+} from './config.js';
 
 type MarkRequired<T, RK extends keyof T> = Omit<T, RK> & Required<Pick<T, RK>>;
 
@@ -11,7 +14,7 @@ export type VitelyHookConfigViteInlineConfig = MarkRequired<InlineConfig, 'plugi
  * Config hook context
  */
 type VitelyHookConfigContext = {
-	config: VitelyCoreConfig;
+	config: VitelyCoreConfigResolved;
 	viteConfig: VitelyHookConfigViteInlineConfig;
 };
 
@@ -19,7 +22,7 @@ type VitelyHookConfigContext = {
  * Dev hook context
  */
 type VitelyHookDevContext = {
-	config: VitelyCoreConfig;
+	config: VitelyCoreConfigResolved;
 	vite: ViteDevServer;
 };
 
@@ -27,13 +30,13 @@ type VitelyHookDevContext = {
  * Dev result
  */
 // prettier-ignore
-type VitelyHookDevResult = (devServerConfig: VitelyCoreDevServerConfig) => void | Promise<void>;
+type VitelyHookDevResult = (devServerConfig: VitelyCoreDevServerConfigResolved) => void | Promise<void>;
 
 /**
  * Build hook context
  */
 type VitelyHookBuildContext = {
-	config: VitelyCoreConfig;
+	config: VitelyCoreConfigResolved;
 	viteConfig: VitelyHookConfigViteInlineConfig;
 	addViteConfig: (config: InlineConfig) => void;
 };
