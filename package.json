@@ -11,7 +11,8 @@
   ],
   "scripts": {
     "clean": "rm -rf node_modules/.cache/turbo && rm -rf dist && turbo run clean",
-    "build": "turbo run build"
+    "build": "turbo run build",
+    "vitely": "yarn workspace vitely run cli"
   },
   "resolutions": {
     "@vitely/core": "workspace:*"

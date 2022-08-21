@@ -1,11 +1,11 @@
 {
   "name": "vitely",
   "type": "module",
-  "bin": "./dist/index.js",
+  "bin": "./dist/main.js",
   "scripts": {
     "clean": "rm -rf dist node_modules .turbo",
     "build": "tsc -p tsconfig.build.json",
-    "dev": "node dist/index.js"
+    "cli": "node dist/main.js"
   },
   "dependencies": {
     "@vitely/core": "workspace:*"

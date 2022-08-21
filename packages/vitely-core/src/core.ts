@@ -13,13 +13,13 @@ export class VitelyCore {
 		build: new AsyncSeriesHook(['context']),
 	};
 
-	constructor(private readonly options: VitelyCoreConfig) {}
+	constructor(private readonly config: VitelyCoreConfig) {}
 
 	/**
 	 * Prepare the plugin
 	 */
 	async setup() {
-		const { plugins } = this.options;
+		const { plugins } = this.config;
 		if (plugins) {
 			for (const plugin of plugins) {
 				await plugin.install({
@@ -34,14 +34,14 @@ export class VitelyCore {
 	 */
 	async getViteConfig(): Promise<VitelyHookConfigViteInlineConfig> {
 		const viteConfig: VitelyHookConfigViteInlineConfig = {
-			root: this.options.root,
+			root: this.config.root,
 			plugins: [],
 			build: {},
 			server: {},
 		};
 		await this.hooks.config.promise({
 			viteConfig,
-			options: this.options,
+			config: this.config,
 		});
 		return viteConfig;
 	}
@@ -54,13 +54,13 @@ export class VitelyCore {
 		const vite = await createViteServer(viteConfig);
 		const result = await this.hooks.dev.promise({
 			vite,
-			options: this.options,
+			config: this.config,
 		});
 		if (!result) {
-			const port = this.options.devServer?.port ?? 3000;
+			const port = this.config.devServer?.port ?? 3000;
 			await vite.listen(port);
 		} else {
-			await result(this.options.devServer ?? {});
+			await result(this.config.devServer ?? {});
 		}
 	}
 
@@ -76,7 +76,7 @@ export class VitelyCore {
 		await this.hooks.build.promise({
 			viteConfig,
 			addViteConfig,
-			options: this.options,
+			config: this.config,
 		});
 		for (const config of viteConfigs) {
 			await build(config);
@@ -88,9 +88,9 @@ export class VitelyCore {
  * Create a new vitely core
  */
 export async function createVitely(
-	options: VitelyCoreConfig
+	config: VitelyCoreConfig
 ): Promise<VitelyCore> {
-	const vitely = new VitelyCore(options);
+	const vitely = new VitelyCore(config);
 	await vitely.setup();
 	return vitely;
 }

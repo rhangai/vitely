@@ -11,16 +11,16 @@ export type VitelyHookConfigViteInlineConfig = MarkRequired<InlineConfig, 'plugi
  * Config hook context
  */
 type VitelyHookConfigContext = {
+	config: VitelyCoreConfig;
 	viteConfig: VitelyHookConfigViteInlineConfig;
-	options: VitelyCoreConfig;
 };
 
 /**
  * Dev hook context
  */
 type VitelyHookDevContext = {
+	config: VitelyCoreConfig;
 	vite: ViteDevServer;
-	options: VitelyCoreConfig;
 };
 
 /**
@@ -33,9 +33,9 @@ type VitelyHookDevResult = (devServerConfig: VitelyCoreDevServerConfig) => void 
  * Build hook context
  */
 type VitelyHookBuildContext = {
+	config: VitelyCoreConfig;
 	viteConfig: VitelyHookConfigViteInlineConfig;
 	addViteConfig: (config: InlineConfig) => void;
-	options: VitelyCoreConfig;
 };
 
 export type VitelyHooks = {
