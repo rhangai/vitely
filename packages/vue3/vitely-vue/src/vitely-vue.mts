@@ -3,7 +3,7 @@ import { resolve, join } from 'node:path';
 import { default as pluginNodeResolve } from '@rollup/plugin-node-resolve';
 import { default as pluginVue } from '@vitejs/plugin-vue';
 import type { VitelyPlugin, VitelyPluginContext } from '@vitely/core';
-import { createDevServer } from './dev-server.js';
+import { createDevServer } from './dev-server.mjs';
 
 export function vitelyPlugin(): VitelyPlugin {
 	return {
