@@ -1,4 +1,4 @@
-import type { VitelyPlugin } from './plugin.js';
+import type { VitelyPlugin } from './plugin.mjs';
 
 export type VitelyCoreConfig = {
 	ssr?: boolean;

@@ -7,8 +7,8 @@ import {
 	resolveConfig as viteResolveConfig,
 	// @ts-ignore
 } from 'vite';
-import { VitelyCoreConfigResolved } from './config.js';
-import { VitelyHooks, VitelyHookViteConfig } from './hooks.js';
+import { VitelyCoreConfigResolved } from './config.mjs';
+import { VitelyHooks, VitelyHookViteConfig } from './hooks.mjs';
 
 /**
  * Core class for vitely

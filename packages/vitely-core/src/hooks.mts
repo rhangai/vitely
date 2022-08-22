@@ -1,7 +1,7 @@
 import type { AsyncSeriesHook, AsyncSeriesBailHook } from 'tapable';
 // @ts-ignore
 import type { InlineConfig as ViteInlineConfig, ViteDevServer } from 'vite';
-import type { VitelyCoreConfigResolved } from './config.js';
+import type { VitelyCoreConfigResolved } from './config.mjs';
 
 type MarkRequired<T, RK extends keyof T> = Omit<T, RK> & Required<Pick<T, RK>>;
 

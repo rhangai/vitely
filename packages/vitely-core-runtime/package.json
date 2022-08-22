@@ -7,12 +7,12 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.mts"
     },
     "./router": {
-      "import": "./dist/router/index.js",
-      "types": "./dist/router/index.d.ts"
+      "import": "./dist/router/index.mjs",
+      "types": "./dist/router/index.d.mts"
     }
   },
   "scripts": {

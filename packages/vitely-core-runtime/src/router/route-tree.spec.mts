@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { describe, it, expect } from 'vitest';
-import { RouteTree } from './route-tree';
+import { RouteTree } from './route-tree.mjs';
 
 describe('RouteTree', () => {
 	const FILES = [
