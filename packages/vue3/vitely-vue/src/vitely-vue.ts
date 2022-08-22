@@ -1,4 +1,6 @@
 import { resolve, join } from 'node:path';
+// @ts-ignore
+import { default as pluginNodeResolve } from '@rollup/plugin-node-resolve';
 import { default as pluginVue } from '@vitejs/plugin-vue';
 import type { VitelyPlugin, VitelyPluginContext } from '@vitely/core';
 import { createDevServer } from './dev-server.js';
@@ -19,7 +21,7 @@ export function vitelyPlugin(): VitelyPlugin {
 				viteConfig.resolve = {
 					alias: {
 						'virtual:@vitely/vue-runtime/app': '/app.vue',
-						'@vitely/vue-runtime': config.ssr
+						'@vitely/vue-runtime/entry': config.ssr
 							? '@vitely/vue-runtime/ssr/entry-client'
 							: '@vitely/vue-runtime/spa/entry-client',
 					},
@@ -28,13 +30,12 @@ export function vitelyPlugin(): VitelyPlugin {
 			hooks.build.tap('@vitely/vue', (context) => {
 				const { viteConfig, config, addViteConfig } = context;
 
-				const outDir = viteConfig.build.outDir ?? 'dist';
-				viteConfig.build.outDir = join(outDir, 'client');
+				viteConfig.build.outDir = join(config.outDir, 'client');
 				addViteConfig({
 					...viteConfig,
 					build: {
 						...viteConfig.build,
-						outDir: join(outDir, 'server'),
+						outDir: join(config.outDir, 'server'),
 						ssr: true,
 						target: 'node16',
 						rollupOptions: {
@@ -43,11 +44,11 @@ export function vitelyPlugin(): VitelyPlugin {
 									? '@vitely/vue-runtime/ssr/entry-server'
 									: '@vitely/vue-runtime/spa/entry-server',
 							},
-							plugins: [],
+							// - plugins: [pluginNodeResolve()],
 						},
 					},
 					ssr: {
-						format: 'esm',
+						noExternal: [/^(?!node:)/],
 					},
 				});
 			});

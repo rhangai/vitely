@@ -22,11 +22,13 @@ export class VitelyCore {
 
 	private readonly config: VitelyCoreConfigResolved;
 
-	constructor(private readonly viteConfig: ViteResolvedConfig) {
+	constructor(private readonly viteConfigResolved: ViteResolvedConfig) {
 		this.config = {
 			ssr: true,
 			plugins: [],
-			...(viteConfig as any).vitely,
+			...(viteConfigResolved as any).vitely,
+			root: viteConfigResolved.root,
+			outDir: viteConfigResolved.build.outDir,
 		};
 	}
 
@@ -49,10 +51,12 @@ export class VitelyCore {
 	 */
 	async getViteConfig(): Promise<VitelyHookViteConfig> {
 		const viteConfig: VitelyHookViteConfig = {
-			...this.viteConfig.inlineConfig,
+			...this.viteConfigResolved.inlineConfig,
 			plugins: [],
 			build: {},
-			server: {},
+			server: {
+				port: 3000,
+			},
 		};
 		await this.hooks.config.promise({
 			viteConfig,
@@ -66,11 +70,7 @@ export class VitelyCore {
 	 */
 	async startDevServer() {
 		const viteConfig = await this.getViteConfig();
-		const vite = await viteCreateServer({
-			...viteConfig,
-			configFile: false,
-			assetsInclude: [],
-		});
+		const vite = await viteCreateServer(viteConfig);
 		const result = await this.hooks.dev.promise({
 			vite,
 			config: this.config,
@@ -110,7 +110,6 @@ export async function vitelyBuild(
 	configParam: ViteInlineConfig
 ): Promise<void> {
 	const viteConfig = await viteResolveConfig(configParam, 'build');
-	console.log(viteConfig);
 	const vitely = new VitelyCore(viteConfig);
 	await vitely.setup();
 	await vitely.build();

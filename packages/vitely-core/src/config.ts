@@ -6,6 +6,8 @@ export type VitelyCoreConfig = {
 };
 
 export type VitelyCoreConfigResolved = {
+	root: string;
+	outDir: string;
 	ssr: boolean;
 	plugins: VitelyPlugin[];
 };
