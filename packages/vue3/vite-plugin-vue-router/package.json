@@ -7,12 +7,12 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/esm/index.js",
-      "types": "./dist/esm/index.d.ts"
+      "import": "./dist/esm/index.mjs",
+      "types": "./dist/esm/index.d.mts"
     },
     "./runtime": {
-      "import": "./dist/esm/runtime/index.js",
-      "types": "./dist/esm/runtime/index.d.ts"
+      "import": "./dist/esm/runtime/index.mjs",
+      "types": "./dist/esm/runtime/index.d.mts"
     }
   },
   "keywords": [

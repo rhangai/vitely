@@ -1,7 +1,7 @@
 // @ts-ignore
 import type { Plugin, ResolvedConfig } from 'vite';
-import { createVirtualModules } from './util.js';
-import './virtual.js';
+import { createVirtualModules } from './util.mjs';
+import './virtual.mjs';
 
 function moduleRouterData() {
 	const pagesRoot = '/pages/';
