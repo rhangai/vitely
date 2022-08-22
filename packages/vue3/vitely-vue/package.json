@@ -1,6 +1,9 @@
 {
   "name": "@vitely/vue",
   "version": "0.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     ".": {
       "require": "./dist/cjs/index.js",

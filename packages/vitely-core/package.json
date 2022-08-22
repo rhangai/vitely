@@ -1,6 +1,9 @@
 {
   "name": "@vitely/core",
   "version": "0.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "./dist/cjs/index.js",
   "types": "./dist/cjs/index.d.ts",
   "exports": {

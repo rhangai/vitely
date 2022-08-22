@@ -1,7 +1,9 @@
 {
   "name": "@vitely/vite-plugin-vue-router",
   "version": "0.1.0",
-  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "./dist/cjs/index.js",
   "types": "./dist/cjs/index.d.ts",
   "exports": {
