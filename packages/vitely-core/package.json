@@ -1,21 +1,19 @@
 {
   "name": "@vitely/core",
   "version": "0.1.0",
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },
-  "main": "./dist/cjs/index.js",
-  "types": "./dist/cjs/index.d.ts",
   "exports": {
     ".": {
-      "require": "./dist/cjs/index.js",
       "import": "./dist/esm/index.js",
       "types": "./dist/esm/index.d.ts"
     }
   },
   "scripts": {
     "clean": "rm -rf dist node_modules .turbo",
-    "build": "tsc -p tsconfig.build.json && tsc -p tsconfig.build-cjs.json && echo '{\"type\":\"module\"}' > dist/esm/package.json"
+    "build": "tsc -p tsconfig.build.json"
   },
   "dependencies": {
     "tapable": "^2.2.1",

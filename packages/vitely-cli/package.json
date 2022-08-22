@@ -1,6 +1,7 @@
 {
   "name": "@vitely/cli",
   "version": "0.1.0",
+  "type": "module",
   "bin": {
     "vitely": "./dist/main.js"
   },

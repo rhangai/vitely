@@ -4,43 +4,36 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "./dist/cjs/index.js",
-  "types": "./dist/esm/index.d.ts",
+  "type": "module",
   "exports": {
     "./entry": {
-      "require": "./dist/cjs/index.js",
       "import": "./dist/esm/index.js",
       "types": "./dist/esm/index.d.ts"
     },
     "./spa/entry-client": {
-      "require": "./dist/cjs/spa/entry-client.js",
       "import": "./dist/esm/spa/entry-client.js",
       "types": "./dist/esm/spa/entry-client.d.ts"
     },
     "./spa/entry-server": {
-      "require": "./dist/cjs/spa/entry-server.js",
       "import": "./dist/esm/spa/entry-server.js",
       "types": "./dist/esm/spa/entry-server.d.ts"
     },
     "./ssr/entry-client": {
-      "require": "./dist/cjs/ssr/entry-client.js",
       "import": "./dist/esm/ssr/entry-client.js",
       "types": "./dist/esm/ssr/entry-client.d.ts"
     },
     "./ssr/entry-server": {
-      "require": "./dist/cjs/ssr/entry-server.js",
       "import": "./dist/esm/ssr/entry-server.js",
       "types": "./dist/esm/ssr/entry-server.d.ts"
     },
     "./ssr/server-render": {
-      "require": "./dist/cjs/ssr/server-render.js",
       "import": "./dist/esm/ssr/server-render.js",
       "types": "./dist/esm/ssr/server-render.d.ts"
     }
   },
   "scripts": {
     "clean": "rm -rf dist .turbo node_modules",
-    "build": "tsc -p tsconfig.build.json && tsc -p tsconfig.build-cjs.json && echo '{\"type\":\"module\"}' > dist/esm/package.json"
+    "build": "tsc -p tsconfig.build.json"
   },
   "dependencies": {
     "@fastify/static": "^6.5.0",

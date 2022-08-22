@@ -4,6 +4,7 @@
   "compilerOptions": {
     "module": "es2020",
     "moduleResolution": "nodenext",
-    "outDir": "./dist/esm"
+    "outDir": "./dist/esm",
+    "types": ["@vitely/vite-plugin-vue-router"]
   }
 }

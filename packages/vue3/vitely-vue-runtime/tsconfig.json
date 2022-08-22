@@ -2,6 +2,7 @@
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
     "module": "es2020",
-    "moduleResolution": "nodenext"
+    "moduleResolution": "nodenext",
+    "types": ["@vitely/vite-plugin-vue-router"]
   }
 }

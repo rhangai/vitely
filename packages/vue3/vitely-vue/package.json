@@ -4,17 +4,16 @@
   "publishConfig": {
     "access": "public"
   },
+  "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/cjs/index.js",
       "import": "./dist/esm/index.js",
       "types": "./dist/esm/index.d.ts"
     }
   },
   "scripts": {
     "clean": "rm -rf dist node_modules .turbo",
-    "build": "tsc -p tsconfig.build.json && tsc -p tsconfig.build-cjs.json && echo '{\"type\":\"module\"}' > dist/esm/package.json",
-    "dev": "node dist/index.js"
+    "build": "tsc -p tsconfig.build.json"
   },
   "dependencies": {
     "@fastify/middie": "^8.0.0",

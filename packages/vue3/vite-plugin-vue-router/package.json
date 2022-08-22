@@ -4,16 +4,13 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "./dist/cjs/index.js",
-  "types": "./index.d.ts",
+  "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/cjs/index.js",
       "import": "./dist/esm/index.js",
-      "types": "./index.d.ts"
+      "types": "./dist/esm/index.d.ts"
     },
     "./runtime": {
-      "require": "./dist/cjs/runtime/index.js",
       "import": "./dist/esm/runtime/index.js",
       "types": "./dist/esm/runtime/index.d.ts"
     }
@@ -23,7 +20,7 @@
   ],
   "scripts": {
     "clean": "rm -rf dist node_modules .turbo",
-    "build": "tsc -p tsconfig.build.json && tsc -p tsconfig.build-cjs.json && echo '{\"type\":\"module\"}' > dist/esm/package.json"
+    "build": "tsc -p tsconfig.build.json"
   },
   "dependencies": {
     "@vitely/core-runtime": "^0.1.0"
