@@ -4,6 +4,7 @@ node_modules
 # Build files
 dist
 .turbo
+.npmrc
 
 # Yarn berry
 .yarn/*
