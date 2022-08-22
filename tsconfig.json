@@ -8,5 +8,5 @@
     "skipLibCheck": true,
     "moduleResolution": "node"
   },
-  "exclude": ["dist/**/*"]
+  "exclude": ["**/dist/**/*"]
 }
