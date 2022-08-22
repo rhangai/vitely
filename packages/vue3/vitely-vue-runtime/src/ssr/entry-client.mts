@@ -1,4 +1,4 @@
-import { createApp } from './create-app.js';
+import { createApp } from './create-app.mjs';
 
 async function main() {
 	const { app, router } = await createApp();
