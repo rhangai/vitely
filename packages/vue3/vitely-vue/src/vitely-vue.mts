@@ -19,9 +19,9 @@ export function vitelyVueModule(): VitelyModule {
 				viteConfig.resolve = {
 					alias: {
 						'virtual:app.vue': join(config.root, '/app.vue'),
-						'@vitely/vue-runtime/entry': config.ssr
-							? '@vitely/vue-runtime/ssr/entry-client'
-							: '@vitely/vue-runtime/spa/entry-client',
+						'@vitely/vue/entry': config.ssr
+							? '@vitely/vue/runtime/ssr/entry-client'
+							: '@vitely/vue/runtime/spa/entry-client',
 					},
 				};
 			});

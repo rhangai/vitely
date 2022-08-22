@@ -1,9 +1,12 @@
+import App from 'virtual:@vitely/vue/app.vue';
+import { createSSRApp } from 'vue';
 // @ts-ignore
 import { renderToString } from 'vue/server-renderer';
-import { createApp } from './create-app.mjs';
+import { setupApp } from '../setup-app.mjs';
 
 export async function render(url: string) {
-	const { app, router } = await createApp();
+	const app = createSSRApp(App);
+	const { router } = await setupApp(app);
 
 	await router.push(url);
 	await router.isReady();
