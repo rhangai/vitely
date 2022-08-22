@@ -14,9 +14,6 @@
     "build": "turbo run build",
     "vitely": "yarn workspace vitely run cli"
   },
-  "resolutions": {
-    "@vitely/core": "workspace:*"
-  },
   "devDependencies": {
     "@changesets/cli": "^2.24.3",
     "@faker-js/faker": "^7.4.0",

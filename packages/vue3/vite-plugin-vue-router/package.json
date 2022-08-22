@@ -26,7 +26,7 @@
     "build": "tsc -p tsconfig.build.json && tsc -p tsconfig.build-cjs.json && echo '{\"type\":\"module\"}' > dist/esm/package.json"
   },
   "dependencies": {
-    "@vitely/core-runtime": "workspace:*"
+    "@vitely/core-runtime": "^0.1.0"
   },
   "devDependencies": {
     "typescript": "^4.7.4",

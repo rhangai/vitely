@@ -44,8 +44,8 @@
   },
   "dependencies": {
     "@fastify/static": "^6.5.0",
-    "@vitely/core-runtime": "workspace:*",
-    "@vitely/vite-plugin-vue-router": "workspace:*",
+    "@vitely/core-runtime": "^0.1.0",
+    "@vitely/vite-plugin-vue-router": "^0.1.0",
     "fastify": "^4.5.2"
   },
   "devDependencies": {
