@@ -5,6 +5,9 @@
     "access": "public"
   },
   "type": "module",
+  "main": "./dist/esm/index.mjs",
+  "module": "./dist/esm/index.mjs",
+  "types": "./dist/esm/index.d.mts",
   "exports": {
     "./entry": {
       "import": "./dist/esm/index.mjs",
