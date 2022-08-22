@@ -1,3 +1,3 @@
-import { vitelyPlugin } from './vitely-vue.mjs';
+import { vitelyVueModule } from './vitely-vue.mjs';
 
-export default vitelyPlugin;
+export default vitelyVueModule;

@@ -7,7 +7,7 @@ import {
 	resolveConfig as viteResolveConfig,
 	// @ts-ignore
 } from 'vite';
-import { VitelyCoreConfigResolved } from './config.mjs';
+import { VitelyCoreConfig, VitelyCoreConfigResolved } from './config.mjs';
 import { VitelyHooks, VitelyHookViteConfig } from './hooks.mjs';
 
 /**
@@ -23,10 +23,12 @@ export class VitelyCore {
 	private readonly config: VitelyCoreConfigResolved;
 
 	constructor(private readonly viteConfigResolved: ViteResolvedConfig) {
+		const vitelyConfig: VitelyCoreConfig = (viteConfigResolved as any)
+			.vitely;
 		this.config = {
 			ssr: true,
-			plugins: [],
-			...(viteConfigResolved as any).vitely,
+			modules: [],
+			...vitelyConfig,
 			root: viteConfigResolved.root,
 			outDir: viteConfigResolved.build.outDir,
 		};
@@ -36,10 +38,10 @@ export class VitelyCore {
 	 * Prepare the plugin
 	 */
 	async setup() {
-		const { plugins } = this.config;
-		if (plugins) {
-			for (const plugin of plugins) {
-				await plugin.install({
+		const { modules } = this.config;
+		if (modules) {
+			for (const vitelyModule of modules) {
+				await vitelyModule.install({
 					hooks: this.hooks,
 				});
 			}

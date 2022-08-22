@@ -1,13 +1,28 @@
-import type { VitelyPlugin } from './plugin.mjs';
+import type { VitelyHooks } from './hooks.mjs';
+
+export type VitelyContext = {
+	hooks: VitelyHooks;
+};
+
+export type VitelyModule = {
+	install(ctx: VitelyContext): void | Promise<void>;
+};
 
 export type VitelyCoreConfig = {
 	ssr?: boolean;
-	plugins?: VitelyPlugin[];
+	modules?: VitelyModule[];
 };
 
 export type VitelyCoreConfigResolved = {
 	root: string;
 	outDir: string;
 	ssr: boolean;
-	plugins: VitelyPlugin[];
+	modules: VitelyModule[];
 };
+
+/**
+ * Define vitely configuration
+ */
+export function defineVitely(input: VitelyCoreConfig): VitelyCoreConfig {
+	return input;
+}

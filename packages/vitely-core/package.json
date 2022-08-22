@@ -5,6 +5,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "main": "./dist/esm/index.mjs",
+  "module": "./dist/esm/index.mjs",
+  "types": "./dist/esm/index.d.mts",
   "exports": {
     ".": {
       "import": "./dist/esm/index.mjs",

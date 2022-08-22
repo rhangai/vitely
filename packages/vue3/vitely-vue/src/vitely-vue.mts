@@ -1,13 +1,11 @@
-import { resolve, join } from 'node:path';
-// @ts-ignore
-import { default as pluginNodeResolve } from '@rollup/plugin-node-resolve';
+import { join } from 'node:path';
 import { default as pluginVue } from '@vitejs/plugin-vue';
-import type { VitelyPlugin, VitelyPluginContext } from '@vitely/core';
+import type { VitelyModule, VitelyContext } from '@vitely/core';
 import { createDevServer } from './dev-server.mjs';
 
-export function vitelyPlugin(): VitelyPlugin {
+export function vitelyVueModule(): VitelyModule {
 	return {
-		install({ hooks }: VitelyPluginContext) {
+		install({ hooks }: VitelyContext) {
 			hooks.config.tapPromise('@vitely/vue', async (context) => {
 				const { default: pluginVueRouter } = await import(
 					// @ts-ignore
