@@ -797,7 +797,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitely/core-runtime@workspace:*, @vitely/core-runtime@workspace:packages/vitely-core-runtime":
+"@vitely/core-runtime@^0.1.0, @vitely/core-runtime@workspace:packages/vitely-core-runtime":
   version: 0.0.0-use.local
   resolution: "@vitely/core-runtime@workspace:packages/vitely-core-runtime"
   dependencies:
@@ -807,7 +807,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@vitely/core@workspace:*, @vitely/core@workspace:packages/vitely-core":
+"@vitely/core@^0.1.0, @vitely/core@workspace:packages/vitely-core":
   version: 0.0.0-use.local
   resolution: "@vitely/core@workspace:packages/vitely-core"
   dependencies:
@@ -819,11 +819,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@vitely/vite-plugin-vue-router@workspace:*, @vitely/vite-plugin-vue-router@workspace:packages/vue3/vite-plugin-vue-router":
+"@vitely/vite-plugin-vue-router@^0.1.0, @vitely/vite-plugin-vue-router@workspace:packages/vue3/vite-plugin-vue-router":
   version: 0.0.0-use.local
   resolution: "@vitely/vite-plugin-vue-router@workspace:packages/vue3/vite-plugin-vue-router"
   dependencies:
-    "@vitely/core-runtime": "workspace:*"
+    "@vitely/core-runtime": ^0.1.0
     typescript: ^4.7.4
     vite: ^3
     vue: ^3.2.25
@@ -834,13 +834,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@vitely/vue-runtime@workspace:*, @vitely/vue-runtime@workspace:packages/vue3/vitely-vue-runtime":
+"@vitely/vue-runtime@^0.1.0, @vitely/vue-runtime@workspace:packages/vue3/vitely-vue-runtime":
   version: 0.0.0-use.local
   resolution: "@vitely/vue-runtime@workspace:packages/vue3/vitely-vue-runtime"
   dependencies:
     "@fastify/static": ^6.5.0
-    "@vitely/core-runtime": "workspace:*"
-    "@vitely/vite-plugin-vue-router": "workspace:*"
+    "@vitely/core-runtime": ^0.1.0
+    "@vitely/vite-plugin-vue-router": ^0.1.0
     fastify: ^4.5.2
     typescript: ^4.7.4
     vue: ^3.2.37
@@ -849,16 +849,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@vitely/vue@workspace:*, @vitely/vue@workspace:packages/vue3/vitely-vue":
+"@vitely/vue@workspace:packages/vue3/vitely-vue":
   version: 0.0.0-use.local
   resolution: "@vitely/vue@workspace:packages/vue3/vitely-vue"
   dependencies:
     "@fastify/middie": ^8.0.0
     "@rollup/plugin-node-resolve": ^13.3.0
     "@vitejs/plugin-vue": ^3.0.3
-    "@vitely/core": "workspace:*"
-    "@vitely/vite-plugin-vue-router": "workspace:*"
-    "@vitely/vue-runtime": "workspace:*"
+    "@vitely/core": ^0.1.0
+    "@vitely/vite-plugin-vue-router": ^0.1.0
+    "@vitely/vue-runtime": ^0.1.0
     fastify: ^4.5.2
     typescript: ^4.7.4
     vite: ^3.0.9
@@ -5478,18 +5478,6 @@ __metadata:
   checksum: 6341aa43579ae45f8a383bdc0c5041dea3dff98f14e0a546d6d884a864134b00082246a28d1de8adff0ce0dd92b468c7ade8f972ffe1ed97258671d63e0f16f7
   languageName: node
   linkType: hard
-
-"vitely@workspace:packages/vitely":
-  version: 0.0.0-use.local
-  resolution: "vitely@workspace:packages/vitely"
-  dependencies:
-    "@vitely/core": "workspace:*"
-    "@vitely/vue": "workspace:*"
-    typescript: ^4.7.4
-  bin:
-    vitely: ./dist/main.js
-  languageName: unknown
-  linkType: soft
 
 "vitest@npm:^0.22.1":
   version: 0.22.1

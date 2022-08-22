@@ -1,5 +1,5 @@
 {
-  "name": "vitely",
+  "name": "@vitely/cli",
   "version": "0.1.0",
   "bin": "./dist/main.js",
   "scripts": {

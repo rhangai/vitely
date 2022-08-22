@@ -1,4 +1,6 @@
 .turbo
-!dist
-src
 tsconfig.*
+src
+
+# Dist folder
+!dist
