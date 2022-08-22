@@ -797,6 +797,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vitely/cli@workspace:packages/vitely-cli":
+  version: 0.0.0-use.local
+  resolution: "@vitely/cli@workspace:packages/vitely-cli"
+  dependencies:
+    "@vitely/core": ^0.1.0
+    "@vitely/vue": ^0.1.0
+    typescript: ^4.7.4
+  bin:
+    vitely: ./dist/main.js
+  languageName: unknown
+  linkType: soft
+
 "@vitely/core-runtime@^0.1.0, @vitely/core-runtime@workspace:packages/vitely-core-runtime":
   version: 0.0.0-use.local
   resolution: "@vitely/core-runtime@workspace:packages/vitely-core-runtime"
@@ -849,7 +861,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@vitely/vue@workspace:packages/vue3/vitely-vue":
+"@vitely/vue@^0.1.0, @vitely/vue@workspace:packages/vue3/vitely-vue":
   version: 0.0.0-use.local
   resolution: "@vitely/vue@workspace:packages/vue3/vitely-vue"
   dependencies:

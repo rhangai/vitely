@@ -5,12 +5,12 @@
     "access": "public"
   },
   "main": "./dist/cjs/index.js",
-  "types": "./dist/cjs/index.d.ts",
+  "types": "./index.d.ts",
   "exports": {
     ".": {
       "require": "./dist/cjs/index.js",
       "import": "./dist/esm/index.js",
-      "types": "./dist/esm/index.d.ts"
+      "types": "./index.d.ts"
     },
     "./runtime": {
       "require": "./dist/cjs/runtime/index.js",

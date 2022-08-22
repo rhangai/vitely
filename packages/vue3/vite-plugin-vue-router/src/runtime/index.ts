@@ -1,2 +1,2 @@
 /* istanbul ignore file */
-export * from './create-router.js';
+export * from './build-vue-routes.js';
