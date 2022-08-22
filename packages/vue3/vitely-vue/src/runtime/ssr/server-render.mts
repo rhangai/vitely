@@ -1,4 +1,4 @@
-import App from 'virtual:@vitely/vue/app.vue';
+import App from 'virtual:vitely/vue/app.vue';
 import { createSSRApp } from 'vue';
 // @ts-ignore
 import { renderToString } from 'vue/server-renderer';

@@ -13,29 +13,29 @@
       "import": "./dist/esm/index.mjs",
       "types": "./dist/esm/index.d.mts"
     },
-    "./entry": {
-      "import": "./dist/esm/index.mjs",
-      "types": "./dist/esm/index.d.mts"
+    "./runtime/entry": {
+      "import": "./dist/esm/runtime/index.mjs",
+      "types": "./dist/esm/runtime/index.d.mts"
     },
     "./runtime/spa/client": {
-      "import": "./dist/esm/spa/entry-client.mjs",
-      "types": "./dist/esm/spa/entry-client.d.mts"
+      "import": "./dist/esm/runtime/spa/client.mjs",
+      "types": "./dist/esm/runtime/spa/client.d.mts"
     },
     "./runtime/spa/server": {
-      "import": "./dist/esm/spa/entry-server.mjs",
-      "types": "./dist/esm/spa/entry-server.d.mts"
+      "import": "./dist/esm/runtime/spa/server.mjs",
+      "types": "./dist/esm/runtime/spa/server.d.mts"
     },
     "./runtime/ssr/client": {
-      "import": "./dist/esm/ssr/entry-client.mjs",
-      "types": "./dist/esm/ssr/entry-client.d.mts"
+      "import": "./dist/esm/runtime/ssr/client.mjs",
+      "types": "./dist/esm/runtime/ssr/client.d.mts"
     },
     "./runtime/ssr/server": {
-      "import": "./dist/esm/ssr/entry-server.mjs",
-      "types": "./dist/esm/ssr/entry-server.d.mts"
+      "import": "./dist/esm/runtime/ssr/server.mjs",
+      "types": "./dist/esm/runtime/ssr/server.d.mts"
     },
     "./runtime/ssr/server-render": {
-      "import": "./dist/esm/ssr/server-render.mjs",
-      "types": "./dist/esm/ssr/server-render.d.mts"
+      "import": "./dist/esm/runtime/ssr/server-render.mjs",
+      "types": "./dist/esm/runtime/ssr/server-render.d.mts"
     }
   },
   "scripts": {

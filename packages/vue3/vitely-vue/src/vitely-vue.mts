@@ -18,10 +18,13 @@ export function vitelyVueModule(): VitelyModule {
 				viteConfig.server.middlewareMode = true;
 				viteConfig.resolve = {
 					alias: {
-						'virtual:app.vue': join(config.root, '/app.vue'),
-						'@vitely/vue/entry': config.ssr
-							? '@vitely/vue/runtime/ssr/entry-client'
-							: '@vitely/vue/runtime/spa/entry-client',
+						'virtual:vitely/vue/app.vue': join(
+							config.root,
+							'/app.vue'
+						),
+						'@vitely/vue/runtime/entry': config.ssr
+							? '@vitely/vue/runtime/ssr/client'
+							: '@vitely/vue/runtime/spa/client',
 					},
 				};
 			});
@@ -39,8 +42,8 @@ export function vitelyVueModule(): VitelyModule {
 						rollupOptions: {
 							input: {
 								index: config.ssr
-									? '@vitely/vue-runtime/ssr/entry-server'
-									: '@vitely/vue-runtime/spa/entry-server',
+									? '@vitely/vue/runtime/ssr/server'
+									: '@vitely/vue/runtime/spa/server',
 							},
 							// - plugins: [pluginNodeResolve()],
 						},
