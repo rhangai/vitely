@@ -20,7 +20,7 @@ export function vitelyPlugin(): VitelyPlugin {
 				viteConfig.server.middlewareMode = true;
 				viteConfig.resolve = {
 					alias: {
-						'virtual:@vitely/vue-runtime/app': '/app.vue',
+						'virtual:app.vue': join(config.root, '/app.vue'),
 						'@vitely/vue-runtime/entry': config.ssr
 							? '@vitely/vue-runtime/ssr/entry-client'
 							: '@vitely/vue-runtime/spa/entry-client',

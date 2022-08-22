@@ -40,6 +40,13 @@ export default function vitePluginVueRouter(): Plugin {
 	});
 	return {
 		name: '@vitely/vite-plugin-vue-router',
+		config() {
+			return {
+				optimizeDeps: {
+					exclude: ['virtual:router-data', 'virtual:router'],
+				},
+			};
+		},
 		configResolved: setup,
 		resolveId,
 		load,

@@ -1,4 +1,4 @@
-import App from 'virtual:@vitely/vue-runtime/app';
+import App from 'virtual:app.vue';
 import { createRouter } from 'virtual:router';
 import { createApp } from 'vue';
 

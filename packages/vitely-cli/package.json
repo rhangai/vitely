@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "type": "module",
   "bin": {
-    "vitely": "./dist/main.js"
+    "vitely": "./dist/main.mjs"
   },
   "scripts": {
     "clean": "rm -rf dist node_modules .turbo",
     "build": "tsc -p tsconfig.build.json",
-    "cli": "node dist/main.js"
+    "cli": "node dist/main.mjs"
   },
   "dependencies": {
     "@vitely/core": "^0.1.0",
