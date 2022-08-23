@@ -8,6 +8,11 @@ import { pluginsPlugin } from './plugins.mjs';
 import routerPlugin from './router/index.mjs';
 import './types.mjs';
 
+export type {
+	VitelyMiddleware,
+	VitelyMiddlewareContext,
+} from './middleware.mjs';
+
 export default function vitelyPluginVue(
 	config?: VitelyVueConfig
 ): PluginOption {

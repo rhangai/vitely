@@ -6,6 +6,10 @@ import {
 	VitelyVueMiddlewareResolved,
 } from './config.mjs';
 
+export type VitelyMiddleware = (
+	context: VitelyMiddlewareContext
+) => void | Promise<void>;
+
 export type VitelyMiddlewareContext = {
 	to: RouteLocationNormalized;
 	from: RouteLocationNormalized;
