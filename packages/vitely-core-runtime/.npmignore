@@ -1,6 +1,0 @@
-.turbo
-tsconfig.*
-src
-
-# Dist folder
-!dist
