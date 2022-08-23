@@ -25,34 +25,23 @@ export async function setupPlugins(app) {
 	`;
 }
 
-function modulePluginsSsr(vitelyVueConfig: VitelyVueConfigResolved) {
-	const ssrPlugins = vitelyVueConfig.plugins.filter((p) => p.ssr);
-	return generatePluginModule(ssrPlugins);
-}
-
-function modulePluginsClient(vitelyVueConfig: VitelyVueConfigResolved) {
-	return generatePluginModule(vitelyVueConfig.plugins);
-}
-
-function modulePlugins() {
-	return `
-export async function setupPlugins(app) {
-	const { setupPlugins: setupPluginsImpl } = import.meta.env.SSR ? await import('virtual:vitely/vue/plugins/ssr') : await import('virtual:vitely/vue/plugins/client');
-	await setupPluginsImpl(app);
-}
-	`;
-}
-
 export function pluginsPlugin(
 	vitelyVueConfig: VitelyVueConfigResolved
 ): Plugin {
+	const clientlugins = vitelyVueConfig.plugins;
+	const serverPlugins = vitelyVueConfig.plugins.filter((p) => p.ssr);
+
 	return createVirtualModulesPlugin({
 		name: 'vitely:vue-plugins',
 		// prettier-ignore
 		modules: {
-			'virtual:vitely/vue/plugins': () => modulePlugins(),
-			'virtual:vitely/vue/plugins/ssr': () => modulePluginsSsr(vitelyVueConfig),
-			'virtual:vitely/vue/plugins/client': () => modulePluginsClient(vitelyVueConfig),
+			'virtual:vitely/vue/plugins/server': () => generatePluginModule(serverPlugins),
+			'virtual:vitely/vue/plugins/client': () => generatePluginModule(clientlugins),
+			'virtual:vitely/vue/plugins': `
+				export async function setupPlugins(app) {
+					const { setupPlugins: setupPluginsImpl } = import.meta.env.SSR ? await import('virtual:vitely/vue/plugins/server') : await import('virtual:vitely/vue/plugins/client');
+					await setupPluginsImpl(app);
+				}`
 		},
 	});
 }

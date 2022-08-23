@@ -12,7 +12,9 @@ declare module 'virtual:vitely/vue/plugins' {
 }
 
 declare module 'virtual:vitely/vue/middlewares' {
-	export function runMiddlewares(ctx: any): Promise<void>;
+	export function runMiddlewares(
+		options: import('./middleware.mjs').VitelyMiddlewareOptions
+	): Promise<void>;
 }
 
 declare module 'virtual:vitely/vue/router-data' {

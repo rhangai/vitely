@@ -16,9 +16,14 @@ export async function setupApp(app: App) {
 				nextRoute = route;
 			};
 			await runMiddlewares({
-				to,
-				from,
-				next,
+				context: {
+					to,
+					from,
+					next,
+				},
+				routeChanged() {
+					return !!nextRoute;
+				},
 			});
 			return nextRoute;
 		}

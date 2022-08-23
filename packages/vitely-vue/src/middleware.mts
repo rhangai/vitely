@@ -1,9 +1,21 @@
 import { createVirtualModulesPlugin } from '@vitely/core';
 import type { Plugin } from 'vite';
+import { RouteLocationNormalized, RouteLocationRaw } from 'vue-router';
 import {
 	VitelyVueConfigResolved,
 	VitelyVueMiddlewareResolved,
 } from './config.mjs';
+
+export type VitelyMiddlewareContext = {
+	to: RouteLocationNormalized;
+	from: RouteLocationNormalized;
+	next(location: RouteLocationRaw): void;
+};
+
+export type VitelyMiddlewareOptions = {
+	context: VitelyMiddlewareContext;
+	routeChanged(): boolean;
+};
 
 function generateMiddlewareModule(plugins: VitelyVueMiddlewareResolved[]) {
 	const imports: string[] = [];
@@ -24,40 +36,34 @@ function generateMiddlewareModule(plugins: VitelyVueMiddlewareResolved[]) {
 	return `
 ${imports.join('\n')}
 
-export async function runMiddlewares(ctx) {
-	${middlewareKeys.map((key) => `await ${key}(ctx);`).join('\n')}
+export async function runMiddlewares(options) {
+	${middlewareKeys
+		.map((key) => `await ${key}(options.context); `)
+		.join('if (options.routeChanged()) return;\n')}
 }
 	`;
 }
 
-function moduleMiddlewaresSsr(vitelyVueConfig: VitelyVueConfigResolved) {
-	const ssrMiddlewares = vitelyVueConfig.middlewares.filter((p) => p.ssr);
-	return generateMiddlewareModule(ssrMiddlewares);
-}
-
-function moduleMiddlewaresClient(vitelyVueConfig: VitelyVueConfigResolved) {
-	return generateMiddlewareModule(vitelyVueConfig.middlewares);
-}
-
-function moduleMiddlewares() {
-	return `
-export async function runMiddlewares(app) {
-	const { runMiddlewares: runMiddlewaresImpl } = import.meta.env.SSR ? await import('virtual:vitely/vue/middlewares/ssr') : await import('virtual:vitely/vue/middlewares/client');
-	await runMiddlewaresImpl(app);
-}
-	`;
-}
-
+/**
+ * Plugin to run every middleware
+ */
 export function middlewaresPlugin(
 	vitelyVueConfig: VitelyVueConfigResolved
 ): Plugin {
+	const clientMiddlewares = vitelyVueConfig.middlewares;
+	const serverMiddlewares = vitelyVueConfig.middlewares.filter((p) => p.ssr);
+
 	return createVirtualModulesPlugin({
 		name: 'vitely:vue-plugins',
 		// prettier-ignore
 		modules: {
-			'virtual:vitely/vue/middlewares': () => moduleMiddlewares(),
-			'virtual:vitely/vue/middlewares/ssr': () => moduleMiddlewaresSsr(vitelyVueConfig),
-			'virtual:vitely/vue/middlewares/client': () => moduleMiddlewaresClient(vitelyVueConfig),
+			'virtual:vitely/vue/middlewares/server': () => generateMiddlewareModule(serverMiddlewares),
+			'virtual:vitely/vue/middlewares/client': () => generateMiddlewareModule(clientMiddlewares),
+			'virtual:vitely/vue/middlewares': `
+				export async function runMiddlewares(options) {
+					const { runMiddlewares: runMiddlewaresImpl } = import.meta.env.SSR ? await import('virtual:vitely/vue/middlewares/server') : await import('virtual:vitely/vue/middlewares/client');
+					await runMiddlewaresImpl(options);
+				}`
 		},
 	});
 }
