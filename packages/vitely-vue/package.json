@@ -1,6 +1,6 @@
 {
   "name": "@vitely/vue",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publishConfig": {
     "access": "public"
   },
@@ -50,7 +50,7 @@
     "@fastify/middie": "^8.0.0",
     "@fastify/static": "^6.5.0",
     "@vitejs/plugin-vue": "^3.0.3",
-    "@vitely/core": "^0.1.0",
+    "@vitely/core": "^0.2.0",
     "fastify": "^4.5.2"
   },
   "devDependencies": {
