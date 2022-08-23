@@ -1,8 +1,11 @@
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { InlineConfig, Plugin } from 'vite';
+import { VitelyVueConfigResolved } from './config.mjs';
 
-export default function vitelyPluginVueCore(): Plugin {
+export default function vitelyPluginVueCore(
+	vitelyVueConfig: VitelyVueConfigResolved
+): Plugin {
 	return {
 		name: 'vitely:vue',
 		config(c, configEnv) {
@@ -13,7 +16,9 @@ export default function vitelyPluginVueCore(): Plugin {
 			const resolve: InlineConfig['resolve'] = {
 				alias: {
 					'virtual:vitely/vue/app.vue': '/app.vue',
-					'@vitely/vue/entry': '@vitely/vue/entry/ssr/client',
+					'@vitely/vue/entry': vitelyVueConfig.ssr
+						? '@vitely/vue/entry/ssr/client'
+						: '@vitely/vue/entry/spa/client',
 				},
 			};
 
@@ -22,6 +27,10 @@ export default function vitelyPluginVueCore(): Plugin {
 			}
 
 			if (isServer) {
+				const serverEntry = vitelyVueConfig.ssr
+					? 'entry/ssr/server'
+					: 'entry/spa/server';
+
 				return {
 					build: {
 						ssr: true,
@@ -30,16 +39,18 @@ export default function vitelyPluginVueCore(): Plugin {
 						rollupOptions: {
 							input: {
 								index: join(
-									fileURLToPath(import.meta.url),
-									'../entry/ssr/server.mjs'
+									dirname(fileURLToPath(import.meta.url)),
+									serverEntry
 								),
 							},
 						},
 					},
 					resolve,
-					ssr: {
-						noExternal: [/^(?!node:)/],
-					},
+					ssr: vitelyVueConfig.standaloneServer
+						? {
+								noExternal: [/^(?!node:)/],
+						  }
+						: {},
 				};
 			}
 
