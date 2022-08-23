@@ -1,45 +1,29 @@
-import { readFile } from 'node:fs/promises';
-import { join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { default as middie } from '@fastify/middie';
-import type { VitelyCoreConfigResolved } from '@vitely/core';
-import { default as Fastify } from 'fastify';
-import type { ViteDevServer } from 'vite';
+import { join } from 'path';
+import { fileURLToPath } from 'url';
+import type { Plugin } from 'vite';
 
-export async function createDevServer(
-	vite: ViteDevServer,
-	config: VitelyCoreConfigResolved
-) {
-	const { root } = vite.config;
-	const fastify = Fastify();
-	await fastify.register(middie);
-	await fastify.use(vite.middlewares);
-	fastify.get('*', async (req, res) => {
-		try {
-			let html = await readFile(resolve(root, 'index.html'), 'utf8');
-			html = await vite.transformIndexHtml('/', html);
-			if (config.ssr) {
-				const serverRenderModule = join(
-					fileURLToPath(import.meta.url),
-					'../runtime/ssr/server-render.mjs'
-				);
-				const { render } = await vite.ssrLoadModule(serverRenderModule);
-				const { renderedHtml } = await render(req.url);
-				const ssrHtml = html.replace('<!-- vue-ssr -->', renderedHtml);
-				await res.type('text/html').send(ssrHtml);
-			} else {
-				await res.type('text/html').send(html);
-			}
-		} catch (e: any) {
-			vite.ssrFixStacktrace(e);
-			await res.status(500).send(e.stack);
-		}
-	});
+export function devServerPlugin(): Plugin {
 	return {
-		async listen() {
-			await fastify.listen({
-				port: vite.config.server.port,
-			});
+		name: 'vitely:vue-dev-server',
+		config() {
+			return {
+				resolve: {
+					alias: {
+						'virtual:vitely/vue/app.vue': '/app.vue',
+					},
+				},
+			};
+		},
+		async transformIndexHtml(html, { server, originalUrl }) {
+			// if (!config.ssr) return;
+			if (!server || !originalUrl) return undefined;
+			const serverRenderModule = join(
+				fileURLToPath(import.meta.url),
+				'../runtime/ssr/server-render.mjs'
+			);
+			const { render } = await server.ssrLoadModule(serverRenderModule);
+			const { renderedHtml } = await render(originalUrl);
+			return html.replace('<!-- vue-ssr -->', renderedHtml);
 		},
 	};
 }

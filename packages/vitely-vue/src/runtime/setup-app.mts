@@ -1,4 +1,4 @@
-import { createRouter } from 'virtual:router';
+import { createRouter } from 'virtual:vue-router';
 import type { App } from 'vue';
 
 export async function setupApp(app: App) {

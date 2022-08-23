@@ -13,6 +13,10 @@
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.mts"
     },
+    "./router/runtime": {
+      "import": "./dist/router/runtime/index.mjs",
+      "types": "./dist/router/runtime/index.d.mts"
+    },
     "./runtime/entry": {
       "import": "./dist/runtime/index.mjs",
       "types": "./dist/runtime/index.d.mts"
@@ -47,14 +51,17 @@
     "@fastify/static": "^6.5.0",
     "@vitejs/plugin-vue": "^3.0.3",
     "@vitely/core": "^0.1.0",
-    "fastify": "^4.5.2",
-    "vite": "^3.0.9"
+    "fastify": "^4.5.2"
   },
   "devDependencies": {
     "typescript": "^4.7.4",
-    "vue": "^3.2.37"
+    "vite": "^3.0.9",
+    "vue": "^3.2.37",
+    "vue-router": "^4.1.4"
   },
   "peerDependencies": {
-    "vue": "^3.2.37"
+    "vite": "^2 || ^3",
+    "vue": "^3",
+    "vue-router": "^4"
   }
 }

@@ -757,10 +757,11 @@ __metadata:
   resolution: "@vitely/core@workspace:packages/vitely-core"
   dependencies:
     "@faker-js/faker": ^7.4.0
-    tapable: ^2.2.1
     typescript: ^4.7.4
     vite: ^3.0.9
     vitest: ^0.22.1
+  peerDependencies:
+    vite: ^2 || ^3
   languageName: unknown
   linkType: soft
 
@@ -776,8 +777,10 @@ __metadata:
     typescript: ^4.7.4
     vite: ^3.0.9
     vue: ^3.2.37
+    vue-router: ^4.1.4
   peerDependencies:
-    vue: ^3.2.37
+    vite: ^2 || ^3
+    vue: ^3
   languageName: unknown
   linkType: soft
 
@@ -828,6 +831,13 @@ __metadata:
     "@vue/compiler-dom": 3.2.37
     "@vue/shared": 3.2.37
   checksum: e137462340c220ef7891d0b40f11124e7d5311e760fdb0de1748c046481505aecd5be8ec8f7b25ac6fc26d2393cbcc267f258d2d26742a50cb9abaf828c28839
+  languageName: node
+  linkType: hard
+
+"@vue/devtools-api@npm:^6.1.4":
+  version: 6.2.1
+  resolution: "@vue/devtools-api@npm:6.2.1"
+  checksum: 34765af0be9b0cc7e3def73b2792b1514e3c348852c5a7503fe07d013f0e907af6c27c0a32c0637dd748caf37c075af8e53ca3220433e0bd34b6f3405f358272
   languageName: node
   linkType: hard
 
@@ -4865,7 +4875,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tapable@npm:^2.2.0, tapable@npm:^2.2.1":
+"tapable@npm:^2.2.0":
   version: 2.2.1
   resolution: "tapable@npm:2.2.1"
   checksum: 3b7a1b4d86fa940aad46d9e73d1e8739335efd4c48322cb37d073eb6f80f5281889bf0320c6d8ffcfa1a0dd5bfdbd0f9d037e252ef972aca595330538aac4d51
@@ -5318,7 +5328,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^2.9.12 || ^3.0.0-0, vite@npm:^3.0.9":
+"vite@npm:^3.0.9":
   version: 3.0.9
   resolution: "vite@npm:3.0.9"
   dependencies:
@@ -5383,6 +5393,17 @@ __metadata:
   bin:
     vitest: vitest.mjs
   checksum: 7abe50ceb51181e77cd62eb3a07c2da17f13078f09be34cc2e98f1f94a77eba33a56c644d48ae16bb474945ffc1cfc8664b1f4976c3de495c5e474057420c4ca
+  languageName: node
+  linkType: hard
+
+"vue-router@npm:^4.1.4":
+  version: 4.1.4
+  resolution: "vue-router@npm:4.1.4"
+  dependencies:
+    "@vue/devtools-api": ^6.1.4
+  peerDependencies:
+    vue: ^3.2.0
+  checksum: 8e98a8d056ec6729f1decbf4c6cfa50744a50a4ef0ef247d41ae0ec00903dd9283a58de2025844894111f613450cb054b86f42158d172d029701c96f393be80d
   languageName: node
   linkType: hard
 

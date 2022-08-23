@@ -1,6 +1,6 @@
 // @ts-ignore
-import type { Plugin, ResolvedConfig } from 'vite';
-import { createVirtualModules } from './util.mjs';
+import { createVirtualModulesPlugin } from '@vitely/core';
+import type { Plugin } from 'vite';
 import './virtual.mjs';
 
 function moduleRouterData() {
@@ -17,9 +17,9 @@ export const createHistory = import.meta.env.SSR ? createMemoryHistory : createW
 
 function moduleRouter() {
 	return `
-import { pagesModules, pagesRoot, createHistory } from 'virtual:router-data';
+import { pagesModules, pagesRoot, createHistory } from 'virtual:vue-router/data';
 import { createRouter as createVueRouter } from 'vue-router';
-import { buildRoutesVueRouter } from '@vitely/vite-plugin-vue-router/runtime';
+import { buildRoutesVueRouter } from '@vitely/vue/router/runtime';
 
 const { routes } = buildRoutesVueRouter(pagesRoot, pagesModules);
 
@@ -33,22 +33,12 @@ export function createRouter() {
 	`;
 }
 
-export default function vitePluginVueRouter(): Plugin {
-	const { load, resolveId, setup } = createVirtualModules<ResolvedConfig>({
-		'virtual:router-data': moduleRouterData,
-		'virtual:router': moduleRouter,
+export default function routerPlugin(): Plugin {
+	return createVirtualModulesPlugin({
+		name: 'vitely:vue-router',
+		modules: () => ({
+			'virtual:vue-router/data': moduleRouterData(),
+			'virtual:vue-router': moduleRouter(),
+		}),
 	});
-	return {
-		name: '@vitely/vite-plugin-vue-router',
-		config() {
-			return {
-				optimizeDeps: {
-					exclude: ['virtual:router-data', 'virtual:router'],
-				},
-			};
-		},
-		configResolved: setup,
-		resolveId,
-		load,
-	};
 }
