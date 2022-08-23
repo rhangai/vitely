@@ -26,6 +26,7 @@ export default function vitelyPluginVueCore(): Plugin {
 					build: {
 						ssr: true,
 						outDir: join(outDir, 'server'),
+						target: 'node16',
 						rollupOptions: {
 							input: {
 								index: join(
@@ -36,6 +37,9 @@ export default function vitelyPluginVueCore(): Plugin {
 						},
 					},
 					resolve,
+					ssr: {
+						noExternal: [/^(?!node:)/],
+					},
 				};
 			}
 
