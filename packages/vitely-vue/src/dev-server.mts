@@ -5,15 +5,6 @@ import type { Plugin } from 'vite';
 export function devServerPlugin(): Plugin {
 	return {
 		name: 'vitely:vue-dev-server',
-		config() {
-			return {
-				resolve: {
-					alias: {
-						'virtual:vitely/vue/app.vue': '/app.vue',
-					},
-				},
-			};
-		},
 		async transformIndexHtml(html, { server, originalUrl }) {
 			// if (!config.ssr) return;
 			if (!server || !originalUrl) return undefined;
@@ -23,7 +14,10 @@ export function devServerPlugin(): Plugin {
 			);
 			const { render } = await server.ssrLoadModule(serverRenderModule);
 			const { renderedHtml } = await render(originalUrl);
-			return html.replace('<!-- vue-ssr -->', renderedHtml);
+			return {
+				html: html.replace('<!-- vue-ssr -->', renderedHtml),
+				tags: [],
+			};
 		},
 	};
 }

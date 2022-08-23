@@ -17,29 +17,29 @@
       "import": "./dist/router/runtime/index.mjs",
       "types": "./dist/router/runtime/index.d.mts"
     },
-    "./runtime/entry": {
-      "import": "./dist/runtime/index.mjs",
-      "types": "./dist/runtime/index.d.mts"
+    "./entry": {
+      "import": "./dist/entry/index.mjs",
+      "types": "./dist/entry/index.d.mts"
     },
-    "./runtime/spa/client": {
-      "import": "./dist/runtime/spa/client.mjs",
-      "types": "./dist/runtime/spa/client.d.mts"
+    "./entry/spa/client": {
+      "import": "./dist/entry/spa/client.mjs",
+      "types": "./dist/entry/spa/client.d.mts"
     },
-    "./runtime/spa/server": {
-      "import": "./dist/runtime/spa/server.mjs",
-      "types": "./dist/runtime/spa/server.d.mts"
+    "./entry/spa/server": {
+      "import": "./dist/entry/spa/server.mjs",
+      "types": "./dist/entry/spa/server.d.mts"
     },
-    "./runtime/ssr/client": {
-      "import": "./dist/runtime/ssr/client.mjs",
-      "types": "./dist/runtime/ssr/client.d.mts"
+    "./entry/ssr/client": {
+      "import": "./dist/entry/ssr/client.mjs",
+      "types": "./dist/entry/ssr/client.d.mts"
     },
-    "./runtime/ssr/server": {
-      "import": "./dist/runtime/ssr/server.mjs",
-      "types": "./dist/runtime/ssr/server.d.mts"
+    "./entry/ssr/server": {
+      "import": "./dist/entry/ssr/server.mjs",
+      "types": "./dist/entry/ssr/server.d.mts"
     },
-    "./runtime/ssr/server-render": {
-      "import": "./dist/runtime/ssr/server-render.mjs",
-      "types": "./dist/runtime/ssr/server-render.d.mts"
+    "./entry/ssr/server-render": {
+      "import": "./dist/entry/ssr/server-render.mjs",
+      "types": "./dist/entry/ssr/server-render.d.mts"
     }
   },
   "scripts": {

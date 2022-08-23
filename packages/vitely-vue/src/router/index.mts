@@ -36,9 +36,9 @@ export function createRouter() {
 export default function routerPlugin(): Plugin {
 	return createVirtualModulesPlugin({
 		name: 'vitely:vue-router',
-		modules: () => ({
-			'virtual:vue-router/data': moduleRouterData(),
-			'virtual:vue-router': moduleRouter(),
-		}),
+		modules: {
+			'virtual:vue-router/data': moduleRouterData,
+			'virtual:vue-router': moduleRouter,
+		},
 	});
 }
