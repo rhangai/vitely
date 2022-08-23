@@ -34,6 +34,7 @@ export default function vitelyPluginVueCore(
 				return {
 					build: {
 						ssr: true,
+						ssrManifest: true,
 						outDir: join(outDir, 'server'),
 						target: 'node16',
 						rollupOptions: {

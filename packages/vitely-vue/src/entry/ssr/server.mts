@@ -16,7 +16,7 @@ async function main(clientDir: string) {
 		try {
 			const ssrContext = {};
 			const { renderedHtml } = await render(req.url, ssrContext);
-			const ssrHtml = html.replace('<!-- vue-ssr -->', renderedHtml);
+			const ssrHtml = html.replace('<!-- ssr -->', renderedHtml);
 			await res.type('text/html').send(ssrHtml);
 		} catch (e: any) {
 			await res.status(500).send({});
