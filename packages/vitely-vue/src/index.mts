@@ -10,7 +10,7 @@ function resolveConfig(
 ): VitelyVueConfigResolved {
 	return {
 		ssr: true,
-		bundle: false,
+		standaloneServer: false,
 		...config,
 	};
 }

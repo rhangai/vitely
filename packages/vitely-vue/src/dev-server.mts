@@ -17,7 +17,8 @@ export function devServerPlugin(): Plugin {
 				'../entry/ssr/server-render.mjs'
 			);
 			const { render } = await server.ssrLoadModule(serverRenderModule);
-			const { renderedHtml } = await render(originalUrl);
+			const ssrContext = {};
+			const { renderedHtml } = await render(originalUrl, ssrContext);
 			return {
 				html: html.replace('<!-- vue-ssr -->', renderedHtml),
 				tags: [],
