@@ -10,8 +10,11 @@ export async function render(url: string, ssrContext: Record<string, any>) {
 
 	await router.push(url);
 	await router.isReady();
+
 	const renderedHtml = await renderToString(app, ssrContext);
+
 	return {
+		status: router.currentRoute.value?.meta?.status as number | undefined,
 		renderedHtml,
 	};
 }

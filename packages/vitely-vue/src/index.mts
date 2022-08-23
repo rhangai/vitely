@@ -15,7 +15,7 @@ export default function vitelyPluginVue(
 	return [
 		// Plugins
 		vitePluginVue(),
-		devServerPlugin(),
+		devServerPlugin(vitelyVueConfig),
 		routerPlugin(),
 		vitelyPluginVueCore(vitelyVueConfig),
 		pluginsPlugin(vitelyVueConfig),

@@ -1,5 +1,6 @@
 type RouteTreePage = {
 	value: string;
+	status?: number;
 };
 
 /**
@@ -24,6 +25,7 @@ export type RouteItem = {
 	relativeKey: string[];
 	fullKey: string[];
 	children?: RouteItem[];
+	status?: number;
 };
 
 /**
@@ -96,7 +98,7 @@ export class RouteTree {
 		const routeKey = keys[keys.length - 1];
 		const { pageName } = this.parsePage(routeKey);
 		if (pageName === '[404]') {
-			item.wildcard = { value };
+			item.wildcard = { value, status: 404 };
 		} else if (pageName !== 'index') {
 			item = this.getItem(item, pageName);
 			item.page = { value };
@@ -120,6 +122,7 @@ export class RouteTree {
 				relativeKey: parentKey,
 				fullKey: parentFullKey,
 				value: item.indexPage.value,
+				status: item.indexPage.status,
 				isIndex: true,
 			});
 		}
@@ -150,6 +153,7 @@ export class RouteTree {
 				relativeKey: parentKey,
 				fullKey: parentFullKey,
 				value: item.wildcard.value,
+				status: item.wildcard.status,
 				isWildcard: true,
 			});
 		}
@@ -172,6 +176,7 @@ export class RouteTree {
 				relativeKey: parentKey,
 				fullKey: parentFullKey,
 				value: item.page.value,
+				status: item.page.status,
 			};
 			if (children.length > 0) {
 				resultItem.children = children;

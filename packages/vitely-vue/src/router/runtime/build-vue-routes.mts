@@ -18,9 +18,15 @@ export function buildRoutesVueRouter(
 	const { routes } = buildRoutes(
 		base,
 		modulesMap,
-		({ value, relativeKey, isWildcard, children }): RouteRecordRaw => ({
+		({
+			value,
+			relativeKey,
+			isWildcard,
+			status,
+			children,
+		}): RouteRecordRaw => ({
 			path: toPath(relativeKey, isWildcard),
-			meta: isWildcard ? { status: 404 } : undefined,
+			meta: { status },
 			name:
 				value && !isWildcard && !children
 					? toName(relativeKey)

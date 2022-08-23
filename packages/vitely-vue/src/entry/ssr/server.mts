@@ -15,9 +15,12 @@ async function main(clientDir: string) {
 	fastify.get('*', async (req, res) => {
 		try {
 			const ssrContext = {};
-			const { renderedHtml } = await render(req.url, ssrContext);
+			const { renderedHtml, status } = await render(req.url, ssrContext);
 			const ssrHtml = html.replace('<!-- ssr -->', renderedHtml);
-			await res.type('text/html').send(ssrHtml);
+			await res
+				.status(status ?? 200)
+				.type('text/html')
+				.send(ssrHtml);
 		} catch (e: any) {
 			await res.status(500).send({});
 		}
