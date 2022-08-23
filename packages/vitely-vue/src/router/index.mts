@@ -1,7 +1,6 @@
 // @ts-ignore
 import { createVirtualModulesPlugin } from '@vitely/core';
 import type { Plugin } from 'vite';
-import './virtual.mjs';
 
 function moduleRouterData() {
 	const pagesRoot = '/pages/';
@@ -17,7 +16,7 @@ export const createHistory = import.meta.env.SSR ? createMemoryHistory : createW
 
 function moduleRouter() {
 	return `
-import { pagesModules, pagesRoot, createHistory } from 'virtual:vue-router/data';
+import { pagesModules, pagesRoot, createHistory } from 'virtual:vitely/vue/router-data';
 import { createRouter as createVueRouter } from 'vue-router';
 import { buildRoutesVueRouter } from '@vitely/vue/router/runtime';
 
@@ -37,8 +36,8 @@ export default function routerPlugin(): Plugin {
 	return createVirtualModulesPlugin({
 		name: 'vitely:vue-router',
 		modules: {
-			'virtual:vue-router/data': moduleRouterData,
-			'virtual:vue-router': moduleRouter,
+			'virtual:vitely/vue/router-data': moduleRouterData,
+			'virtual:vitely/vue/router': moduleRouter,
 		},
 	});
 }
