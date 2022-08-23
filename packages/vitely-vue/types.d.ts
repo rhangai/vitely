@@ -11,6 +11,10 @@ declare module 'virtual:vitely/vue/plugins' {
 	export function setupPlugins(app: Component): Promise<void>;
 }
 
+declare module 'virtual:vitely/vue/middlewares' {
+	export function runMiddlewares(ctx: any): Promise<void>;
+}
+
 declare module 'virtual:vitely/vue/router-data' {
 	import type { RouterHistory } from 'vue-router';
 
