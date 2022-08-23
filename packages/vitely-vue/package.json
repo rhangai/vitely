@@ -1,0 +1,60 @@
+{
+  "name": "@vitely/vue",
+  "version": "0.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.mts"
+    },
+    "./runtime/entry": {
+      "import": "./dist/runtime/index.mjs",
+      "types": "./dist/runtime/index.d.mts"
+    },
+    "./runtime/spa/client": {
+      "import": "./dist/runtime/spa/client.mjs",
+      "types": "./dist/runtime/spa/client.d.mts"
+    },
+    "./runtime/spa/server": {
+      "import": "./dist/runtime/spa/server.mjs",
+      "types": "./dist/runtime/spa/server.d.mts"
+    },
+    "./runtime/ssr/client": {
+      "import": "./dist/runtime/ssr/client.mjs",
+      "types": "./dist/runtime/ssr/client.d.mts"
+    },
+    "./runtime/ssr/server": {
+      "import": "./dist/runtime/ssr/server.mjs",
+      "types": "./dist/runtime/ssr/server.d.mts"
+    },
+    "./runtime/ssr/server-render": {
+      "import": "./dist/runtime/ssr/server-render.mjs",
+      "types": "./dist/runtime/ssr/server-render.d.mts"
+    }
+  },
+  "scripts": {
+    "clean": "rm -rf dist node_modules .turbo",
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "@fastify/middie": "^8.0.0",
+    "@fastify/static": "^6.5.0",
+    "@vitejs/plugin-vue": "^3.0.3",
+    "@vitely/core": "^0.1.0",
+    "fastify": "^4.5.2",
+    "vite": "^3.0.9"
+  },
+  "devDependencies": {
+    "typescript": "^4.7.4",
+    "vue": "^3.2.37"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.37"
+  }
+}

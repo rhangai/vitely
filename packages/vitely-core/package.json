@@ -5,13 +5,13 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "./dist/esm/index.mjs",
-  "module": "./dist/esm/index.mjs",
-  "types": "./dist/esm/index.d.mts",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "exports": {
     ".": {
-      "import": "./dist/esm/index.mjs",
-      "types": "./dist/esm/index.d.mts"
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.mts"
     }
   },
   "scripts": {
