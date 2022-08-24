@@ -6,14 +6,14 @@ declare module 'virtual:vitely/vue/app.vue' {
 }
 
 declare module 'virtual:vitely/vue/plugins' {
-	import { Component } from 'vue';
-
-	export function setupPlugins(app: Component): Promise<void>;
+	export function setupPlugins(
+		options: import('./plugins.mjs').VitelyVuePluginOptions
+	): Promise<void>;
 }
 
 declare module 'virtual:vitely/vue/middlewares' {
 	export function runMiddlewares(
-		options: import('./middleware.mjs').VitelyMiddlewareOptions
+		options: import('./middleware.mjs').VitelyVueMiddlewareOptions
 	): Promise<void>;
 }
 

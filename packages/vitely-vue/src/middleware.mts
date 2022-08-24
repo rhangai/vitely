@@ -6,18 +6,18 @@ import {
 	VitelyVueMiddlewareResolved,
 } from './config.mjs';
 
-export type VitelyMiddleware = (
-	context: VitelyMiddlewareContext
+export type VitelyVueMiddleware = (
+	context: VitelyVueMiddlewareContext
 ) => void | Promise<void>;
 
-export type VitelyMiddlewareContext = {
+export type VitelyVueMiddlewareContext = {
 	to: RouteLocationNormalized;
 	from: RouteLocationNormalized;
 	next(location: RouteLocationRaw): void;
 };
 
-export type VitelyMiddlewareOptions = {
-	context: VitelyMiddlewareContext;
+export type VitelyVueMiddlewareOptions = {
+	context: VitelyVueMiddlewareContext;
 	routeChanged(): boolean;
 };
 

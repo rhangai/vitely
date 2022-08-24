@@ -1,6 +1,19 @@
 import { createVirtualModulesPlugin } from '@vitely/core';
 import type { Plugin } from 'vite';
+import type { App } from 'vue';
 import { VitelyVueConfigResolved, VitelyVuePluginResolved } from './config.mjs';
+
+export type VitelyVuePlugin = (
+	context: VitelyVuePluginContext
+) => void | Promise<void>;
+
+export type VitelyVuePluginContext = {
+	app: App;
+};
+
+export type VitelyVuePluginOptions = {
+	context: VitelyVuePluginContext;
+};
 
 function generatePluginModule(plugins: VitelyVuePluginResolved[]) {
 	const imports: string[] = [];
@@ -19,8 +32,8 @@ function generatePluginModule(plugins: VitelyVuePluginResolved[]) {
 	return `
 ${imports.join('\n')}
 
-export async function setupPlugins(app) {
-	${pluginsKeys.map((key) => `await ${key}(app);`).join('\n')}
+export async function setupPlugins(options) {
+	${pluginsKeys.map((key) => `await ${key}(options.context);`).join('\n')}
 }
 	`;
 }
@@ -38,9 +51,9 @@ export function pluginsPlugin(
 			'virtual:vitely/vue/plugins/server': () => generatePluginModule(serverPlugins),
 			'virtual:vitely/vue/plugins/client': () => generatePluginModule(clientlugins),
 			'virtual:vitely/vue/plugins': `
-				export async function setupPlugins(app) {
+				export async function setupPlugins(options) {
 					const { setupPlugins: setupPluginsImpl } = import.meta.env.SSR ? await import('virtual:vitely/vue/plugins/server') : await import('virtual:vitely/vue/plugins/client');
-					await setupPluginsImpl(app);
+					await setupPluginsImpl(options);
 				}`
 		},
 	});

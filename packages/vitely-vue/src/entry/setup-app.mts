@@ -30,7 +30,11 @@ export async function setupApp(app: App) {
 	);
 
 	// Setup the plugins
-	await setupPlugins(app);
+	await setupPlugins({
+		context: {
+			app,
+		},
+	});
 
 	return {
 		app,
