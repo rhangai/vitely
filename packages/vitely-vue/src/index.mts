@@ -15,6 +15,11 @@ export type {
 	VitelyVueMiddlewareContext,
 } from './middleware.mjs';
 
+/**
+ * Main entrypoint
+ * @param config
+ * @returns A vite plugin object (Or plugins :O)
+ */
 export default function vitelyPluginVue(
 	config?: VitelyVueConfig
 ): PluginOption {
