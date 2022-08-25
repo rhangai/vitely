@@ -1,3 +1,4 @@
+import { serializeValue } from '@vitely/core';
 import App from 'virtual:vitely/vue/app.vue';
 import { createSSRApp } from 'vue';
 // @ts-ignore
@@ -27,7 +28,7 @@ export async function render(url: string) {
 }
 
 function serializeContext(ssrContext: any) {
-	const serialized = JSON.stringify({
+	const serialized = serializeValue({
 		context: {
 			fetchState: ssrContext.fetchState,
 		},
