@@ -25,7 +25,7 @@ export type VitelyVuePlugin = string | { ssr?: boolean; plugin: string };
 
 export type VitelyVueConfig = {
 	ssr?: boolean;
-	store?: VitelyVueStore;
+	store?: VitelyVueStore | boolean | null;
 	plugins?: VitelyVuePlugin[];
 	middlewares?: VitelyVueMiddleware[];
 	standaloneServer?: boolean;
@@ -51,6 +51,17 @@ function resolveConfigArray<T, U>(
 }
 
 /**
+ * Resolve the store configuration
+ */
+function resolveConfigStore(
+	store: VitelyVueStore | boolean | null
+): VitelyVueStore | null {
+	if (store == null || store === false) return null;
+	if (store === true) return 'pinia';
+	return store;
+}
+
+/**
  * Resolve the configuration
  */
 export function resolveConfig(
@@ -58,7 +69,7 @@ export function resolveConfig(
 ): VitelyVueConfigResolved {
 	return {
 		ssr: config?.ssr !== false,
-		store: config?.store ?? null,
+		store: resolveConfigStore(config?.store ?? null),
 		standaloneServer: !!config?.standaloneServer,
 		plugins: resolveConfigArray(
 			config?.plugins,
