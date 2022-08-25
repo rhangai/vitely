@@ -58,6 +58,7 @@
     "fastify": "^4.5.2"
   },
   "devDependencies": {
+    "pinia": "^2.0.20",
     "typescript": "^4.7.4",
     "vite": "^3.0.9",
     "vue": "^3.2.37",

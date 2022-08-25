@@ -1,15 +1,16 @@
 import { serializeValue } from '@vitely/core';
 import App from 'virtual:vitely/vue/app.vue';
-import { createSSRApp } from 'vue';
+import { createSSRApp, isRef, unref } from 'vue';
 // @ts-ignore
 import { renderToString } from 'vue/server-renderer';
 import { setupApp } from '../setup-app.mjs';
+import { type SSRContext } from './context.mjs';
 
 type RenderResult = Awaited<ReturnType<typeof render>>;
 
 export async function render(url: string) {
 	const app = createSSRApp(App);
-	const { router } = await setupApp(app);
+	const { router, store } = await setupApp(app);
 
 	await router.push(url);
 	await router.isReady();
@@ -23,15 +24,16 @@ export async function render(url: string) {
 	return {
 		status: router.currentRoute.value?.meta?.status as number | undefined,
 		renderedHtml,
-		renderedBody: serializeContext(ssrContext),
+		renderedBody: serializeContext({
+			fetchState: ssrContext.fetchState,
+			store: unref(store?.state.value),
+		}),
 	};
 }
 
-function serializeContext(ssrContext: any) {
+function serializeContext(context: SSRContext) {
 	const serialized = serializeValue({
-		context: {
-			fetchState: ssrContext.fetchState,
-		},
+		context,
 	});
 	return `<script>window.__VITELY__=${serialized}</script>`;
 }

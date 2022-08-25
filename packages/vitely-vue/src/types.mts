@@ -33,3 +33,16 @@ declare module 'virtual:vitely/vue/router' {
 		routes: RouteRecordRaw[];
 	};
 }
+
+declare module 'virtual:vitely/vue/store' {
+	import type { App, Ref } from 'vue';
+
+	type VitelyStore = {
+		install(vue: App): void;
+		state: Ref<Record<string, any>>;
+	};
+
+	export function createStore(): {
+		store: VitelyStore | null;
+	};
+}

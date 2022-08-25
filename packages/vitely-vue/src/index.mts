@@ -6,6 +6,7 @@ import { devServerPlugin } from './dev-server.mjs';
 import { middlewaresPlugin } from './middleware.mjs';
 import { pluginsPlugin } from './plugins.mjs';
 import routerPlugin from './router/index.mjs';
+import storePlugin from './store/index.mjs';
 import './types.mjs';
 
 export type { VitelyVuePlugin, VitelyVuePluginContext } from './plugins.mjs';
@@ -29,6 +30,7 @@ export default function vitelyPluginVue(
 		vitePluginVue(),
 		devServerPlugin(vitelyVueConfig),
 		routerPlugin(),
+		storePlugin(vitelyVueConfig),
 		vitelyPluginVueCore(vitelyVueConfig),
 		pluginsPlugin(vitelyVueConfig),
 		middlewaresPlugin(vitelyVueConfig),
