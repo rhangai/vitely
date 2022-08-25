@@ -13,6 +13,9 @@ export default function vitelyPluginVueCore(
 			const isServer = target === 'server';
 			const outDir = c.build?.outDir ?? 'dist';
 
+			const ssr: InlineConfig['ssr'] = {
+				noExternal: [/^@vitely/],
+			};
 			const resolve: InlineConfig['resolve'] = {
 				alias: {
 					'virtual:vitely/vue/app.vue': '/app.vue',
@@ -23,7 +26,10 @@ export default function vitelyPluginVueCore(
 			};
 
 			if (configEnv.command === 'serve') {
-				return { resolve };
+				return {
+					resolve,
+					ssr,
+				};
 			}
 
 			if (isServer) {
@@ -48,9 +54,10 @@ export default function vitelyPluginVueCore(
 					resolve,
 					ssr: vitelyVueConfig.standaloneServer
 						? {
+								...ssr,
 								noExternal: [/^(?!node:)/],
 						  }
-						: {},
+						: ssr,
 				};
 			}
 
@@ -60,6 +67,7 @@ export default function vitelyPluginVueCore(
 					ssrManifest: vitelyVueConfig.ssr,
 					outDir: join(outDir, 'client'),
 				},
+				ssr,
 				resolve,
 			};
 		},

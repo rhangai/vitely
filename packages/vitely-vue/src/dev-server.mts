@@ -4,6 +4,8 @@ import { fileURLToPath } from 'url';
 import type { Plugin } from 'vite';
 import { VitelyVueConfigResolved } from './config.mjs';
 
+type ServerRenderModule = typeof import('./entry/ssr/server-render.mjs');
+
 export function devServerPlugin(
 	vitelyVueConfig: VitelyVueConfigResolved
 ): Plugin {
@@ -21,20 +23,19 @@ export function devServerPlugin(
 
 					const htmlFile = join(server.config.root, 'index.html');
 					const html = await readFile(htmlFile, 'utf8');
+
 					const serverRenderModule = join(
 						fileURLToPath(import.meta.url),
 						'../entry/ssr/server-render.mjs'
 					);
-					const { render } = await server.ssrLoadModule(
-						serverRenderModule
-					);
-					const ssrContext = {};
-					const { renderedHtml, status } = await render(
-						req.originalUrl ?? '/',
-						ssrContext
-					);
-					res.statusCode = status ?? 200;
-					res.end(html.replace('<!-- ssr -->', renderedHtml));
+					const { render, createHtmlRenderer } =
+						(await server.ssrLoadModule(
+							serverRenderModule
+						)) as ServerRenderModule;
+					const renderHtml = await createHtmlRenderer(html);
+					const result = await render(req.originalUrl ?? '/');
+					res.statusCode = result.status ?? 200;
+					res.end(renderHtml(result));
 				});
 			};
 		},

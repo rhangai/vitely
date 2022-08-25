@@ -17,6 +17,10 @@
       "import": "./dist/router/runtime/index.mjs",
       "types": "./dist/router/runtime/index.d.mts"
     },
+    "./composition": {
+      "import": "./dist/composition/index.mjs",
+      "types": "./dist/composition/index.d.mts"
+    },
     "./entry": {
       "import": "./dist/entry/index.mjs",
       "types": "./dist/entry/index.d.mts"
