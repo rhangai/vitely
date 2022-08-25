@@ -506,6 +506,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nuxt/devalue@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@nuxt/devalue@npm:2.0.0"
+  checksum: 345f6c3964722e805797ee0b249b25bb31246264d39a77cd42acf1f20e4869904d3a1fd74b91c6af62c0eecad1b2135e23e38b750073ce1971083cfd8eedd4a5
+  languageName: node
+  linkType: hard
+
 "@pkgr/utils@npm:^2.3.0":
   version: 2.3.0
   resolution: "@pkgr/utils@npm:2.3.0"
@@ -520,9 +527,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rhangai/eslint-config-typescript@npm:^0.6.0":
-  version: 0.6.0
-  resolution: "@rhangai/eslint-config-typescript@npm:0.6.0"
+"@rhangai/eslint-config-typescript@npm:^0.6.1":
+  version: 0.6.1
+  resolution: "@rhangai/eslint-config-typescript@npm:0.6.1"
   peerDependencies:
     "@typescript-eslint/eslint-plugin": ^4.25.0
     "@typescript-eslint/parser": ^4.25.0
@@ -533,7 +540,7 @@ __metadata:
     eslint-plugin-import: ^2.23.4
     eslint-plugin-prettier: ^3.4.0
     prettier: ^2.3.0
-  checksum: b745f5c31c249528229707f0cc31a652a4f961527213a8134d87678856b3ba665239b75eed9085fee81f1c5f0b59dcae7a92fafa37e8d2a146105f860ad6887a
+  checksum: abd7495f0ebee1dbce6782bc7dabb5d27b80b85f94ca2212d4973f02b3880cd27f183a13e503953bb86de40e5cb989512aa212b169340a69b18f2e368a386f8c
   languageName: node
   linkType: hard
 
@@ -752,11 +759,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitely/core@^0.1.0, @vitely/core@workspace:packages/vitely-core":
+"@vitely/core@^0.2.0, @vitely/core@workspace:packages/vitely-core":
   version: 0.0.0-use.local
   resolution: "@vitely/core@workspace:packages/vitely-core"
   dependencies:
     "@faker-js/faker": ^7.4.0
+    "@nuxt/devalue": ^2.0.0
     typescript: ^4.7.4
     vite: ^3.0.9
     vitest: ^0.22.1
@@ -772,7 +780,7 @@ __metadata:
     "@fastify/middie": ^8.0.0
     "@fastify/static": ^6.5.0
     "@vitejs/plugin-vue": ^3.0.3
-    "@vitely/core": ^0.1.0
+    "@vitely/core": ^0.2.0
     fastify: ^4.5.2
     typescript: ^4.7.4
     vite: ^3.0.9
@@ -4412,7 +4420,7 @@ __metadata:
   dependencies:
     "@changesets/cli": ^2.24.3
     "@faker-js/faker": ^7.4.0
-    "@rhangai/eslint-config-typescript": ^0.6.0
+    "@rhangai/eslint-config-typescript": ^0.6.1
     "@types/node": ^16
     "@typescript-eslint/eslint-plugin": ^5.33.1
     "@typescript-eslint/parser": ^5.33.1

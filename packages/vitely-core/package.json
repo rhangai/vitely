@@ -22,6 +22,9 @@
     "clean": "rm -rf dist node_modules .turbo",
     "build": "tsc -p tsconfig.build.json"
   },
+  "dependencies": {
+    "@nuxt/devalue": "^2.0.0"
+  },
   "devDependencies": {
     "@faker-js/faker": "^7.4.0",
     "typescript": "^4.7.4",
