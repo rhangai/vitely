@@ -1,11 +1,4 @@
-import {
-	getCurrentInstance,
-	inject,
-	onMounted,
-	onServerPrefetch,
-	Ref,
-	ref,
-} from 'vue';
+import { inject, onMounted, onServerPrefetch, Ref, ref } from 'vue';
 
 export type UseFetchResult<T> = [result: Ref<T | null>, loading: Ref<boolean>];
 
