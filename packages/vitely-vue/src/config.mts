@@ -70,7 +70,7 @@ export function resolveConfig(
 	config: VitelyVueConfig | undefined
 ): VitelyVueConfigResolved {
 	return {
-		ssr: config?.ssr !== false,
+		ssr: !!config?.ssr,
 		store: resolveConfigStore(config?.store ?? null),
 		pages: config?.pages ?? 'pages',
 		standaloneServer: !!config?.standaloneServer,
