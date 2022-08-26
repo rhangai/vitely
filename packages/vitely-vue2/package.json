@@ -1,0 +1,71 @@
+{
+  "name": "@vitely/vue2",
+  "version": "0.2.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.mts"
+    },
+    "./router/runtime": {
+      "import": "./dist/router/runtime/index.mjs",
+      "types": "./dist/router/runtime/index.d.mts"
+    },
+    "./composition": {
+      "import": "./dist/composition/index.mjs",
+      "types": "./dist/composition/index.d.mts"
+    },
+    "./entry": {
+      "import": "./dist/entry/index.mjs",
+      "types": "./dist/entry/index.d.mts"
+    },
+    "./entry/spa/client": {
+      "import": "./dist/entry/spa/client.mjs",
+      "types": "./dist/entry/spa/client.d.mts"
+    },
+    "./entry/spa/server": {
+      "import": "./dist/entry/spa/server.mjs",
+      "types": "./dist/entry/spa/server.d.mts"
+    },
+    "./entry/ssr/client": {
+      "import": "./dist/entry/ssr/client.mjs",
+      "types": "./dist/entry/ssr/client.d.mts"
+    },
+    "./entry/ssr/server": {
+      "import": "./dist/entry/ssr/server.mjs",
+      "types": "./dist/entry/ssr/server.d.mts"
+    },
+    "./entry/ssr/server-render": {
+      "import": "./dist/entry/ssr/server-render.mjs",
+      "types": "./dist/entry/ssr/server-render.d.mts"
+    }
+  },
+  "scripts": {
+    "clean": "rm -rf dist node_modules .turbo",
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "@fastify/middie": "^8.0.0",
+    "@fastify/static": "^6.5.0",
+    "@vitejs/plugin-vue2": "^1.1.2",
+    "@vitely/core": "^0.2.0",
+    "fastify": "^4.5.2"
+  },
+  "devDependencies": {
+    "typescript": "^4.7.4",
+    "vite": "^3.0.9",
+    "vue": "^2.7",
+    "vue-router": "^3"
+  },
+  "peerDependencies": {
+    "vite": "^2 || ^3",
+    "vue": "^2",
+    "vue-router": "^3"
+  }
+}
