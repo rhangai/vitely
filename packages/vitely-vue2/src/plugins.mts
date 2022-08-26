@@ -1,6 +1,5 @@
 import { createVirtualModulesPlugin } from '@vitely/core';
 import type { Plugin } from 'vite';
-import type { default as Vue } from 'vue';
 import type { default as VueRouter } from 'vue-router';
 import { VitelyVueConfigResolved, VitelyVuePluginResolved } from './config.mjs';
 

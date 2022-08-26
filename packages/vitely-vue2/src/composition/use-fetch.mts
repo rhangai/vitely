@@ -1,4 +1,11 @@
-import { onMounted, onServerPrefetch, Ref, ref } from 'vue';
+import {
+	getCurrentInstance,
+	inject,
+	onMounted,
+	onServerPrefetch,
+	Ref,
+	ref,
+} from 'vue';
 
 export type UseFetchResult<T> = [result: Ref<T | null>, loading: Ref<boolean>];
 
@@ -6,7 +13,7 @@ function useFetchSSR<T>(
 	key: string,
 	cb: () => T | Promise<T>
 ): UseFetchResult<T> {
-	const context = {} as any;
+	const context = inject('#ssr', null) as any;
 	if (!import.meta.env.SSR || !context) {
 		throw new Error(`Must be called from an ssr`);
 	}
