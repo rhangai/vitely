@@ -1,10 +1,14 @@
-// @ts-ignore
+import { join } from 'node:path';
 import { createVirtualModulesPlugin } from '@vitely/core';
 import type { Plugin } from 'vite';
+import { VitelyVueConfigResolved } from '../config.mjs';
 
-function moduleRouterData() {
-	const pagesRoot = '/pages/';
-	const pagesGlob = '/pages/**/*.{vue,tsx,ts,jsx,js}';
+function moduleRouterData(vitelyVueConfig: VitelyVueConfigResolved) {
+	let pagesRoot = join('/', vitelyVueConfig.pages);
+	if (pagesRoot[pagesRoot.length - 1] !== '/') {
+		pagesRoot = `${pagesRoot}/`;
+	}
+	const pagesGlob = join(pagesRoot, '**/*.{vue,tsx,ts,jsx,js}');
 	return `
 import { createMemoryHistory, createWebHistory } from 'vue-router';
 
@@ -32,11 +36,14 @@ export function createRouter() {
 	`;
 }
 
-export default function routerPlugin(): Plugin {
+export default function routerPlugin(
+	vitelyVueConfig: VitelyVueConfigResolved
+): Plugin {
 	return createVirtualModulesPlugin({
 		name: 'vitely:vue-router',
+		// prettier-ignore
 		modules: {
-			'virtual:vitely/vue/router-data': moduleRouterData,
+			'virtual:vitely/vue/router-data': () => moduleRouterData(vitelyVueConfig),
 			'virtual:vitely/vue/router': moduleRouter,
 		},
 	});

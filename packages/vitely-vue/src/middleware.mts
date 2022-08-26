@@ -13,6 +13,7 @@ export type VitelyVueMiddleware = (
 export type VitelyVueMiddlewareContext = {
 	to: RouteLocationNormalized;
 	from: RouteLocationNormalized;
+	store: any;
 	next(location: RouteLocationRaw): void;
 };
 

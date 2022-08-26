@@ -29,6 +29,7 @@ export async function setupApp(app: App) {
 					to,
 					from,
 					next,
+					store,
 				},
 				routeChanged() {
 					return !!nextRoute;

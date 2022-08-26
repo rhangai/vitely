@@ -14,6 +14,7 @@ export type VitelyVueConfigResolved = {
 	ssr: boolean;
 	store: VitelyVueStore | null;
 	plugins: VitelyVuePluginResolved[];
+	pages: string;
 	middlewares: VitelyVueMiddlewareResolved[];
 	standaloneServer: boolean;
 };
@@ -27,6 +28,7 @@ export type VitelyVueConfig = {
 	ssr?: boolean;
 	store?: VitelyVueStore | boolean | null;
 	plugins?: VitelyVuePlugin[];
+	pages?: string;
 	middlewares?: VitelyVueMiddleware[];
 	standaloneServer?: boolean;
 };
@@ -70,6 +72,7 @@ export function resolveConfig(
 	return {
 		ssr: config?.ssr !== false,
 		store: resolveConfigStore(config?.store ?? null),
+		pages: config?.pages ?? 'pages',
 		standaloneServer: !!config?.standaloneServer,
 		plugins: resolveConfigArray(
 			config?.plugins,

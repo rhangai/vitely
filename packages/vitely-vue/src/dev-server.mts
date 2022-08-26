@@ -34,6 +34,14 @@ export function devServerPlugin(
 						)) as ServerRenderModule;
 					const renderHtml = await createHtmlRenderer(html);
 					const result = await render(req.originalUrl ?? '/');
+					if (result.redirect) {
+						res.writeHead(302, {
+							location: result.redirect,
+						});
+						res.end();
+						return;
+					}
+
 					res.statusCode = result.status ?? 200;
 					res.end(renderHtml(result));
 				});

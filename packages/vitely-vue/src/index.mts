@@ -29,7 +29,7 @@ export default function vitelyPluginVue(
 		// Plugins
 		vitePluginVue(),
 		devServerPlugin(vitelyVueConfig),
-		routerPlugin(),
+		routerPlugin(vitelyVueConfig),
 		storePlugin(vitelyVueConfig),
 		vitelyPluginVueCore(vitelyVueConfig),
 		pluginsPlugin(vitelyVueConfig),
