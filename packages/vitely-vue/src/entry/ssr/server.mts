@@ -2,20 +2,11 @@ import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import FastifyStatic from '@fastify/static';
 import { fastify as Fastify } from 'fastify';
-import { render } from './server-render.mjs';
-
-type RenderResult = Awaited<ReturnType<typeof render>>;
-
-async function createHtmlRenderer(clientDir: string) {
-	const html = await readFile(resolve(clientDir, 'index.html'), 'utf8');
-	return ({ renderedHtml }: RenderResult) => {
-		const ssrHtml = html.replace('<!-- ssr -->', renderedHtml);
-		return ssrHtml;
-	};
-}
+import { render, createHtmlRenderer } from './server-render.mjs';
 
 async function main(clientDir: string) {
-	const renderHtml = await createHtmlRenderer(clientDir);
+	const html = await readFile(resolve(clientDir, 'index.html'), 'utf8');
+	const renderHtml = await createHtmlRenderer(html);
 
 	const fastify = Fastify();
 	await fastify.register(FastifyStatic, {
