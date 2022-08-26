@@ -1,4 +1,5 @@
-import { inject, onMounted, onServerPrefetch, Ref, ref } from 'vue';
+import { onMounted, onServerPrefetch, Ref, ref } from 'vue';
+import { useSSRContext } from './internals.js';
 
 export type UseFetchResult<T> = [result: Ref<T | null>, loading: Ref<boolean>];
 
@@ -6,10 +7,7 @@ function useFetchSSR<T>(
 	key: string,
 	cb: () => T | Promise<T>
 ): UseFetchResult<T> {
-	const context = inject('#ssr', null) as any;
-	if (!import.meta.env.SSR || !context) {
-		throw new Error(`Must be called from an ssr`);
-	}
+	const context = useSSRContext();
 
 	const result: Ref<T | null> = ref(null);
 	const loading = ref(true);

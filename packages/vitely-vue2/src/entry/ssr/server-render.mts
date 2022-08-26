@@ -3,6 +3,7 @@ import App from 'virtual:vitely/vue2/app.vue';
 import { unref } from 'vue';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { createRenderer } from 'vue-server-renderer';
+import { SSR_CONTEXT_KEY } from '../../composition/internals.js';
 import { setupApp } from '../setup-app.mjs';
 import { type SSRContext } from './context.mjs';
 
@@ -13,14 +14,21 @@ type RenderResult = {
 	renderedBody: string;
 };
 
+type SetupAppSSR = {
+	fetchState: Record<string, any>;
+	fetchStatePromises: Record<string, Promise<any>>;
+};
+
 export async function render(url: string): Promise<RenderResult> {
-	const ssrData = {
+	const ssrData: SetupAppSSR = {
 		fetchStatePromises: {},
 		fetchState: {},
 	};
 	const { app, router, store } = await setupApp({
 		component: App,
-		ssr: ssrData,
+		provide: {
+			[SSR_CONTEXT_KEY as symbol]: ssrData,
+		},
 	});
 
 	await router.push(url);

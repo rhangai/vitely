@@ -7,17 +7,12 @@ import { default as VueRouter, RawLocation } from 'vue-router';
 
 Vue.use(VueRouter);
 
-type SetupAppSSR = {
-	fetchState: Record<string, any>;
-	fetchStatePromises: Record<string, Promise<any>>;
-};
-
 type SetupAppOptions = {
 	component: Component;
-	ssr: SetupAppSSR | null;
+	provide: undefined | Record<string | symbol, unknown>;
 };
 
-export async function setupApp({ component, ssr }: SetupAppOptions) {
+export async function setupApp({ component, provide }: SetupAppOptions) {
 	const { router } = createRouter();
 	const { store } = createStore();
 
@@ -62,12 +57,7 @@ export async function setupApp({ component, ssr }: SetupAppOptions) {
 	// Call the constructor
 	const app = new Vue({
 		...options,
-		provide: {
-			'#ssr': ssr,
-		},
-		components: {
-			Root: component,
-		},
+		provide,
 		render(h) {
 			return h(component);
 		},
