@@ -51,11 +51,11 @@ export function pluginsPlugin(
 		name: 'vitely:vue-plugins',
 		// prettier-ignore
 		modules: {
-			'virtual:vitely/vue/plugins/server': () => generatePluginModule(serverPlugins),
-			'virtual:vitely/vue/plugins/client': () => generatePluginModule(clientlugins),
-			'virtual:vitely/vue/plugins': `
+			'virtual:vitely/vue2/plugins/server': () => generatePluginModule(serverPlugins),
+			'virtual:vitely/vue2/plugins/client': () => generatePluginModule(clientlugins),
+			'virtual:vitely/vue2/plugins': `
 				export async function setupPlugins(options) {
-					const { setupPlugins: setupPluginsImpl } = import.meta.env.SSR ? await import('virtual:vitely/vue/plugins/server') : await import('virtual:vitely/vue/plugins/client');
+					const { setupPlugins: setupPluginsImpl } = import.meta.env.SSR ? await import('virtual:vitely/vue2/plugins/server') : await import('virtual:vitely/vue2/plugins/client');
 					await setupPluginsImpl(options);
 				}`
 		},

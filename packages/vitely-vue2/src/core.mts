@@ -18,10 +18,10 @@ export default function vitelyPluginVueCore(
 			};
 			const resolve: InlineConfig['resolve'] = {
 				alias: {
-					'virtual:vitely/vue/app.vue': '/app.vue',
-					'@vitely/vue/entry': vitelyVueConfig.ssr
-						? '@vitely/vue/entry/ssr/client'
-						: '@vitely/vue/entry/spa/client',
+					'virtual:vitely/vue2/app.vue': '/app.vue',
+					'@vitely/vue2/entry': vitelyVueConfig.ssr
+						? '@vitely/vue2/entry/ssr/client'
+						: '@vitely/vue2/entry/spa/client',
 				},
 			};
 

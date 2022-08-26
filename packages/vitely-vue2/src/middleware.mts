@@ -62,11 +62,11 @@ export function middlewaresPlugin(
 		name: 'vitely:vue-plugins',
 		// prettier-ignore
 		modules: {
-			'virtual:vitely/vue/middlewares/server': () => generateMiddlewareModule(serverMiddlewares),
-			'virtual:vitely/vue/middlewares/client': () => generateMiddlewareModule(clientMiddlewares),
-			'virtual:vitely/vue/middlewares': `
+			'virtual:vitely/vue2/middlewares/server': () => generateMiddlewareModule(serverMiddlewares),
+			'virtual:vitely/vue2/middlewares/client': () => generateMiddlewareModule(clientMiddlewares),
+			'virtual:vitely/vue2/middlewares': `
 				export async function runMiddlewares(options) {
-					const { runMiddlewares: runMiddlewaresImpl } = import.meta.env.SSR ? await import('virtual:vitely/vue/middlewares/server') : await import('virtual:vitely/vue/middlewares/client');
+					const { runMiddlewares: runMiddlewaresImpl } = import.meta.env.SSR ? await import('virtual:vitely/vue2/middlewares/server') : await import('virtual:vitely/vue2/middlewares/client');
 					await runMiddlewaresImpl(options);
 				}`
 		},

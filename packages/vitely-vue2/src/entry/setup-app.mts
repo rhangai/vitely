@@ -2,8 +2,10 @@ import { runMiddlewares } from 'virtual:vitely/vue2/middlewares';
 import { setupPlugins } from 'virtual:vitely/vue2/plugins';
 import { createRouter } from 'virtual:vitely/vue2/router';
 import { createStore } from 'virtual:vitely/vue2/store';
-import { default as Vue, Component, VueConstructor } from 'vue';
-import type { RawLocation, RouteRecord } from 'vue-router';
+import { default as Vue, Component } from 'vue';
+import { default as VueRouter, RawLocation } from 'vue-router';
+
+Vue.use(VueRouter);
 
 export async function setupApp(component: Component) {
 	const { router } = createRouter();

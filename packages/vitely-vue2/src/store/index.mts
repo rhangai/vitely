@@ -31,7 +31,7 @@ export default function storePlugin(
 	return createVirtualModulesPlugin({
 		name: 'vitely:vue-store',
 		modules: {
-			'virtual:vitely/vue/store':
+			'virtual:vitely/vue2/store':
 				vitelyVueConfig.store === 'pinia'
 					? moduleStorePinia
 					: moduleStoreNull,
