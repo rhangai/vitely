@@ -1,3 +1,5 @@
+import { type MetaInfo } from 'vue-meta';
+
 export type VitelyVue2StorePinia = {
 	lib: 'pinia';
 };
@@ -8,6 +10,18 @@ export type VitelyVue2StoreVuex = {
 };
 
 export type VitelyVue2Store = VitelyVue2StorePinia | VitelyVue2StoreVuex;
+
+export type VitelyVue2Head = Pick<
+	MetaInfo,
+	| 'title'
+	| 'titleTemplate'
+	| 'htmlAttrs'
+	| 'meta'
+	| 'link'
+	| 'script'
+	| 'style'
+	| 'noscript'
+>;
 
 export type VitelyVuePluginResolved = {
 	ssr: boolean;
@@ -21,9 +35,10 @@ export type VitelyVueMiddlewareResolved = {
 
 export type VitelyVueConfigResolved = {
 	ssr: boolean;
-	store: VitelyVue2Store | null;
-	plugins: VitelyVuePluginResolved[];
 	pages: string;
+	store: VitelyVue2Store | null;
+	head: VitelyVue2Head;
+	plugins: VitelyVuePluginResolved[];
 	middlewares: VitelyVueMiddlewareResolved[];
 	standaloneServer: boolean;
 };
@@ -38,6 +53,7 @@ export type VitelyVueConfig = {
 	store?: VitelyVue2Store | boolean | null;
 	plugins?: VitelyVuePlugin[];
 	pages?: string;
+	head?: VitelyVue2Head;
 	middlewares?: VitelyVueMiddleware[];
 	standaloneServer?: boolean;
 };
@@ -73,6 +89,15 @@ function resolveConfigStore(
 }
 
 /**
+ * Resolve the store configuration
+ */
+function resolveConfigHead(head: VitelyVue2Head | null): VitelyVue2Head {
+	return {
+		...head,
+	};
+}
+
+/**
  * Resolve the configuration
  */
 export function resolveConfig(
@@ -80,8 +105,9 @@ export function resolveConfig(
 ): VitelyVueConfigResolved {
 	return {
 		ssr: !!config?.ssr,
-		store: resolveConfigStore(config?.store ?? null),
 		pages: config?.pages ?? 'pages',
+		store: resolveConfigStore(config?.store ?? null),
+		head: resolveConfigHead(config?.head ?? null),
 		standaloneServer: !!config?.standaloneServer,
 		plugins: resolveConfigArray(
 			config?.plugins,
