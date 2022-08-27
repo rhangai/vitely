@@ -1,4 +1,13 @@
-export type VitelyVueStore = 'pinia';
+export type VitelyVue2StorePinia = {
+	lib: 'pinia';
+};
+
+export type VitelyVue2StoreVuex = {
+	lib: 'vuex';
+	entry: string;
+};
+
+export type VitelyVue2Store = VitelyVue2StorePinia | VitelyVue2StoreVuex;
 
 export type VitelyVuePluginResolved = {
 	ssr: boolean;
@@ -12,7 +21,7 @@ export type VitelyVueMiddlewareResolved = {
 
 export type VitelyVueConfigResolved = {
 	ssr: boolean;
-	store: VitelyVueStore | null;
+	store: VitelyVue2Store | null;
 	plugins: VitelyVuePluginResolved[];
 	pages: string;
 	middlewares: VitelyVueMiddlewareResolved[];
@@ -26,7 +35,7 @@ export type VitelyVuePlugin = string | { ssr?: boolean; plugin: string };
 
 export type VitelyVueConfig = {
 	ssr?: boolean;
-	store?: VitelyVueStore | boolean | null;
+	store?: VitelyVue2Store | boolean | null;
 	plugins?: VitelyVuePlugin[];
 	pages?: string;
 	middlewares?: VitelyVueMiddleware[];
@@ -56,10 +65,10 @@ function resolveConfigArray<T, U>(
  * Resolve the store configuration
  */
 function resolveConfigStore(
-	store: VitelyVueStore | boolean | null
-): VitelyVueStore | null {
+	store: VitelyVue2Store | boolean | null
+): VitelyVue2Store | null {
 	if (store == null || store === false) return null;
-	if (store === true) return 'pinia';
+	if (store === true) return { lib: 'pinia' };
 	return store;
 }
 

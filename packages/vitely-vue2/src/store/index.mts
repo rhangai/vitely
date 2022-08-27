@@ -1,9 +1,13 @@
 // @ts-ignore
 import { createVirtualModulesPlugin } from '@vitely/core';
 import type { Plugin } from 'vite';
-import type { VitelyVueConfigResolved } from '../config.mjs';
+import type {
+	VitelyVueConfigResolved,
+	VitelyVue2StoreVuex,
+	VitelyVue2StorePinia,
+} from '../config.mjs';
 
-function moduleStorePinia() {
+function moduleStorePinia(_store: VitelyVue2StorePinia) {
 	return `
 import { createPinia, PiniaVuePlugin } from 'pinia';
 import Vue from 'vue';
@@ -20,6 +24,31 @@ export function createStore(options) {
 	`;
 }
 
+function moduleStoreVuex(store: VitelyVue2StoreVuex) {
+	return `
+import Vue, { computed } from 'vue';
+import Vuex from 'vuex';
+import entry from ${JSON.stringify(store.entry)};
+
+Vue.use(Vuex);
+
+export function createStore(options) {
+	const store = new Vuex.Store(entry());
+	if (!import.meta.env.SSR) {
+		const storeState = window?.__VITELY__?.context?.store;
+		if (storeState)
+			store.replaceState(storeState);
+	}
+	options.store = store;
+	return { 
+		store: {
+			state: computed(() => store.state),
+		}
+	};
+}
+	`;
+}
+
 function moduleStoreNull() {
 	return `
 export function createStore() {
@@ -31,13 +60,18 @@ export function createStore() {
 export default function storePlugin(
 	vitelyVueConfig: VitelyVueConfigResolved
 ): Plugin {
+	const getStore = () => {
+		const { store } = vitelyVueConfig;
+		if (!store) return moduleStoreNull;
+		if (store.lib === 'pinia') return () => moduleStorePinia(store);
+		if (store.lib === 'vuex') return () => moduleStoreVuex(store);
+		throw new Error(`Invalid store configuration`);
+	};
+
 	return createVirtualModulesPlugin({
 		name: 'vitely:vue-store',
 		modules: {
-			'virtual:vitely/vue2/store':
-				vitelyVueConfig.store === 'pinia'
-					? moduleStorePinia
-					: moduleStoreNull,
+			'virtual:vitely/vue2/store': getStore(),
 		},
 	});
 }
