@@ -31,7 +31,7 @@ export default function vitelyPluginVue(
 			ssr: config.ssr,
 			standaloneServer: config.standaloneServer,
 			alias: {
-				'virtual:vitely/vue/app.vue': '/app.vue',
+				'virtual:vitely/react/app.tsx': '/app.tsx',
 			},
 		}),
 		pluginsPlugin(config.plugins),

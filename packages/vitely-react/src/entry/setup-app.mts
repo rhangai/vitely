@@ -1,4 +1,6 @@
 import { setupPlugins } from 'virtual:vitely/core/plugins';
+// eslint-disable-next-line import/extensions
+import { default as App } from 'virtual:vitely/react/app.tsx';
 
 export async function setupApp() {
 	// Setup the plugins
@@ -6,5 +8,7 @@ export async function setupApp() {
 		context: {},
 	});
 
-	return {};
+	return {
+		App,
+	};
 }
