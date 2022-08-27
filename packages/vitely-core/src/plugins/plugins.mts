@@ -77,7 +77,7 @@ export function pluginsPlugin(plugins: VitelyConfigPlugin[]): VitePlugin {
  * Resolve the plugins config
  */
 export function pluginsPluginResolveConfig(
-	items: Array<VitelyConfigPluginInput>
+	items: Array<VitelyConfigPluginInput> | null | undefined
 ): VitelyConfigPlugin[] {
 	if (!items || items.length <= 0) return [];
 	return items
