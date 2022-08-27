@@ -1,9 +1,8 @@
-import { inject, InjectionKey } from 'vue';
-
-export const SSR_CONTEXT_KEY: InjectionKey<Record<string, any>> = Symbol('SSR');
+import { getCurrentInstance, InjectionKey } from 'vue';
 
 export function useSSRContext() {
-	const context = inject(SSR_CONTEXT_KEY, null) as any;
+	const vm = getCurrentInstance();
+	const context = vm!.proxy.$ssrContext;
 	if (!import.meta.env.SSR || !context) {
 		throw new Error(`Must be called from an ssr`);
 	}

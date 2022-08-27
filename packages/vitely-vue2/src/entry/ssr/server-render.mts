@@ -1,9 +1,9 @@
 import { serializeValue } from '@vitely/core';
 import { type HtmlSsrRenderParams } from '@vitely/core/server';
 import App from 'virtual:vitely/vue2/app.vue';
+import { VueMetaPlugin } from 'vue-meta';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { createRenderer } from 'vue-server-renderer';
-import { SSR_CONTEXT_KEY } from '../../composition/internals.js';
 import { setupApp } from '../setup-app.mjs';
 import { type SSRContext } from './context.mjs';
 
@@ -16,19 +16,21 @@ type RenderResult = {
 type SetupAppSSR = {
 	fetchState: Record<string, any>;
 	fetchStatePromises: Record<string, Promise<any>>;
+	meta: VueMetaPlugin;
 };
 
 export async function render(url: string): Promise<RenderResult> {
-	const ssrData: SetupAppSSR = {
-		fetchStatePromises: {},
-		fetchState: {},
-	};
 	const { app, router, storeState } = await setupApp({
 		component: App,
-		provide: {
-			[SSR_CONTEXT_KEY as symbol]: ssrData,
-		},
+		provide: undefined,
 	});
+
+	const ssrContext: SetupAppSSR = {
+		fetchStatePromises: {},
+		fetchState: {},
+		// @ts-ignore
+		meta: app.$meta(),
+	};
 
 	await router.push(url);
 
@@ -46,14 +48,37 @@ export async function render(url: string): Promise<RenderResult> {
 		};
 	}
 	const renderer = createRenderer();
-	const renderedApp: string = await renderer.renderToString(app);
+	const renderedApp: string = await renderer.renderToString(app, ssrContext);
+
+	const { title, htmlAttrs, link, style, script, noscript, meta } =
+		ssrContext.meta.inject();
 
 	const renderParams: HtmlSsrRenderParams = {
+		htmlAttrs: htmlAttrs?.text(),
+		head: [
+			//
+			meta?.text(),
+			title?.text(),
+			link?.text(),
+			style?.text(),
+			script?.text(),
+			noscript?.text(),
+		],
 		app: renderedApp,
-		body: serializeContext({
-			fetchState: ssrData.fetchState,
-			store: storeState(),
-		}),
+		bodyPrepend: [
+			style?.text({ pbody: true }),
+			script?.text({ pbody: true }),
+			noscript?.text({ pbody: true }),
+		],
+		body: [
+			serializeContext({
+				fetchState: ssrContext.fetchState,
+				store: storeState(),
+			}),
+			style?.text({ body: true }),
+			script?.text({ body: true }),
+			noscript?.text({ body: true }),
+		],
 	};
 
 	return {

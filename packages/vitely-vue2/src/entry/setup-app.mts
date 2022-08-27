@@ -1,3 +1,4 @@
+import { createHead } from 'virtual:vitely/vue2/head';
 import { runMiddlewares } from 'virtual:vitely/vue2/middlewares';
 import { setupPlugins } from 'virtual:vitely/vue2/plugins';
 import { createRouter } from 'virtual:vitely/vue2/router';
@@ -15,6 +16,7 @@ export async function setupApp({ component, provide }: SetupAppOptions) {
 
 	const { router } = createRouter(options);
 	const { store, storeState } = createStore(options);
+	createHead(options);
 
 	// Run the middleware
 	router.beforeEach(async (to, from, routerNext) => {

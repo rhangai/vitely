@@ -1,7 +1,8 @@
 export type HtmlSsrRenderParams = {
 	htmlAttrs?: string;
-	head?: string;
-	body?: string;
+	head?: Array<string | null | undefined> | string | null | undefined;
+	bodyPrepend?: Array<string | null | undefined> | string | null | undefined;
+	body?: Array<string | null | undefined> | string | null | undefined;
 	app?: string;
 };
 
@@ -37,14 +38,21 @@ export async function createHtmlSsrRender(
 		);
 	}
 
-	const htmlStart = htmlInput.substring(0, htmlMatch.index).trim();
+	const bodyMatch = /<body(.*?)>/.exec(htmlInput);
+	if (!bodyMatch) {
+		throw new Error(`Could not find the <body> tag`);
+	}
 
-	const headStart = htmlInput
+	//
+	const beforeHtml = htmlInput.substring(0, htmlMatch.index).trim();
+
+	const headDefault = htmlInput
 		.substring(htmlMatch.index + htmlMatch[0].length, headMatch.index)
 		.trim();
 
+	const bodyAttrs = bodyMatch[1];
 	const bodyStart = htmlInput
-		.substring(headMatch.index + headMatch[0].length, ssrMatch.index)
+		.substring(bodyMatch.index + bodyMatch[0].length, ssrMatch.index)
 		.trim();
 
 	const bodyEnd = htmlInput
@@ -52,10 +60,23 @@ export async function createHtmlSsrRender(
 		.trim();
 
 	return (data: HtmlSsrRenderParams = {}) => {
+		const renderedHead = toString(data.head);
+		const renderedBody = toString(data.body);
+		const renderedBodyPrepend = toString(data.bodyPrepend);
+
 		// prettier-ignore
-		const html = `${htmlStart}<html ${data.htmlAttrs ?? ''}>${headStart}${data.head ?? ''}</head>${bodyStart}${data.app ?? ''}</div>${data.body ?? ''}${bodyEnd}`;
+		const html = `${beforeHtml}<html ${data.htmlAttrs ?? ''}>${headDefault}${renderedHead}</head><body ${bodyAttrs}/>${renderedBodyPrepend}${bodyStart}${data.app ?? ''}</div>${renderedBody}${bodyEnd}`;
 		return {
 			html,
 		};
 	};
+}
+
+function toString(
+	item: Array<string | null | undefined> | string | null | undefined,
+	join: string = ''
+) {
+	if (item == null) return '';
+	if (typeof item === 'string') return item;
+	return item.filter(Boolean).join(join);
 }
