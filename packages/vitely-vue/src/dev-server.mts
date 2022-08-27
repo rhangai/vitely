@@ -47,7 +47,7 @@ export function devServerPlugin(
 
 					const { html } = renderHtml(result.renderParams);
 					res.statusCode = result.status ?? 200;
-					res.end(inputHtml);
+					res.end(html);
 				});
 			};
 		},
