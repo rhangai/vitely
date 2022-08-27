@@ -81,7 +81,7 @@ export function resolveConfig(
 					return { ssr: true, plugin: item };
 				if (!item.plugin) return null;
 				return {
-					ssr: !!item.ssr,
+					ssr: item.ssr !== false,
 					plugin: item.plugin,
 				};
 			}
@@ -93,7 +93,7 @@ export function resolveConfig(
 					return { ssr: true, middleware: item };
 				if (!item.middleware) return null;
 				return {
-					ssr: !!item.ssr,
+					ssr: item.ssr !== false,
 					middleware: item.middleware,
 				};
 			}

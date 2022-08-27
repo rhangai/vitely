@@ -20,7 +20,7 @@ export async function createHtmlSsrRender(
 	htmlParam: string
 ): Promise<HtmlSsrRender> {
 	const htmlInput = htmlParam.trim();
-	const htmlMatch = /^<html(.*?)>/.exec(htmlInput);
+	const htmlMatch = /<html(.*?)>/.exec(htmlInput);
 	if (!htmlMatch) {
 		throw new Error(`Could not find the <html> tag`);
 	}
@@ -37,6 +37,8 @@ export async function createHtmlSsrRender(
 		);
 	}
 
+	const htmlStart = htmlInput.substring(0, htmlMatch.index).trim();
+
 	const headStart = htmlInput
 		.substring(htmlMatch.index + htmlMatch[0].length, headMatch.index)
 		.trim();
@@ -51,7 +53,7 @@ export async function createHtmlSsrRender(
 
 	return (data: HtmlSsrRenderParams = {}) => {
 		// prettier-ignore
-		const html = `<html ${data.htmlAttrs ?? ''}>${headStart}${data.head ?? ''}</head>${bodyStart}${data.app ?? ''}</div>${data.body ?? ''}${bodyEnd}`;
+		const html = `${htmlStart}<html ${data.htmlAttrs ?? ''}>${headStart}${data.head ?? ''}</head>${bodyStart}${data.app ?? ''}</div>${data.body ?? ''}${bodyEnd}`;
 		return {
 			html,
 		};

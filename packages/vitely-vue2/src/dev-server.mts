@@ -22,8 +22,11 @@ export function devServerPlugin(
 						return;
 					}
 
-					const htmlFile = join(server.config.root, 'index.html');
-					const html = await readFile(htmlFile, 'utf8');
+					const inputHtmlFile = join(
+						server.config.root,
+						'index.html'
+					);
+					const inputHtml = await readFile(inputHtmlFile, 'utf8');
 
 					const serverRenderModule = join(
 						fileURLToPath(import.meta.url),
@@ -32,7 +35,7 @@ export function devServerPlugin(
 					const { render } = (await server.ssrLoadModule(
 						serverRenderModule
 					)) as ServerRenderModule;
-					const renderHtml = await createHtmlSsrRender(html);
+					const renderHtml = await createHtmlSsrRender(inputHtml);
 					const result = await render(req.originalUrl ?? '/');
 					if (result.redirect) {
 						res.writeHead(302, {
@@ -42,8 +45,9 @@ export function devServerPlugin(
 						return;
 					}
 
+					const { html } = renderHtml(result.renderParams);
 					res.statusCode = result.status ?? 200;
-					res.end(renderHtml(result.renderParams));
+					res.end(html);
 				});
 			};
 		},

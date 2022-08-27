@@ -8,8 +8,8 @@ import { render } from './server-render.mjs';
 async function main(clientDir: string) {
 	assertClientDir(clientDir);
 
-	const html = await readFile(resolve(clientDir, 'index.html'), 'utf8');
-	const renderHtml = await createHtmlSsrRender(html);
+	const inputHtml = await readFile(resolve(clientDir, 'index.html'), 'utf8');
+	const renderHtml = await createHtmlSsrRender(inputHtml);
 
 	const fastify = Fastify();
 	await fastify.register(FastifyStatic, {
@@ -19,10 +19,11 @@ async function main(clientDir: string) {
 	fastify.get('*', async (req, res) => {
 		try {
 			const result = await render(req.url);
+			const { html } = renderHtml(result.renderParams);
 			await res
 				.status(result.status ?? 200)
 				.type('text/html')
-				.send(renderHtml(result.renderParams));
+				.send(html);
 		} catch (e: any) {
 			await res.status(500).send({});
 		}

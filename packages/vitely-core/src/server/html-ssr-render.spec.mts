@@ -3,7 +3,7 @@ import { createHtmlSsrRender } from './html-ssr-render.mjs';
 
 describe('html-ssr-render', () => {
 	it('should parse html', async () => {
-		const HTML = `<html>
+		const HTML = `<html lang="pt-br">
 			<head>
 			</head>
 			<body>

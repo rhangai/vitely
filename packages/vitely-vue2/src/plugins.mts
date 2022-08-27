@@ -45,7 +45,6 @@ export function pluginsPlugin(
 ): Plugin {
 	const clientlugins = vitelyVueConfig.plugins;
 	const serverPlugins = vitelyVueConfig.plugins.filter((p) => p.ssr);
-
 	return createVirtualModulesPlugin({
 		name: 'vitely:vue-plugins',
 		// prettier-ignore
@@ -55,7 +54,6 @@ export function pluginsPlugin(
 			'virtual:vitely/vue2/plugins': `
 				import { setupPlugins as setupPluginsServer } from 'virtual:vitely/vue2/plugins/server';
 				import { setupPlugins as setupPluginsClient } from 'virtual:vitely/vue2/plugins/client';
-
 				export async function setupPlugins(options) {
 					const setupPluginsImpl = import.meta.env.SSR ? setupPluginsServer : setupPluginsClient;
 					await setupPluginsImpl(options);
