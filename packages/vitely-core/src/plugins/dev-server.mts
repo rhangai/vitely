@@ -14,7 +14,6 @@ export type VitelyConfigDevServerRenderResult = {
 
 export type VitelyConfigDevServer = {
 	ssr: boolean;
-	renderModule: string;
 };
 
 export function devServerPlugin(config: VitelyConfigDevServer): Plugin {
@@ -38,7 +37,7 @@ export function devServerPlugin(config: VitelyConfigDevServer): Plugin {
 					const renderHtml = await createHtmlSsrRender(inputHtml);
 
 					const { render } = await server.ssrLoadModule(
-						config.renderModule
+						'virtual:vitely/core/render'
 					);
 					const result = await render(req.originalUrl ?? '/');
 					if (result.redirect) {

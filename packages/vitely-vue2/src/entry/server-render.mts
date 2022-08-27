@@ -1,5 +1,5 @@
 import { serializeValue } from '@vitely/core';
-import { type HtmlSsrRenderParams } from '@vitely/core/server';
+import { type RenderResult } from 'virtual:vitely/core/render';
 import App from 'virtual:vitely/vue2/app.vue';
 import { VueMetaPlugin } from 'vue-meta';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -9,12 +9,6 @@ import { setupApp } from './setup-app.mjs';
 type SSRContext = {
 	fetchState: Record<string, any>;
 	store: Record<string, any> | undefined;
-};
-
-type RenderResult = {
-	redirect: string | null;
-	status?: number | undefined;
-	renderParams: HtmlSsrRenderParams;
 };
 
 type SetupAppSSR = {
@@ -57,7 +51,7 @@ export async function render(url: string): Promise<RenderResult> {
 	const { title, htmlAttrs, link, style, script, noscript, meta } =
 		ssrContext.meta.inject();
 
-	const renderParams: HtmlSsrRenderParams = {
+	const renderParams: RenderResult['renderParams'] = {
 		htmlAttrs: htmlAttrs?.text(),
 		head: [
 			//

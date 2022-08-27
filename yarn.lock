@@ -783,7 +783,9 @@ __metadata:
   resolution: "@vitely/core@workspace:packages/vitely-core"
   dependencies:
     "@faker-js/faker": ^7.4.0
+    "@fastify/static": ^6.5.0
     "@nuxt/devalue": ^2.0.0
+    fastify: ^4.5.2
     typescript: ^4.7.4
     vite: ^3.0.9
     vitest: ^0.22.1

@@ -55,7 +55,7 @@ export function pluginsPlugin(plugins: VitelyConfigPlugin[]): VitePlugin {
 		modules: {
 			'virtual:vitely/core/plugins/server': () => generatePluginModule(serverPlugins),
 			'virtual:vitely/core/plugins/client': () => generatePluginModule(clientlugins),
-			'virtual:vitely/vue/plugins': `
+			'virtual:vitely/core/plugins': `
 				import { setupPlugins as setupPluginsServer } from 'virtual:vitely/core/plugins/server';
 				import { setupPlugins as setupPluginsClient } from 'virtual:vitely/core/plugins/client';
 

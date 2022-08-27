@@ -1,9 +1,10 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import FastifyStatic from '@fastify/static';
-import { assertClientDir, createHtmlSsrRender } from '@vitely/core/server';
 import { default as Fastify } from 'fastify';
-import { render } from './server-render.mjs';
+import { render } from 'virtual:vitely/core/render';
+import { assertClientDir } from './arguments.mjs';
+import { createHtmlSsrRender } from './html-ssr-render.mjs';
 
 async function main(clientDir: string) {
 	assertClientDir(clientDir);

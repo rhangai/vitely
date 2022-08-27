@@ -1,11 +1,12 @@
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { InlineConfig, Plugin } from 'vite';
 import { vitelyGetTarget } from '../target.mjs';
 
 export type VitelyConfigCore = {
+	moduleBase: string;
 	ssr: boolean;
 	standaloneServer: boolean;
-	base: string;
 	alias: Record<string, string>;
 };
 
@@ -23,9 +24,13 @@ export function corePlugin(config: VitelyConfigCore): Plugin {
 			};
 			const resolve: InlineConfig['resolve'] = {
 				alias: {
-					[`${config.base}/entry`]: config.ssr
-						? `${config.base}/entry/ssr/client`
-						: `${config.base}/entry/spa/client`,
+					'virtual:vitely/core/entry': config.ssr
+						? join(config.moduleBase, 'entry/client-ssr.mjs')
+						: join(config.moduleBase, 'entry/client-spa.mjs'),
+					'virtual:vitely/core/render': join(
+						config.moduleBase,
+						'entry/server-render.mjs'
+					),
 					...config.alias,
 				},
 			};
@@ -45,8 +50,8 @@ export function corePlugin(config: VitelyConfigCore): Plugin {
 
 			if (isServer) {
 				const serverEntry = config.ssr
-					? `${config.base}/entry/ssr/server`
-					: `${config.base}/entry/spa/server`;
+					? `../server/entry-ssr.mjs`
+					: `../server/entry-spa.mjs`;
 
 				return {
 					build: {
@@ -55,7 +60,10 @@ export function corePlugin(config: VitelyConfigCore): Plugin {
 						target: 'node16',
 						rollupOptions: {
 							input: {
-								index: serverEntry,
+								index: join(
+									dirname(fileURLToPath(import.meta.url)),
+									serverEntry
+								),
 							},
 						},
 					},

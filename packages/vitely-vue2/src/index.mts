@@ -1,5 +1,5 @@
-import { join } from 'path';
-import { fileURLToPath } from 'url';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { default as vitePluginVue } from '@vitejs/plugin-vue2';
 import {
 	corePlugin,
@@ -28,13 +28,10 @@ export default function vitelyPluginVue(
 		vitePluginVue(),
 		devServerPlugin({
 			ssr: vitelyVueConfig.ssr,
-			renderModule: join(
-				fileURLToPath(import.meta.url),
-				'entry/ssr/server-render.mjs'
-			),
 		}),
 		corePlugin({
-			base: '@vitely/vue',
+			base: '@vitely/vue2',
+			moduleBase: dirname(fileURLToPath(import.meta.url)),
 			ssr: vitelyVueConfig.ssr,
 			standaloneServer: vitelyVueConfig.standaloneServer,
 			alias: {

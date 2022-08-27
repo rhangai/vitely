@@ -1,8 +1,8 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import FastifyStatic from '@fastify/static';
-import { assertClientDir } from '@vitely/core/server';
+import { default as FastifyStatic } from '@fastify/static';
 import { default as Fastify } from 'fastify';
+import { assertClientDir } from './arguments.mjs';
 
 async function main(clientDir: string) {
 	assertClientDir(clientDir);

@@ -1,5 +1,5 @@
 /* istanbul ignore file */
-/// <reference path="./types.mts" />
+/// <reference path="../types.mts" />
 export * from './core.mjs';
 export * from './dev-server.mjs';
 export * from './middlewares.mjs';
