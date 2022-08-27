@@ -4,12 +4,15 @@ import { createRoot } from 'react-dom/client';
 import { setupApp } from './setup-app.mjs';
 
 async function main() {
-	const { App } = await setupApp();
+	const { Root } = await setupApp();
 
-	// Render
 	// eslint-disable-next-line no-undef
 	const app = createRoot(document.getElementById('app')!);
-	app.render(createElement(App));
+
+	// Render
+	const context = {};
+	const Component = () => null;
+	app.render(createElement(Root, { Component, context }));
 }
 
 void main();

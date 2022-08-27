@@ -12,6 +12,10 @@
     ".": {
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.mts"
+    },
+    "./hook": {
+      "import": "./dist/hook/index.mjs",
+      "types": "./dist/hook/index.d.mts"
     }
   },
   "scripts": {
@@ -20,7 +24,8 @@
   },
   "dependencies": {
     "@vitejs/plugin-react": "^2.0.1",
-    "@vitely/core": "^0.2"
+    "@vitely/core": "^0.2",
+    "get-stream": "^6.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",

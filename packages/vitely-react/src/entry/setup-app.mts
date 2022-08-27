@@ -1,6 +1,5 @@
 import { setupPlugins } from 'virtual:vitely/core/plugins';
-// eslint-disable-next-line import/extensions
-import { default as App } from 'virtual:vitely/react/app.tsx';
+import { default as Root } from './root.js';
 
 export async function setupApp() {
 	// Setup the plugins
@@ -9,6 +8,6 @@ export async function setupApp() {
 	});
 
 	return {
-		App,
+		Root,
 	};
 }

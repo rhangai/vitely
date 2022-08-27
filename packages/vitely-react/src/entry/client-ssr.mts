@@ -4,11 +4,16 @@ import { hydrateRoot } from 'react-dom/client';
 import { setupApp } from './setup-app.mjs';
 
 async function main() {
-	const { App } = await setupApp();
+	const { Root } = await setupApp();
 
 	// Render
-	// eslint-disable-next-line no-undef
-	hydrateRoot(document.getElementById('app')!, createElement(App));
+	const context = {};
+	const Component = () => null;
+	hydrateRoot(
+		// eslint-disable-next-line no-undef
+		document.getElementById('app')!,
+		createElement(Root, { Component, context })
+	);
 }
 
 void main();
