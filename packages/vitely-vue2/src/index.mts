@@ -30,7 +30,6 @@ export default function vitelyPluginVue(
 			ssr: vitelyVueConfig.ssr,
 		}),
 		corePlugin({
-			base: '@vitely/vue2',
 			moduleBase: dirname(fileURLToPath(import.meta.url)),
 			ssr: vitelyVueConfig.ssr,
 			standaloneServer: vitelyVueConfig.standaloneServer,

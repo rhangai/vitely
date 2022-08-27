@@ -1,6 +1,6 @@
+import { runMiddlewares } from 'virtual:vitely/core/middlewares';
+import { setupPlugins } from 'virtual:vitely/core/plugins';
 import { createHead } from 'virtual:vitely/vue/head';
-import { runMiddlewares } from 'virtual:vitely/vue/middlewares';
-import { setupPlugins } from 'virtual:vitely/vue/plugins';
 import { createRouter } from 'virtual:vitely/vue/router';
 import { createStore } from 'virtual:vitely/vue/store';
 import type { App } from 'vue';

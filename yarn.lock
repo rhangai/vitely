@@ -384,17 +384,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fastify/middie@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "@fastify/middie@npm:8.0.0"
-  dependencies:
-    fastify-plugin: ^3.0.0
-    path-to-regexp: ^6.1.0
-    reusify: ^1.0.4
-  checksum: 3d5bc10a49832493c3780138bb76f9cb4c941c0149f722a1ce7fe45086a77186f62c7e475b9f8406162f736935d5f45d4acd4f1c2e94c0b3b861315a8948362b
-  languageName: node
-  linkType: hard
-
 "@fastify/static@npm:^6.5.0":
   version: 6.5.0
   resolution: "@fastify/static@npm:6.5.0"
@@ -798,11 +787,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@vitely/vue2@workspace:packages/vitely-vue2"
   dependencies:
-    "@fastify/middie": ^8.0.0
-    "@fastify/static": ^6.5.0
     "@vitejs/plugin-vue2": ^1.1.2
     "@vitely/core": ^0.2.0
-    fastify: ^4.5.2
     typescript: ^4.7.4
     vite: ^3.0.9
     vue: ^2.7
@@ -819,13 +805,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@vitely/vue@workspace:packages/vitely-vue"
   dependencies:
-    "@fastify/middie": ^8.0.0
-    "@fastify/static": ^6.5.0
     "@vitejs/plugin-vue": ^3.0.3
     "@vitely/core": ^0.2.0
     "@vueuse/head": ^0.7.9
-    fastify: ^4.5.2
-    pinia: ^2.0.20
     typescript: ^4.7.4
     vite: ^3.0.9
     vue: ^3.2.37
@@ -898,7 +880,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/devtools-api@npm:^6.1.4, @vue/devtools-api@npm:^6.2.1":
+"@vue/devtools-api@npm:^6.1.4":
   version: 6.2.1
   resolution: "@vue/devtools-api@npm:6.2.1"
   checksum: 34765af0be9b0cc7e3def73b2792b1514e3c348852c5a7503fe07d013f0e907af6c27c0a32c0637dd748caf37c075af8e53ca3220433e0bd34b6f3405f358272
@@ -2467,13 +2449,6 @@ __metadata:
   version: 2.1.0
   resolution: "fast-uri@npm:2.1.0"
   checksum: 60ecece5ab05515729ec04d1732ee68bd4429cab8c06ebf8db512a094a0077ddc5af6a27c75922875bc9e13b58e947832242cdcb2cb23c51dc753412222dca83
-  languageName: node
-  linkType: hard
-
-"fastify-plugin@npm:^3.0.0":
-  version: 3.0.1
-  resolution: "fastify-plugin@npm:3.0.1"
-  checksum: 131ba0a388f777829c3fb0fd5b75cf057688ce6d0ca354fb1ebf829767a8c853b0825762b9185b5200097454df0ede2f3095da2efe1aa1b3736d07f194e6d374
   languageName: node
   linkType: hard
 
@@ -4108,13 +4083,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"path-to-regexp@npm:^6.1.0":
-  version: 6.2.1
-  resolution: "path-to-regexp@npm:6.2.1"
-  checksum: f0227af8284ea13300f4293ba111e3635142f976d4197f14d5ad1f124aebd9118783dd2e5f1fe16f7273743cc3dbeddfb7493f237bb27c10fdae07020cc9b698
-  languageName: node
-  linkType: hard
-
 "path-type@npm:^4.0.0":
   version: 4.0.0
   resolution: "path-type@npm:4.0.0"
@@ -4147,25 +4115,6 @@ __metadata:
   version: 4.0.1
   resolution: "pify@npm:4.0.1"
   checksum: 9c4e34278cb09987685fa5ef81499c82546c033713518f6441778fbec623fc708777fe8ac633097c72d88470d5963094076c7305cafc7ad340aae27cfacd856b
-  languageName: node
-  linkType: hard
-
-"pinia@npm:^2.0.20":
-  version: 2.0.20
-  resolution: "pinia@npm:2.0.20"
-  dependencies:
-    "@vue/devtools-api": ^6.2.1
-    vue-demi: "*"
-  peerDependencies:
-    "@vue/composition-api": ^1.4.0
-    typescript: ">=4.4.4"
-    vue: ^2.6.14 || ^3.2.0
-  peerDependenciesMeta:
-    "@vue/composition-api":
-      optional: true
-    typescript:
-      optional: true
-  checksum: 09fe9a6983195a29b856c9680e9e009fa98e253f5cf2dfe6db5f1b855b0897ea8fa3e31ae60d10cd1b59400d81acd5ae03ba7f69e19cfd1b3af683f8cfb78151
   languageName: node
   linkType: hard
 
@@ -5573,22 +5522,6 @@ __metadata:
   bin:
     vitest: vitest.mjs
   checksum: 7abe50ceb51181e77cd62eb3a07c2da17f13078f09be34cc2e98f1f94a77eba33a56c644d48ae16bb474945ffc1cfc8664b1f4976c3de495c5e474057420c4ca
-  languageName: node
-  linkType: hard
-
-"vue-demi@npm:*":
-  version: 0.13.11
-  resolution: "vue-demi@npm:0.13.11"
-  peerDependencies:
-    "@vue/composition-api": ^1.0.0-rc.1
-    vue: ^3.0.0-0 || ^2.6.0
-  peerDependenciesMeta:
-    "@vue/composition-api":
-      optional: true
-  bin:
-    vue-demi-fix: bin/vue-demi-fix.js
-    vue-demi-switch: bin/vue-demi-switch.js
-  checksum: 0fbe9bf8ab7fe498ffa2bbd0cfc8f6f43a6bbaa5eda3e20ef1b70dca7c8b0ddb216a7ff2f632b694fe0735805638975abb441c621ec0bd2e6d4656353f316c15
   languageName: node
   linkType: hard
 

@@ -20,30 +20,6 @@
     "./composition": {
       "import": "./dist/composition/index.mjs",
       "types": "./dist/composition/index.d.mts"
-    },
-    "./entry": {
-      "import": "./dist/entry/index.mjs",
-      "types": "./dist/entry/index.d.mts"
-    },
-    "./entry/spa/client": {
-      "import": "./dist/entry/spa/client.mjs",
-      "types": "./dist/entry/spa/client.d.mts"
-    },
-    "./entry/spa/server": {
-      "import": "./dist/entry/spa/server.mjs",
-      "types": "./dist/entry/spa/server.d.mts"
-    },
-    "./entry/ssr/client": {
-      "import": "./dist/entry/ssr/client.mjs",
-      "types": "./dist/entry/ssr/client.d.mts"
-    },
-    "./entry/ssr/server": {
-      "import": "./dist/entry/ssr/server.mjs",
-      "types": "./dist/entry/ssr/server.d.mts"
-    },
-    "./entry/ssr/server-render": {
-      "import": "./dist/entry/ssr/server-render.mjs",
-      "types": "./dist/entry/ssr/server-render.d.mts"
     }
   },
   "scripts": {
@@ -51,11 +27,8 @@
     "build": "tsc -p tsconfig.build.json"
   },
   "dependencies": {
-    "@fastify/middie": "^8.0.0",
-    "@fastify/static": "^6.5.0",
     "@vitejs/plugin-vue2": "^1.1.2",
     "@vitely/core": "^0.2.0",
-    "fastify": "^4.5.2",
     "vue-meta": "^2.4.0",
     "vue-router": "^3"
   },

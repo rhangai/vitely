@@ -1,18 +1,11 @@
 import { serializeValue } from '@vitely/core';
-import { type HtmlSsrRenderParams } from '@vitely/core/server';
 import { renderHeadToString } from '@vueuse/head';
+import { type RenderResult } from 'virtual:vitely/core/render';
 import App from 'virtual:vitely/vue/app.vue';
 import { createSSRApp } from 'vue';
 // @ts-ignore
 import { renderToString } from 'vue/server-renderer';
-import { setupApp } from '../setup-app.mjs';
-import { type SSRContext } from './context.mjs';
-
-type RenderResult = {
-	redirect: string | null;
-	status?: number | undefined;
-	renderParams: HtmlSsrRenderParams;
-};
+import { setupApp } from './setup-app.mjs';
 
 export async function render(url: string): Promise<RenderResult> {
 	const app = createSSRApp(App);
@@ -37,7 +30,7 @@ export async function render(url: string): Promise<RenderResult> {
 	const { headTags, htmlAttrs, /* bodyAttrs, */ bodyTags } =
 		renderHeadToString(head);
 
-	const renderParams: HtmlSsrRenderParams = {
+	const renderParams: RenderResult['renderParams'] = {
 		htmlAttrs,
 		head: headTags,
 		body: [
@@ -57,7 +50,11 @@ export async function render(url: string): Promise<RenderResult> {
 	};
 }
 
-function serializeContext(context: SSRContext) {
+type SerializeContextParam = {
+	fetchState: Record<string, any>;
+	store: Record<string, any> | undefined;
+};
+function serializeContext(context: SerializeContextParam) {
 	const serialized = serializeValue({
 		context,
 	});

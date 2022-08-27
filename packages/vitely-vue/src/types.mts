@@ -5,18 +5,6 @@ declare module 'virtual:vitely/vue/app.vue' {
 	export default vitelyMainComponent;
 }
 
-declare module 'virtual:vitely/vue/plugins' {
-	export function setupPlugins(
-		options: import('./plugins.mjs').VitelyVuePluginOptions
-	): Promise<void>;
-}
-
-declare module 'virtual:vitely/vue/middlewares' {
-	export function runMiddlewares(
-		options: import('./middleware.mjs').VitelyVueMiddlewareOptions
-	): Promise<void>;
-}
-
 declare module 'virtual:vitely/vue/router-data' {
 	import type { RouterHistory } from 'vue-router';
 
