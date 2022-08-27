@@ -11,8 +11,10 @@ type SetupAppOptions = {
 };
 
 export async function setupApp({ component, provide }: SetupAppOptions) {
-	const { router } = createRouter();
-	const { store } = createStore();
+	const options = {};
+
+	const { router } = createRouter(options);
+	const { store } = createStore(options);
 
 	// Run the middleware
 	router.beforeEach(async (to, from, routerNext) => {
@@ -37,11 +39,6 @@ export async function setupApp({ component, provide }: SetupAppOptions) {
 			routerNext();
 		}
 	});
-
-	const options = {
-		router,
-		store,
-	};
 
 	// Setup the plugins
 	await setupPlugins({

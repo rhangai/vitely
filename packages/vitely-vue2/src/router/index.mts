@@ -26,11 +26,12 @@ Vue.use(VueRouter);
 
 const { routes } = buildRoutesVueRouter(pagesRoot, pagesModules);
 
-export function createRouter() {
+export function createRouter(options) {
 	const router = new VueRouter({
 		mode: import.meta.env.SSR ? 'abstract' : 'history',
 		routes,
 	});
+	options.router = router;
 	return { router, routes };
 }
 	`;

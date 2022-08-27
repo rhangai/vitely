@@ -5,13 +5,16 @@ import type { VitelyVueConfigResolved } from '../config.mjs';
 
 function moduleStorePinia() {
 	return `
-import { createPinia } from 'pinia';
+import { createPinia, PiniaVuePlugin } from 'pinia';
+import Vue from 'vue';
 
-export function createStore() {
+Vue.use(PiniaVuePlugin);
+export function createStore(options) {
 	const store = createPinia();
 	if (!import.meta.env.SSR) {
 		store.state.value = (window?.__VITELY__?.context?.store)
 	}
+	options.pinia = store;
 	return { store };
 }
 	`;

@@ -55,18 +55,18 @@
     "@fastify/static": "^6.5.0",
     "@vitejs/plugin-vue2": "^1.1.2",
     "@vitely/core": "^0.2.0",
-    "fastify": "^4.5.2"
+    "fastify": "^4.5.2",
+    "vue-meta": "^2.4.0",
+    "vue-router": "^3"
   },
   "devDependencies": {
     "typescript": "^4.7.4",
     "vite": "^3.0.9",
     "vue": "^2.7",
-    "vue-router": "^3",
     "vue-server-renderer": "^2.7.10"
   },
   "peerDependencies": {
     "vite": "^2 || ^3",
-    "vue": "^2",
-    "vue-router": "^3"
+    "vue": "^2"
   }
 }

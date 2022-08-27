@@ -25,21 +25,24 @@ declare module 'virtual:vitely/vue2/router-data' {
 declare module 'virtual:vitely/vue2/router' {
 	import type { default as VueRouter, RouteConfig } from 'vue-router';
 
-	export function createRouter(): {
+	export function createRouter(options: Record<string, any>): {
 		router: VueRouter;
 		routes: RouteConfig[];
 	};
 }
 
 declare module 'virtual:vitely/vue2/store' {
-	import type { VueConstructor, Ref } from 'vue';
+	import type { Ref } from 'vue';
 
 	type VitelyStore = {
-		install(vue: VueConstructor): void;
 		state: Ref<Record<string, any>>;
 	};
 
-	export function createStore(): {
+	export function createStore(options: Record<string, any>): {
 		store: VitelyStore | null;
 	};
+}
+
+declare module 'virtual:vitely/vue2/head' {
+	export function createHead(options: Record<string, any>): {};
 }
