@@ -821,6 +821,7 @@ __metadata:
     "@fastify/static": ^6.5.0
     "@vitejs/plugin-vue": ^3.0.3
     "@vitely/core": ^0.2.0
+    "@vueuse/head": ^0.7.9
     fastify: ^4.5.2
     pinia: ^2.0.20
     typescript: ^4.7.4
@@ -961,6 +962,15 @@ __metadata:
   version: 3.2.37
   resolution: "@vue/shared@npm:3.2.37"
   checksum: 999ab8baeb13de190d07536e7dd0e74ab9354a864d8d903850a2127ae1a2aa2713a9edc0d957620ebf91165d6603d0cd2b0e8ee0db6cbaf8d57a6a0f912af810
+  languageName: node
+  linkType: hard
+
+"@vueuse/head@npm:^0.7.9":
+  version: 0.7.9
+  resolution: "@vueuse/head@npm:0.7.9"
+  peerDependencies:
+    vue: ">=3"
+  checksum: 2b8078a4e7c1f797d74ff5ea9b80bffad8f24f6738aacfb2466d8f042814fbe6579f6afdca7071f3e24eba984391240e481adb3757d715b537737a8840d09859
   languageName: node
   linkType: hard
 

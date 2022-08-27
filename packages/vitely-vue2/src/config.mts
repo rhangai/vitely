@@ -50,10 +50,10 @@ export type VitelyVuePlugin = string | { ssr?: boolean; plugin: string };
 
 export type VitelyVueConfig = {
 	ssr?: boolean;
-	store?: VitelyVue2Store | boolean | null;
-	plugins?: VitelyVuePlugin[];
 	pages?: string;
-	head?: VitelyVue2Head;
+	store?: VitelyVue2Store | boolean | null;
+	head?: VitelyVue2Head | null;
+	plugins?: VitelyVuePlugin[];
 	middlewares?: VitelyVueMiddleware[];
 	standaloneServer?: boolean;
 };

@@ -47,3 +47,11 @@ declare module 'virtual:vitely/vue/store' {
 		storeState(): any;
 	};
 }
+
+declare module 'virtual:vitely/vue/head' {
+	import type { HeadClient } from '@vueuse/head';
+
+	export function createHead(): {
+		head: HeadClient;
+	};
+}

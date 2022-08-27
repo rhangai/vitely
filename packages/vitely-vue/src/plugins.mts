@@ -1,4 +1,5 @@
 import { createVirtualModulesPlugin } from '@vitely/core';
+import type { HeadClient } from '@vueuse/head';
 import type { Plugin } from 'vite';
 import type { App } from 'vue';
 import { VitelyVueConfigResolved, VitelyVuePluginResolved } from './config.mjs';
@@ -11,6 +12,7 @@ export type VitelyVuePluginContext = {
 	app: App;
 	router: any;
 	store: any;
+	head: HeadClient;
 };
 
 export type VitelyVuePluginOptions = {

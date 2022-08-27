@@ -1,3 +1,4 @@
+import { createHead } from 'virtual:vitely/vue/head';
 import { runMiddlewares } from 'virtual:vitely/vue/middlewares';
 import { setupPlugins } from 'virtual:vitely/vue/plugins';
 import { createRouter } from 'virtual:vitely/vue/router';
@@ -8,6 +9,7 @@ import type { RouteLocationRaw } from 'vue-router';
 export async function setupApp(app: App) {
 	const { router } = createRouter();
 	const { store, storeState } = createStore();
+	const { head } = createHead();
 
 	// Setup the store
 	if (store) {
@@ -16,6 +18,7 @@ export async function setupApp(app: App) {
 
 	// Setup the router
 	app.use(router);
+	app.use(head);
 
 	// Run the middleware
 	router.beforeEach(
@@ -45,6 +48,7 @@ export async function setupApp(app: App) {
 			app,
 			router,
 			store,
+			head,
 		},
 	});
 
@@ -53,5 +57,6 @@ export async function setupApp(app: App) {
 		router,
 		store,
 		storeState,
+		head,
 	};
 }

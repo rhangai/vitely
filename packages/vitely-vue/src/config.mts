@@ -1,4 +1,8 @@
+import type { HeadObjectPlain } from '@vueuse/head';
+
 export type VitelyVueStore = 'pinia';
+
+export type VitelyVueHead = HeadObjectPlain;
 
 export type VitelyVuePluginResolved = {
 	ssr: boolean;
@@ -12,9 +16,10 @@ export type VitelyVueMiddlewareResolved = {
 
 export type VitelyVueConfigResolved = {
 	ssr: boolean;
-	store: VitelyVueStore | null;
-	plugins: VitelyVuePluginResolved[];
 	pages: string;
+	store: VitelyVueStore | null;
+	head: VitelyVueHead;
+	plugins: VitelyVuePluginResolved[];
 	middlewares: VitelyVueMiddlewareResolved[];
 	standaloneServer: boolean;
 };
@@ -26,9 +31,10 @@ export type VitelyVuePlugin = string | { ssr?: boolean; plugin: string };
 
 export type VitelyVueConfig = {
 	ssr?: boolean;
-	store?: VitelyVueStore | boolean | null;
-	plugins?: VitelyVuePlugin[];
 	pages?: string;
+	store?: VitelyVueStore | boolean | null;
+	head?: VitelyVueHead | null;
+	plugins?: VitelyVuePlugin[];
 	middlewares?: VitelyVueMiddleware[];
 	standaloneServer?: boolean;
 };
@@ -64,6 +70,15 @@ function resolveConfigStore(
 }
 
 /**
+ * Resolve the store configuration
+ */
+function resolveConfigHead(head: VitelyVueHead | null): VitelyVueHead {
+	return {
+		...head,
+	};
+}
+
+/**
  * Resolve the configuration
  */
 export function resolveConfig(
@@ -71,8 +86,9 @@ export function resolveConfig(
 ): VitelyVueConfigResolved {
 	return {
 		ssr: !!config?.ssr,
-		store: resolveConfigStore(config?.store ?? null),
 		pages: config?.pages ?? 'pages',
+		store: resolveConfigStore(config?.store ?? null),
+		head: resolveConfigHead(config?.head ?? null),
 		standaloneServer: !!config?.standaloneServer,
 		plugins: resolveConfigArray(
 			config?.plugins,
