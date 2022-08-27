@@ -20,6 +20,9 @@ function moduleRouter() {
 import { pagesModules, pagesRoot } from 'virtual:vitely/vue2/router-data';
 import { default as VueRouter } from 'vue-router';
 import { buildRoutesVueRouter } from '@vitely/vue2/router/runtime';
+import { default as Vue } from 'vue';
+
+Vue.use(VueRouter);
 
 const { routes } = buildRoutesVueRouter(pagesRoot, pagesModules);
 

@@ -3,9 +3,7 @@ import { setupPlugins } from 'virtual:vitely/vue2/plugins';
 import { createRouter } from 'virtual:vitely/vue2/router';
 import { createStore } from 'virtual:vitely/vue2/store';
 import { default as Vue, Component } from 'vue';
-import { default as VueRouter, RawLocation } from 'vue-router';
-
-Vue.use(VueRouter);
+import { RawLocation } from 'vue-router';
 
 type SetupAppOptions = {
 	component: Component;

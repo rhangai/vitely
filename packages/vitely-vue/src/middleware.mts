@@ -65,8 +65,10 @@ export function middlewaresPlugin(
 			'virtual:vitely/vue/middlewares/server': () => generateMiddlewareModule(serverMiddlewares),
 			'virtual:vitely/vue/middlewares/client': () => generateMiddlewareModule(clientMiddlewares),
 			'virtual:vitely/vue/middlewares': `
+				import { runMiddlewares as runMiddlewaresServer } from 'virtual:vitely/vue/middlewares/server';
+				import { runMiddlewares as runMiddlewaresClient } from 'virtual:vitely/vue/middlewares/client';
 				export async function runMiddlewares(options) {
-					const { runMiddlewares: runMiddlewaresImpl } = import.meta.env.SSR ? await import('virtual:vitely/vue/middlewares/server') : await import('virtual:vitely/vue/middlewares/client');
+					const runMiddlewaresImpl = import.meta.env.SSR ? runMiddlewaresServer : runMiddlewaresClient;
 					await runMiddlewaresImpl(options);
 				}`
 		},

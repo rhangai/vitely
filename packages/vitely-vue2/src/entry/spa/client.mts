@@ -4,7 +4,7 @@ import { setupApp } from '../setup-app.mjs';
 async function main() {
 	const { app, router } = await setupApp({
 		component: Component,
-		ssr: null,
+		provide: undefined,
 	});
 	router.onReady(() => {
 		app.$mount('#app');

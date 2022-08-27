@@ -53,8 +53,11 @@ export function pluginsPlugin(
 			'virtual:vitely/vue2/plugins/server': () => generatePluginModule(serverPlugins),
 			'virtual:vitely/vue2/plugins/client': () => generatePluginModule(clientlugins),
 			'virtual:vitely/vue2/plugins': `
+				import { setupPlugins as setupPluginsServer } from 'virtual:vitely/vue2/plugins/server';
+				import { setupPlugins as setupPluginsClient } from 'virtual:vitely/vue2/plugins/client';
+
 				export async function setupPlugins(options) {
-					const { setupPlugins: setupPluginsImpl } = import.meta.env.SSR ? await import('virtual:vitely/vue2/plugins/server') : await import('virtual:vitely/vue2/plugins/client');
+					const setupPluginsImpl = import.meta.env.SSR ? setupPluginsServer : setupPluginsClient;
 					await setupPluginsImpl(options);
 				}`
 		},
