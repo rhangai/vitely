@@ -13,7 +13,7 @@ import { setupApp } from './setup-app.mjs';
 export async function render(_url: string): Promise<RenderResult> {
 	const { Root } = await setupApp();
 
-	const { context, resolve } = createLazyResolver();
+	const { context, resolveServerPrefetch } = createLazyResolver();
 
 	const component = createElement(Root, { context });
 
@@ -23,7 +23,7 @@ export async function render(_url: string): Promise<RenderResult> {
 	 - Second time renders using the fetched values
 	 */
 	await streamToPromise(renderToPipeableStream(component));
-	await resolve();
+	await resolveServerPrefetch();
 	const appHtml = renderToString(component);
 
 	return {
@@ -60,7 +60,7 @@ function createLazyResolver() {
 	};
 	return {
 		context,
-		async resolve() {
+		async resolveServerPrefetch() {
 			const noop = () => null;
 			await Promise.all(
 				Object.values(context.serverPrefetch).map((p) =>
