@@ -34,7 +34,13 @@ export function devServerPlugin(config: VitelyConfigDevServer): Plugin {
 						'index.html'
 					);
 					const inputHtml = await readFile(inputHtmlFile, 'utf8');
-					const renderHtml = await createHtmlSsrRender(inputHtml);
+					const transformedHtml = await server.transformIndexHtml(
+						req.originalUrl ?? '/',
+						inputHtml
+					);
+					const renderHtml = await createHtmlSsrRender(
+						transformedHtml
+					);
 
 					const { render } = await server.ssrLoadModule(
 						'virtual:vitely/core/render'
