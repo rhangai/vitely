@@ -1,12 +1,29 @@
+import { useState } from 'react';
 import { useAppContext } from './app-context.mjs';
 
 export function useServerPrefetch<T>(
 	key: string,
-	fetch: () => Promise<T> | T
-): Promise<T> {
+	fetch: () => Promise<T> | T,
+	onValue: (value: T) => void
+): void {
 	const context = useAppContext();
-	if (!context.serverPrefetch[key]) {
-		context.serverPrefetch[key] = fetch();
+	if (context.serverPrefetchState[key]) {
+		onValue(context.serverPrefetchState[key] as T);
+		return;
 	}
-	return context.serverPrefetch[key];
+	if (!context.serverPrefetch[key]) {
+		context.serverPrefetch[key] = Promise.resolve(fetch());
+		void context.serverPrefetch[key].then((value) => {
+			context.serverPrefetchState[key] = value;
+			onValue(value);
+		});
+	}
+	void context.serverPrefetch[key].then((value) => {
+		onValue(value);
+	});
+}
+
+export function useServerPrefetchState<T>(key: string) {
+	const context = useAppContext();
+	return useState<T>(() => (context.serverPrefetchState[key] as any) ?? null);
 }

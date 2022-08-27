@@ -7,8 +7,8 @@ export default function Root({ Component, context }: any) {
 	return (
 		<AppContext.Provider value={context}>
 			<Suspense>
-				<App />
 				<Component />
+				<App />
 			</Suspense>
 		</AppContext.Provider>
 	);
