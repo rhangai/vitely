@@ -65,7 +65,7 @@ export async function createHtmlSsrRender(
 		const renderedBodyPrepend = toString(data.bodyPrepend);
 
 		// prettier-ignore
-		const html = `${beforeHtml}<html ${data.htmlAttrs ?? ''}>${headDefault}${renderedHead}</head><body ${bodyAttrs}/>${renderedBodyPrepend}${bodyStart}${data.app ?? ''}</div>${renderedBody}${bodyEnd}`;
+		const html = `${beforeHtml}<html ${data.htmlAttrs ?? ''}>${headDefault}${renderedHead}</head><body ${bodyAttrs}>${renderedBodyPrepend}${bodyStart}${data.app ?? ''}</div>${renderedBody}${bodyEnd}`;
 		return {
 			html,
 		};
