@@ -9,6 +9,8 @@ export type VitelyVuePlugin = (
 
 export type VitelyVuePluginContext = {
 	app: App;
+	router: any;
+	store: any;
 };
 
 export type VitelyVuePluginOptions = {

@@ -7,7 +7,7 @@ import type { RouteLocationRaw } from 'vue-router';
 
 export async function setupApp(app: App) {
 	const { router } = createRouter();
-	const { store } = createStore();
+	const { store, storeState } = createStore();
 
 	// Setup the store
 	if (store) {
@@ -43,6 +43,8 @@ export async function setupApp(app: App) {
 	await setupPlugins({
 		context: {
 			app,
+			router,
+			store,
 		},
 	});
 
@@ -50,5 +52,6 @@ export async function setupApp(app: App) {
 		app,
 		router,
 		store,
+		storeState,
 	};
 }

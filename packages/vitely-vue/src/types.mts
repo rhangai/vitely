@@ -44,5 +44,6 @@ declare module 'virtual:vitely/vue/store' {
 
 	export function createStore(): {
 		store: VitelyStore | null;
+		storeState(): any;
 	};
 }

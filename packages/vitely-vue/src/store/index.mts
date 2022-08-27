@@ -12,7 +12,12 @@ export function createStore() {
 	if (!import.meta.env.SSR) {
 		store.state.value = (window?.__VITELY__?.context?.store)
 	}
-	return { store };
+	return { 
+		store,
+		storeState() {
+			return store.state.value;
+		}
+	};
 }
 	`;
 }
@@ -20,7 +25,12 @@ export function createStore() {
 function moduleStoreNull() {
 	return `
 export function createStore() {
-	return { store: null };
+	return { 
+		store: null,
+		storeState() {
+			return null;
+		}
+	};
 }
 	`;
 }

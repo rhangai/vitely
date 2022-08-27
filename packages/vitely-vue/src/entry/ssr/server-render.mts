@@ -1,7 +1,7 @@
 import { serializeValue } from '@vitely/core';
 import { type HtmlSsrRenderParams } from '@vitely/core/server';
 import App from 'virtual:vitely/vue/app.vue';
-import { createSSRApp, unref } from 'vue';
+import { createSSRApp } from 'vue';
 // @ts-ignore
 import { renderToString } from 'vue/server-renderer';
 import { setupApp } from '../setup-app.mjs';
@@ -15,7 +15,7 @@ type RenderResult = {
 
 export async function render(url: string): Promise<RenderResult> {
 	const app = createSSRApp(App);
-	const { router, store } = await setupApp(app);
+	const { router, storeState } = await setupApp(app);
 
 	await router.push(url);
 	await router.isReady();
@@ -37,7 +37,7 @@ export async function render(url: string): Promise<RenderResult> {
 	const renderParams: HtmlSsrRenderParams = {
 		body: serializeContext({
 			fetchState: ssrContext.fetchState,
-			store: unref(store?.state.value),
+			store: storeState(),
 		}),
 		app: renderedApp,
 	};
