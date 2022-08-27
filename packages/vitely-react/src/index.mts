@@ -39,5 +39,15 @@ export default function vitelyPluginVue(
 		middlewaresPlugin(config.middlewares),
 		// React plugins
 		routerPlugin(config),
+		{
+			name: 'vitely:react-externals',
+			config() {
+				return {
+					ssr: {
+						noExternal: ['react-helmet'],
+					},
+				};
+			},
+		},
 	];
 }

@@ -1,11 +1,8 @@
 import { PassThrough } from 'node:stream';
 import { serializeValue } from '@vitely/core';
-import { createElement } from 'react';
-import {
-	PipeableStream,
-	renderToPipeableStream,
-	renderToString,
-} from 'react-dom/server';
+import { createElement, ReactNode } from 'react';
+import { renderToPipeableStream } from 'react-dom/server';
+import { Helmet } from 'react-helmet';
 import { type RenderResult } from 'virtual:vitely/core/render';
 import { AppContextValue } from '../hook/app-context.mjs';
 import { setupApp } from './setup-app.mjs';
@@ -22,35 +19,54 @@ export async function render(url: string): Promise<RenderResult> {
 	 - First time collect the async hooks
 	 - Second time renders using the fetched values
 	 */
-	await streamToPromise(renderToPipeableStream(component));
+	await renderComponent(component, false);
+	Helmet.renderStatic();
 	await resolveServerPrefetch();
-	const appHtml = renderToString(component);
+	const appHtmlBuffers = await renderComponent(component, true);
+	const helmet = Helmet.renderStatic();
 
 	return {
 		redirect: null,
 		status: null,
 		renderParams: {
-			app: appHtml,
+			htmlAttrs: helmet.htmlAttributes.toString(),
+			head: [
+				helmet.title.toString(),
+				helmet.base.toString(),
+				helmet.meta.toString(),
+				helmet.link.toString(),
+				helmet.style.toString(),
+			],
+			app: appHtmlBuffers.toString('utf8'),
 			body: [
 				serializeContext({
 					serverPrefetchState: context.serverPrefetchState,
 				}),
+				helmet.script.toString(),
+				helmet.noscript.toString(),
 			],
 		},
 	};
 }
 
-async function streamToPromise(stream: PipeableStream) {
+async function renderComponent(component: ReactNode, returnBuffer: boolean) {
+	const stream = renderToPipeableStream(component);
 	const passThrough = new PassThrough();
 	stream.pipe(passThrough);
+
+	const buffers: Buffer[] = [];
 	await new Promise<void>((resolve, reject) => {
 		passThrough
-			.on('data', () => {
+			.on('data', (buffer) => {
 				// Ignore the data
+				if (returnBuffer) {
+					buffers.push(buffer);
+				}
 			})
 			.on('error', reject)
 			.on('end', () => resolve());
 	});
+	return Buffer.concat(buffers);
 }
 
 function createLazyResolver() {
