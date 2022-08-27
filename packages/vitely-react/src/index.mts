@@ -8,33 +8,33 @@ import {
 	middlewaresPlugin,
 } from '@vitely/core/plugins';
 import { PluginOption } from 'vite';
-import { resolveConfig, VitelyVueConfig } from './config.mjs';
+import { resolveConfig, VitelyReactConfig } from './config.mjs';
 import './types.mjs';
 
 /**
  * Main entrypoint
- * @param config
+ * @param configParam
  * @returns A vite plugin object (Or plugins :O)
  */
 export default function vitelyPluginVue(
-	config?: VitelyVueConfig
+	configParam?: VitelyReactConfig
 ): PluginOption {
-	const vitelyVueConfig = resolveConfig(config);
+	const config = resolveConfig(configParam);
 	return [
 		// Plugins
 		vitePluginReact(),
 		devServerPlugin({
-			ssr: vitelyVueConfig.ssr,
+			ssr: config.ssr,
 		}),
 		corePlugin({
 			moduleBase: dirname(fileURLToPath(import.meta.url)),
-			ssr: vitelyVueConfig.ssr,
-			standaloneServer: vitelyVueConfig.standaloneServer,
+			ssr: config.ssr,
+			standaloneServer: config.standaloneServer,
 			alias: {
 				'virtual:vitely/vue/app.vue': '/app.vue',
 			},
 		}),
-		pluginsPlugin(vitelyVueConfig.plugins),
-		middlewaresPlugin(vitelyVueConfig.middlewares),
+		pluginsPlugin(config.plugins),
+		middlewaresPlugin(config.middlewares),
 	];
 }
