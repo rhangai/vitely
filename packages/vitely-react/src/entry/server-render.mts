@@ -1,6 +1,6 @@
 import { PassThrough } from 'node:stream';
 import { serializeValue } from '@vitely/core';
-import { createElement, lazy } from 'react';
+import { createElement } from 'react';
 import {
 	PipeableStream,
 	renderToPipeableStream,
@@ -13,17 +13,17 @@ import { setupApp } from './setup-app.mjs';
 export async function render(_url: string): Promise<RenderResult> {
 	const { Root } = await setupApp();
 
-	const { Component, context, resolve } = createLazyResolver();
+	const { context, resolve } = createLazyResolver();
 
-	const component = createElement(Root, { Component, context });
+	const component = createElement(Root, { context });
 
-	const stream = renderToPipeableStream(component, {
-		onShellReady() {
-			void resolve();
-		},
-	});
-	await streamToPromise(stream);
-
+	/*
+	Must run twice
+	 - First time collect the async hooks
+	 - Second time renders using the fetched values
+	 */
+	await streamToPromise(renderToPipeableStream(component));
+	await resolve();
 	const appHtml = renderToString(component);
 
 	return {
@@ -58,22 +58,15 @@ function createLazyResolver() {
 		serverPrefetch: {},
 		serverPrefetchState: {},
 	};
-
-	let promiseResolve: any;
-	const promise = new Promise<any>((resolve) => {
-		promiseResolve = resolve;
-	});
-	const Component = lazy(() => promise);
 	return {
-		Component,
 		context,
 		async resolve() {
-			await Promise.all(Object.values(context.serverPrefetch));
-			promiseResolve({
-				default: () => {
-					return null;
-				},
-			});
+			const noop = () => null;
+			await Promise.all(
+				Object.values(context.serverPrefetch).map((p) =>
+					p.then(noop, noop)
+				)
+			);
 		},
 	};
 }

@@ -15,8 +15,7 @@ async function main() {
 		serverPrefetch: {},
 		serverPrefetchState: {},
 	};
-	const Component = () => null;
-	app.render(createElement(Root, { Component, context }));
+	app.render(createElement(Root, { context }));
 }
 
 void main();
