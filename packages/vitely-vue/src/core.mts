@@ -1,5 +1,6 @@
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { vitelyGetTarget } from '@vitely/core';
 import { InlineConfig, Plugin } from 'vite';
 import { VitelyVueConfigResolved } from './config.mjs';
 
@@ -9,7 +10,7 @@ export default function vitelyPluginVueCore(
 	return {
 		name: 'vitely:vue',
 		config(c, configEnv) {
-			const target = process.env.VITELY_TARGET || 'client';
+			const target = vitelyGetTarget();
 			const isServer = target === 'server';
 			const outDir = c.build?.outDir ?? 'dist';
 
@@ -65,7 +66,7 @@ export default function vitelyPluginVueCore(
 				build: {
 					ssr: false,
 					ssrManifest: vitelyVueConfig.ssr,
-					outDir: join(outDir, 'client'),
+					outDir: target ? join(outDir, 'client') : outDir,
 				},
 				ssr,
 				resolve,
