@@ -1,5 +1,5 @@
-import { createVirtualModulesPlugin } from '@vitely/core';
 import type { Plugin as VitePlugin } from 'vite';
+import { createVirtualModulesPlugin } from '../virtual-modules.mjs';
 
 export type VitelyConfigMiddleware = {
 	ssr: boolean;

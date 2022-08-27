@@ -1,21 +1,18 @@
+import { join } from 'path';
+import { fileURLToPath } from 'url';
 import { default as vitePluginVue } from '@vitejs/plugin-vue2';
+import {
+	corePlugin,
+	devServerPlugin,
+	pluginsPlugin,
+	middlewaresPlugin,
+} from '@vitely/core/plugins';
 import { PluginOption } from 'vite';
 import { resolveConfig, VitelyVueConfig } from './config.mjs';
-import vitelyPluginVueCore from './core.mjs';
-import { devServerPlugin } from './dev-server.mjs';
 import headPlugin from './head/index.mjs';
-import { middlewaresPlugin } from './middleware.mjs';
-import { pluginsPlugin } from './plugins.mjs';
 import routerPlugin from './router/index.mjs';
 import storePlugin from './store/index.mjs';
 import './types.mjs';
-
-export type { VitelyVuePlugin, VitelyVuePluginContext } from './plugins.mjs';
-
-export type {
-	VitelyVueMiddleware,
-	VitelyVueMiddlewareContext,
-} from './middleware.mjs';
 
 /**
  * Main entrypoint
@@ -29,12 +26,25 @@ export default function vitelyPluginVue(
 	return [
 		// Plugins
 		vitePluginVue(),
-		devServerPlugin(vitelyVueConfig),
+		devServerPlugin({
+			ssr: vitelyVueConfig.ssr,
+			renderModule: join(
+				fileURLToPath(import.meta.url),
+				'entry/ssr/server-render.mjs'
+			),
+		}),
+		corePlugin({
+			base: '@vitely/vue',
+			ssr: vitelyVueConfig.ssr,
+			standaloneServer: vitelyVueConfig.standaloneServer,
+			alias: {
+				'virtual:vitely/vue2/app.vue': '/app.vue',
+			},
+		}),
+		pluginsPlugin(vitelyVueConfig.plugins),
+		middlewaresPlugin(vitelyVueConfig.middlewares),
 		routerPlugin(vitelyVueConfig),
 		storePlugin(vitelyVueConfig),
 		headPlugin(vitelyVueConfig),
-		vitelyPluginVueCore(vitelyVueConfig),
-		pluginsPlugin(vitelyVueConfig),
-		middlewaresPlugin(vitelyVueConfig),
 	];
 }

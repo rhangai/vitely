@@ -5,18 +5,6 @@ declare module 'virtual:vitely/vue2/app.vue' {
 	export default vitelyMainComponent;
 }
 
-declare module 'virtual:vitely/vue2/plugins' {
-	export function setupPlugins(
-		options: import('./plugins.mjs').VitelyVuePluginOptions
-	): Promise<void>;
-}
-
-declare module 'virtual:vitely/vue2/middlewares' {
-	export function runMiddlewares(
-		options: import('./middleware.mjs').VitelyVueMiddlewareOptions
-	): Promise<void>;
-}
-
 declare module 'virtual:vitely/vue2/router-data' {
 	export const pagesRoot: string;
 	export const pagesModules: Record<string, () => unknown>;

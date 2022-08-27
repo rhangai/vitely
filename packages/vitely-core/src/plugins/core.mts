@@ -1,6 +1,6 @@
 import { join } from 'node:path';
-import { vitelyGetTarget } from '@vitely/core';
 import { InlineConfig, Plugin } from 'vite';
+import { vitelyGetTarget } from '../target.mjs';
 
 export type VitelyConfigCore = {
 	ssr: boolean;
@@ -9,7 +9,7 @@ export type VitelyConfigCore = {
 	alias: Record<string, string>;
 };
 
-export default function corePlugin(config: VitelyConfigCore): Plugin {
+export function corePlugin(config: VitelyConfigCore): Plugin {
 	return {
 		name: 'vitely:core',
 		config(c, configEnv) {

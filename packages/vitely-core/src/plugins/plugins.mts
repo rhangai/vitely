@@ -1,5 +1,5 @@
-import { createVirtualModulesPlugin } from '@vitely/core';
 import type { Plugin as VitePlugin } from 'vite';
+import { createVirtualModulesPlugin } from '../virtual-modules.mjs';
 
 export type VitelyConfigPlugin = {
 	ssr: boolean;
@@ -11,6 +11,13 @@ export type VitelyConfigPlugin = {
  * Plugin configuration
  */
 export type VitelyPlugin<TContext> = (context: TContext) => void | Promise<void>;
+
+/**
+ * Middleware options
+ */
+export type VitelySetupPluginsOptions<TContext> = {
+	context: TContext;
+};
 
 function generatePluginModule(plugins: VitelyConfigPlugin[]) {
 	const imports: string[] = [];

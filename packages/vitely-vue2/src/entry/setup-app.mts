@@ -1,6 +1,6 @@
+import { runMiddlewares } from 'virtual:vitely/core/middlewares';
+import { setupPlugins } from 'virtual:vitely/core/plugins';
 import { createHead } from 'virtual:vitely/vue2/head';
-import { runMiddlewares } from 'virtual:vitely/vue2/middlewares';
-import { setupPlugins } from 'virtual:vitely/vue2/plugins';
 import { createRouter } from 'virtual:vitely/vue2/router';
 import { createStore } from 'virtual:vitely/vue2/store';
 import { default as Vue, Component } from 'vue';
