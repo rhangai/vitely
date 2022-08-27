@@ -1,6 +1,5 @@
 import { PassThrough } from 'node:stream';
 import { serializeValue } from '@vitely/core';
-import getStream from 'get-stream';
 import { createElement, lazy } from 'react';
 import {
 	PipeableStream,
@@ -47,7 +46,7 @@ async function streamToPromise(stream: PipeableStream) {
 	await new Promise<void>((resolve, reject) => {
 		passThrough
 			.on('data', () => {
-				/* Ignora */
+				// Ignore the data
 			})
 			.on('error', reject)
 			.on('end', () => resolve());
