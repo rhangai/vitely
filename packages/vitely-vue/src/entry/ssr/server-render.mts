@@ -1,4 +1,5 @@
 import { serializeValue } from '@vitely/core';
+import { type HtmlSsrRenderParams } from '@vitely/core/server';
 import App from 'virtual:vitely/vue/app.vue';
 import { createSSRApp, unref } from 'vue';
 // @ts-ignore
@@ -9,8 +10,7 @@ import { type SSRContext } from './context.mjs';
 type RenderResult = {
 	redirect: string | null;
 	status?: number | undefined;
-	renderedHtml: string;
-	renderedBody: string;
+	renderParams: HtmlSsrRenderParams;
 };
 
 export async function render(url: string): Promise<RenderResult> {
@@ -24,8 +24,7 @@ export async function render(url: string): Promise<RenderResult> {
 	if (router.currentRoute.value.path !== url) {
 		return {
 			redirect: router.currentRoute.value.path,
-			renderedHtml: '',
-			renderedBody: '',
+			renderParams: {},
 		};
 	}
 
@@ -33,16 +32,20 @@ export async function render(url: string): Promise<RenderResult> {
 		fetchStatePromises: {},
 		fetchState: {},
 	};
-	const renderedHtml: string = await renderToString(app, ssrContext);
+	const renderedApp: string = await renderToString(app, ssrContext);
+
+	const renderParams: HtmlSsrRenderParams = {
+		body: serializeContext({
+			fetchState: ssrContext.fetchState,
+			store: unref(store?.state.value),
+		}),
+		app: renderedApp,
+	};
 
 	return {
 		redirect: null,
 		status: router.currentRoute.value?.meta?.status as number | undefined,
-		renderedHtml,
-		renderedBody: serializeContext({
-			fetchState: ssrContext.fetchState,
-			store: unref(store?.state.value),
-		}),
+		renderParams,
 	};
 }
 
@@ -51,14 +54,4 @@ function serializeContext(context: SSRContext) {
 		context,
 	});
 	return `<script>window.__VITELY__=${serialized}</script>`;
-}
-
-export async function createHtmlRenderer(html: string) {
-	return ({ renderedHtml, renderedBody }: RenderResult) => {
-		const ssrHtml = html.replace(
-			/<!--\s*ssr\s*-->\s*<\/div>/,
-			`${renderedHtml}</div>${renderedBody}`
-		);
-		return ssrHtml;
-	};
 }

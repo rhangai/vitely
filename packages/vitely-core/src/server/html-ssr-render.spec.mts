@@ -2,7 +2,7 @@ import { describe, it } from 'vitest';
 import { createHtmlSsrRender } from './html-ssr-render.mjs';
 
 describe('html-ssr-render', () => {
-	it('should parse html', () => {
+	it('should parse html', async () => {
 		const HTML = `<html>
 			<head>
 			</head>
@@ -10,7 +10,7 @@ describe('html-ssr-render', () => {
 				<div id="app"><!-- ssr --></div>
 			</body>
 		</html>`;
-		const renderer = createHtmlSsrRender(HTML);
+		const renderer = await createHtmlSsrRender(HTML);
 		console.log(
 			renderer({
 				htmlAttrs: 'lang="pt-br"',

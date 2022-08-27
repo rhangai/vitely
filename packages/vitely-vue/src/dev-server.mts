@@ -1,6 +1,7 @@
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 import { fileURLToPath } from 'url';
+import { createHtmlSsrRender } from '@vitely/core/server';
 import type { Plugin } from 'vite';
 import { VitelyVueConfigResolved } from './config.mjs';
 
@@ -28,11 +29,10 @@ export function devServerPlugin(
 						fileURLToPath(import.meta.url),
 						'../entry/ssr/server-render.mjs'
 					);
-					const { render, createHtmlRenderer } =
-						(await server.ssrLoadModule(
-							serverRenderModule
-						)) as ServerRenderModule;
-					const renderHtml = await createHtmlRenderer(html);
+					const { render } = (await server.ssrLoadModule(
+						serverRenderModule
+					)) as ServerRenderModule;
+					const renderHtml = await createHtmlSsrRender(html);
 					const result = await render(req.originalUrl ?? '/');
 					if (result.redirect) {
 						res.writeHead(302, {
@@ -43,7 +43,7 @@ export function devServerPlugin(
 					}
 
 					res.statusCode = result.status ?? 200;
-					res.end(renderHtml(result));
+					res.end(renderHtml(result.renderParams));
 				});
 			};
 		},

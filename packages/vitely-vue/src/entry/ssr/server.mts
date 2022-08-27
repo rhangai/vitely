@@ -1,15 +1,15 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import FastifyStatic from '@fastify/static';
-import { assertClientDir } from '@vitely/core/server';
+import { assertClientDir, createHtmlSsrRender } from '@vitely/core/server';
 import { default as Fastify } from 'fastify';
-import { render, createHtmlRenderer } from './server-render.mjs';
+import { render } from './server-render.mjs';
 
 async function main(clientDir: string) {
 	assertClientDir(clientDir);
 
 	const html = await readFile(resolve(clientDir, 'index.html'), 'utf8');
-	const renderHtml = await createHtmlRenderer(html);
+	const renderHtml = await createHtmlSsrRender(html);
 
 	const fastify = Fastify();
 	await fastify.register(FastifyStatic, {
@@ -22,7 +22,7 @@ async function main(clientDir: string) {
 			await res
 				.status(result.status ?? 200)
 				.type('text/html')
-				.send(renderHtml(result));
+				.send(renderHtml(result.renderParams));
 		} catch (e: any) {
 			await res.status(500).send({});
 		}
