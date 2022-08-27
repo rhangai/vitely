@@ -5,7 +5,10 @@ export type VitelyConfigMiddlewareInput =
 	| string
 	| null
 	| undefined
-	| VitelyConfigMiddleware;
+	| {
+			ssr?: boolean;
+			middleware: string;
+	  };
 
 export type VitelyConfigMiddleware = {
 	ssr: boolean;
@@ -92,7 +95,7 @@ export function middlewaresPluginResolveConfig(
 				return { ssr: true, middleware: item };
 			}
 			if (!item.middleware) return null;
-			return { ...item };
+			return { ssr: item.ssr !== false, middleware: item.middleware };
 		})
 		.filter((p): p is VitelyConfigMiddleware => {
 			if (!p) return false;

@@ -5,7 +5,10 @@ export type VitelyConfigPluginInput =
 	| string
 	| null
 	| undefined
-	| VitelyConfigPlugin;
+	| {
+			ssr?: boolean;
+			plugin: string;
+	  };
 
 export type VitelyConfigPlugin = {
 	ssr: boolean;
@@ -87,7 +90,7 @@ export function pluginsPluginResolveConfig(
 				return { ssr: true, plugin: item };
 			}
 			if (!item.plugin) return null;
-			return { ...item };
+			return { ssr: item.ssr !== false, plugin: item.plugin };
 		})
 		.filter((p): p is VitelyConfigPlugin => {
 			if (!p) return false;
