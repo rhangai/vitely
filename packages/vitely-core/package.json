@@ -16,6 +16,10 @@
     "./router": {
       "import": "./dist/router/index.mjs",
       "types": "./dist/router/index.d.mts"
+    },
+    "./server": {
+      "import": "./dist/server/index.mjs",
+      "types": "./dist/server/index.d.mts"
     }
   },
   "scripts": {

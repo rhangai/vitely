@@ -1,9 +1,12 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import FastifyStatic from '@fastify/static';
-import { fastify as Fastify } from 'fastify';
+import { assertClientDir } from '@vitely/core/server';
+import { default as Fastify } from 'fastify';
 
 async function main(clientDir: string) {
+	assertClientDir(clientDir);
+
 	const fastify = Fastify();
 	const html = await readFile(resolve(clientDir, 'index.html'), 'utf8');
 	await fastify.register(FastifyStatic, {
