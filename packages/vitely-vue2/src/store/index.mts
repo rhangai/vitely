@@ -19,12 +19,18 @@ export function createStore(options) {
 		store.state.value = (window?.__VITELY__?.context?.store)
 	}
 	options.pinia = store;
-	return { store };
+	return {
+		store,
+		storeState() {
+			return store.state.value;
+		}
+	};
 }
 	`;
 }
 
 function moduleStoreVuex(store: VitelyVue2StoreVuex) {
+	if (!store.entry) throw new Error(`Missing store entry point for vuex`);
 	return `
 import Vue, { computed } from 'vue';
 import Vuex from 'vuex';
@@ -41,8 +47,9 @@ export function createStore(options) {
 	}
 	options.store = store;
 	return { 
-		store: {
-			state: computed(() => store.state),
+		store,
+		storeState() {
+			return store.state;
 		}
 	};
 }
@@ -52,7 +59,12 @@ export function createStore(options) {
 function moduleStoreNull() {
 	return `
 export function createStore() {
-	return { store: null };
+	return { 
+		store: null,
+		storeState() {
+			return null;
+		},
+	};
 }
 	`;
 }

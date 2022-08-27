@@ -40,6 +40,7 @@ declare module 'virtual:vitely/vue2/store' {
 
 	export function createStore(options: Record<string, any>): {
 		store: VitelyStore | null;
+		storeState(): Record<string, any>;
 	};
 }
 

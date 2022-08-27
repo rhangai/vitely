@@ -14,7 +14,7 @@ export async function setupApp({ component, provide }: SetupAppOptions) {
 	const options = {};
 
 	const { router } = createRouter(options);
-	const { store } = createStore(options);
+	const { store, storeState } = createStore(options);
 
 	// Run the middleware
 	router.beforeEach(async (to, from, routerNext) => {
@@ -62,5 +62,6 @@ export async function setupApp({ component, provide }: SetupAppOptions) {
 		app,
 		router,
 		store,
+		storeState,
 	};
 }

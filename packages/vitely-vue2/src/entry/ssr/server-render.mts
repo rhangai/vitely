@@ -1,7 +1,6 @@
 import { serializeValue } from '@vitely/core';
 import { type HtmlSsrRenderParams } from '@vitely/core/server';
 import App from 'virtual:vitely/vue2/app.vue';
-import { unref } from 'vue';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { createRenderer } from 'vue-server-renderer';
 import { SSR_CONTEXT_KEY } from '../../composition/internals.js';
@@ -24,7 +23,7 @@ export async function render(url: string): Promise<RenderResult> {
 		fetchStatePromises: {},
 		fetchState: {},
 	};
-	const { app, router, store } = await setupApp({
+	const { app, router, storeState } = await setupApp({
 		component: App,
 		provide: {
 			[SSR_CONTEXT_KEY as symbol]: ssrData,
@@ -53,7 +52,7 @@ export async function render(url: string): Promise<RenderResult> {
 		app: renderedApp,
 		body: serializeContext({
 			fetchState: ssrData.fetchState,
-			store: unref(store?.state.value),
+			store: storeState(),
 		}),
 	};
 
