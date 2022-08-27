@@ -1,6 +1,12 @@
 import type { Plugin as VitePlugin } from 'vite';
 import { createVirtualModulesPlugin } from '../virtual-modules.mjs';
 
+export type VitelyConfigPluginInput =
+	| string
+	| null
+	| undefined
+	| VitelyConfigPlugin;
+
 export type VitelyConfigPlugin = {
 	ssr: boolean;
 	plugin: string;
@@ -65,4 +71,26 @@ export function pluginsPlugin(plugins: VitelyConfigPlugin[]): VitePlugin {
 				}`
 		},
 	});
+}
+
+/**
+ * Resolve the plugins config
+ */
+export function pluginsPluginResolveConfig(
+	items: Array<VitelyConfigPluginInput>
+): VitelyConfigPlugin[] {
+	if (!items || items.length <= 0) return [];
+	return items
+		.map((item): VitelyConfigPlugin | null => {
+			if (!item) return null;
+			if (typeof item === 'string') {
+				return { ssr: true, plugin: item };
+			}
+			if (!item.plugin) return null;
+			return { ...item };
+		})
+		.filter((p): p is VitelyConfigPlugin => {
+			if (!p) return false;
+			return true;
+		});
 }

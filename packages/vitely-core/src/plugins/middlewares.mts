@@ -1,6 +1,12 @@
 import type { Plugin as VitePlugin } from 'vite';
 import { createVirtualModulesPlugin } from '../virtual-modules.mjs';
 
+export type VitelyConfigMiddlewareInput =
+	| string
+	| null
+	| undefined
+	| VitelyConfigMiddleware;
+
 export type VitelyConfigMiddleware = {
 	ssr: boolean;
 	middleware: string;
@@ -70,4 +76,26 @@ export function middlewaresPlugin(
 				}`
 		},
 	});
+}
+
+/**
+ * Resolve the middlewares config
+ */
+export function middlewaresPluginResolveConfig(
+	items: Array<VitelyConfigMiddlewareInput>
+): VitelyConfigMiddleware[] {
+	if (!items || items.length <= 0) return [];
+	return items
+		.map((item): VitelyConfigMiddleware | null => {
+			if (!item) return null;
+			if (typeof item === 'string') {
+				return { ssr: true, middleware: item };
+			}
+			if (!item.middleware) return null;
+			return { ...item };
+		})
+		.filter((p): p is VitelyConfigMiddleware => {
+			if (!p) return false;
+			return true;
+		});
 }
