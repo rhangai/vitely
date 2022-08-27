@@ -82,7 +82,7 @@ export function middlewaresPlugin(
  * Resolve the middlewares config
  */
 export function middlewaresPluginResolveConfig(
-	items: Array<VitelyConfigMiddlewareInput>
+	items: Array<VitelyConfigMiddlewareInput> | null | undefined
 ): VitelyConfigMiddleware[] {
 	if (!items || items.length <= 0) return [];
 	return items
