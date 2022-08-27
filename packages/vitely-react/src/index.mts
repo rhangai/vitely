@@ -10,6 +10,7 @@ import {
 import { PluginOption } from 'vite';
 import { resolveConfig, VitelyReactConfig } from './config.mjs';
 import './types.mjs';
+import routerPlugin from './router/index.mjs';
 
 /**
  * Main entrypoint
@@ -36,5 +37,7 @@ export default function vitelyPluginVue(
 		}),
 		pluginsPlugin(config.plugins),
 		middlewaresPlugin(config.middlewares),
+		// React plugins
+		routerPlugin(config),
 	];
 }

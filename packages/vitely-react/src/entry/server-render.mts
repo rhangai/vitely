@@ -10,12 +10,12 @@ import { type RenderResult } from 'virtual:vitely/core/render';
 import { AppContextValue } from '../hook/app-context.mjs';
 import { setupApp } from './setup-app.mjs';
 
-export async function render(_url: string): Promise<RenderResult> {
+export async function render(url: string): Promise<RenderResult> {
 	const { Root } = await setupApp();
 
 	const { context, resolveServerPrefetch } = createLazyResolver();
 
-	const component = createElement(Root, { context });
+	const component = createElement(Root, { context, url });
 
 	/*
 	Must run twice
