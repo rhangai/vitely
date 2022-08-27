@@ -33,6 +33,12 @@ export default function vitelyPluginVueCore(
 				};
 			}
 
+			if (vitelyVueConfig.ssr && !target) {
+				throw new Error(
+					`\n=========\nError when building with ssr enabled.\n\nYou must set VITELY_TARGET to server or client\n=========\n`
+				);
+			}
+
 			if (isServer) {
 				const serverEntry = vitelyVueConfig.ssr
 					? 'entry/ssr/server'

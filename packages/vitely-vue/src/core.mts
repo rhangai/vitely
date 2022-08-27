@@ -11,6 +11,7 @@ export default function vitelyPluginVueCore(
 		name: 'vitely:vue',
 		config(c, configEnv) {
 			const target = vitelyGetTarget();
+
 			const isServer = target === 'server';
 			const outDir = c.build?.outDir ?? 'dist';
 
@@ -31,6 +32,12 @@ export default function vitelyPluginVueCore(
 					resolve,
 					ssr,
 				};
+			}
+
+			if (vitelyVueConfig.ssr && !target) {
+				throw new Error(
+					`\n=========\nError when building with ssr enabled.\n\nYou must set VITELY_TARGET to server or client\n=========\n`
+				);
 			}
 
 			if (isServer) {
