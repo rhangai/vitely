@@ -20,13 +20,3 @@ export type VitelyPluginContext = {
 export type VitelyPlugin = VitelyCorePlugin<VitelyPluginContext>;
 
 export type VitelyMiddleware = VitelyCoreMiddleware<VitelyMiddlewareContext>;
-
-export function definePlugin(plugin: VitelyPlugin): VitelyPlugin {
-	return plugin;
-}
-
-export function defineMiddleware(
-	middleware: VitelyMiddleware
-): VitelyMiddleware {
-	return middleware;
-}

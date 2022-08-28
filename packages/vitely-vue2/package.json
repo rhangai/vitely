@@ -20,6 +20,10 @@
     "./composition": {
       "import": "./dist/composition/index.mjs",
       "types": "./dist/composition/index.d.mts"
+    },
+    "./runtime": {
+      "import": "./dist/runtime/index.mjs",
+      "types": "./dist/runtime/index.d.mts"
     }
   },
   "scripts": {

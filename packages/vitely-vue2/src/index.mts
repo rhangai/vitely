@@ -7,9 +7,6 @@ import headPlugin from './head/index.mjs';
 import routerPlugin from './router/index.mjs';
 import storePlugin from './store/index.mjs';
 
-// Types
-export * from './types.mjs';
-
 /**
  * Main entrypoint
  * @param config
