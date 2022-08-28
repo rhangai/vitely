@@ -1,7 +1,6 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "types": ["@vitely/core", "vite/client"]
+    "jsx": "react-jsx"
   }
 }
