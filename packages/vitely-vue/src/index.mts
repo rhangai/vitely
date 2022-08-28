@@ -19,7 +19,12 @@ export default function vitelyPluginVue(
 	return [
 		// Plugins
 		vitePluginVue(),
-		corePlugin(config),
+		corePlugin({
+			config,
+			alias: {
+				'virtual:vitely/vue/app.vue': '/app.vue',
+			},
+		}),
 		routerPlugin(config),
 		storePlugin(config),
 		headPlugin(config),

@@ -7,16 +7,17 @@ import {
 } from './config.mjs';
 import { devServerPlugin } from './dev-server.mjs';
 import { middlewaresPlugin } from './middlewares.mjs';
+import type { VitelyCoreOptions } from './options.mjs';
 import { pluginsPlugin } from './plugins.mjs';
 
 export { VitelyCoreConfig, VitelyCoreConfigResolved, resolveCoreConfig };
 
-export function corePlugin(config: VitelyCoreConfigResolved): PluginOption {
+export function corePlugin(options: VitelyCoreOptions): PluginOption {
 	return [
 		//
-		buildPlugin(config),
-		devServerPlugin(config),
-		middlewaresPlugin(config),
-		pluginsPlugin(config),
+		buildPlugin(options),
+		devServerPlugin(options),
+		middlewaresPlugin(options),
+		pluginsPlugin(options),
 	];
 }

@@ -2,9 +2,9 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { InlineConfig, Plugin } from 'vite';
 import { vitelyGetTarget } from '../target.mjs';
-import type { VitelyCoreConfigResolved } from './config.mjs';
+import type { VitelyCoreOptions } from './options.mjs';
 
-export function buildPlugin(config: VitelyCoreConfigResolved): Plugin {
+export function buildPlugin({ config, alias }: VitelyCoreOptions): Plugin {
 	return {
 		name: 'vitely:core',
 		config(c, configEnv) {
@@ -25,7 +25,7 @@ export function buildPlugin(config: VitelyCoreConfigResolved): Plugin {
 						config.moduleBase,
 						'entry/server-render.mjs'
 					),
-					...config.alias,
+					...alias,
 				},
 			};
 

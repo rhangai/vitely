@@ -7,14 +7,17 @@ import { setupApp } from './setup-app.mjs';
 async function main() {
 	const { Root } = await setupApp();
 
+	//
+	const serverPrefetchState =
+		// @ts-ignore
+		// eslint-disable-next-line no-underscore-dangle, no-undef
+		window?.__VITELY__?.context.serverPrefetchState;
+
 	// Render
 	const context: AppContextValue = {
 		logger: console,
 		serverPrefetch: {},
-		serverPrefetchState: {},
-		// @ts-ignore
-		// eslint-disable-next-line no-underscore-dangle, no-undef
-		...window?.__VITELY__?.context,
+		serverPrefetchState: { ...serverPrefetchState },
 	};
 	hydrateRoot(
 		// eslint-disable-next-line no-undef

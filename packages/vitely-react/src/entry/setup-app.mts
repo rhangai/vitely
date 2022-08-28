@@ -1,5 +1,5 @@
 import { setupPlugins } from 'virtual:vitely/core/plugins';
-import { default as Root } from './root.js';
+import { default as Root } from './components/root.js';
 
 export async function setupApp() {
 	// Setup the plugins

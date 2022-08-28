@@ -2,8 +2,8 @@ import { Suspense } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 // eslint-disable-next-line import/extensions
 import { default as App } from 'virtual:vitely/react/app.tsx';
-import { AppContext } from '../hook/app-context.mjs';
-import { createRouter } from '../router/runtime/create-router.mjs';
+import { AppContext } from '../../hook/app-context.mjs';
+import { createRouter } from '../../router/runtime/create-router.mjs';
 
 export default function Root({ context, url, helmetContext }: any) {
 	const { Routes } = createRouter(url ?? '/');

@@ -3,11 +3,11 @@ import { join } from 'path';
 import type { Plugin } from 'vite';
 import { VitelyLogger } from '../index.mjs';
 import { createHtmlSsrRender } from '../server/html-ssr-render.mjs';
-import type { VitelyCoreConfigResolved } from './config.mjs';
+import type { VitelyCoreOptions } from './options.mjs';
 
 type RenderModule = typeof import('virtual:vitely/core/render');
 
-export function devServerPlugin(config: VitelyCoreConfigResolved): Plugin {
+export function devServerPlugin({ config }: VitelyCoreOptions): Plugin {
 	let logger: VitelyLogger;
 	return {
 		name: 'vitely:core-dev-server',

@@ -1,9 +1,7 @@
 import type { Plugin as VitePlugin } from 'vite';
 import { createVirtualModulesPlugin } from '../virtual-modules.mjs';
-import type {
-	VitelyCoreConfigPlugin,
-	VitelyCoreConfigResolved,
-} from './config.mjs';
+import type { VitelyCoreConfigPlugin } from './config.mjs';
+import type { VitelyCoreOptions } from './options.mjs';
 
 // prettier-ignore
 /**
@@ -44,7 +42,7 @@ export async function setupPlugins(options) {
 /**
  * A basic
  */
-export function pluginsPlugin(config: VitelyCoreConfigResolved): VitePlugin {
+export function pluginsPlugin({ config }: VitelyCoreOptions): VitePlugin {
 	const clientlugins = config.plugins;
 	const serverPlugins = config.plugins.filter((p) => p.ssr);
 

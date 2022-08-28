@@ -1,9 +1,7 @@
 import type { Plugin as VitePlugin } from 'vite';
 import { createVirtualModulesPlugin } from '../virtual-modules.mjs';
-import type {
-	VitelyCoreConfigMiddleware,
-	VitelyCoreConfigResolved,
-} from './config.mjs';
+import type { VitelyCoreConfigMiddleware } from './config.mjs';
+import type { VitelyCoreOptions } from './options.mjs';
 
 // prettier-ignore
 /**
@@ -51,9 +49,7 @@ export async function runMiddlewares(options) {
 /**
  * Plugin to run every middleware
  */
-export function middlewaresPlugin(
-	config: VitelyCoreConfigResolved
-): VitePlugin {
+export function middlewaresPlugin({ config }: VitelyCoreOptions): VitePlugin {
 	const clientMiddlewares = config.middlewares;
 	const serverMiddlewares = config.middlewares.filter((p) => p.ssr);
 

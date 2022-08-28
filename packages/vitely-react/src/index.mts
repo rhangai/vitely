@@ -16,7 +16,12 @@ export default function vitelyPluginReact(
 	const config = resolveConfig(configParam);
 	return [
 		vitePluginReact(),
-		corePlugin(config),
+		corePlugin({
+			config,
+			alias: {
+				'virtual:vitely/react/app.tsx': '/app.tsx',
+			},
+		}),
 		routerPlugin(config),
 		{
 			name: 'vitely:react-externals',
