@@ -1,6 +1,7 @@
 export type HtmlSsrRenderParams = {
 	htmlAttrs?: string;
 	head?: Array<string | null | undefined> | string | null | undefined;
+	bodyAttrs?: string | null | undefined;
 	bodyPrepend?: Array<string | null | undefined> | string | null | undefined;
 	body?: Array<string | null | undefined> | string | null | undefined;
 	app?: string;
@@ -31,11 +32,10 @@ export async function createHtmlSsrRender(
 		throw new Error(`Could not find the </head> ending tag`);
 	}
 
-	const ssrMatch = /<!--\s*ssr\s*-->\s*<\/div>/.exec(htmlInput);
-	if (!ssrMatch) {
-		throw new Error(
-			`Could not find the <div> with an <!-- ssr --> comment inside`
-		);
+	// prettier-ignore
+	const divAppMatch = /<div\s+id=["']app["']\s*>.*?<\/div>/m.exec(htmlInput);
+	if (!divAppMatch) {
+		throw new Error(`Could not find empty <div id="app"></div>`);
 	}
 
 	const bodyMatch = /<body(.*?)>/.exec(htmlInput);
@@ -52,20 +52,21 @@ export async function createHtmlSsrRender(
 
 	const bodyAttrs = bodyMatch[1];
 	const bodyStart = htmlInput
-		.substring(bodyMatch.index + bodyMatch[0].length, ssrMatch.index)
+		.substring(bodyMatch.index + bodyMatch[0].length, divAppMatch.index)
 		.trim();
 
 	const bodyEnd = htmlInput
-		.substring(ssrMatch.index + ssrMatch[0].length)
+		.substring(divAppMatch.index + divAppMatch[0].length)
 		.trim();
 
 	return (data: HtmlSsrRenderParams = {}) => {
 		const renderedHead = toString(data.head);
 		const renderedBody = toString(data.body);
 		const renderedBodyPrepend = toString(data.bodyPrepend);
+		const renderedBodyAttrs = toString(data.bodyAttrs, ' ');
 
 		// prettier-ignore
-		const html = `${beforeHtml}<html ${data.htmlAttrs ?? ''}>${headDefault}${renderedHead}</head><body ${bodyAttrs}>${renderedBodyPrepend}${bodyStart}${data.app ?? ''}</div>${renderedBody}${bodyEnd}`;
+		const html = `${beforeHtml}<html ${data.htmlAttrs ?? ''}>${headDefault}${renderedHead}</head><body ${bodyAttrs} ${renderedBodyAttrs}>${renderedBodyPrepend}${bodyStart}<div id="app">${data.app ?? ''}</div>${renderedBody}${bodyEnd}`;
 		return {
 			html,
 		};
