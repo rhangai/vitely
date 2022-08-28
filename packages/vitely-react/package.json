@@ -24,12 +24,11 @@
   },
   "scripts": {
     "clean": "rm -rf dist node_modules .turbo",
-    "build": "tsc -p tsconfig.build.json",
-    "publish": "yarn run clean && yarn run build"
+    "build": "tsc -p tsconfig.build.json"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^2.0.1",
-    "@vitely/core": "^0.2"
+    "@vitely/core": "^0.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",
