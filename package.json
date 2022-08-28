@@ -30,6 +30,10 @@
     "vitest": "^0.22.1"
   },
   "resolutions": {
+    "@vitely/core": "workspace:*",
+    "@vitely/react": "workspace:*",
+    "@vitely/vue": "workspace:*",
+    "@vitely/vue2": "workspace:*",
     "vite": "^3.0.9",
     "vitest": "^0.22.1"
   }

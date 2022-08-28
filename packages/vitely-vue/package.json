@@ -1,6 +1,6 @@
 {
   "name": "@vitely/vue",
-  "version": "0.2.0",
+  "version": "0.0.1",
   "publishConfig": {
     "access": "public"
   },
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@vitejs/plugin-vue": "^3.0.3",
-    "@vitely/core": "^0.2.0",
+    "@vitely/core": "^0.0.1",
     "@vueuse/head": "^0.7.9"
   },
   "devDependencies": {

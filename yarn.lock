@@ -1146,7 +1146,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitely/core@^0.2, @vitely/core@^0.2.0, @vitely/core@workspace:packages/vitely-core":
+"@vitely/core@workspace:*, @vitely/core@workspace:packages/vitely-core":
   version: 0.0.0-use.local
   resolution: "@vitely/core@workspace:packages/vitely-core"
   dependencies:
@@ -1191,7 +1191,7 @@ __metadata:
   resolution: "@vitely/vue2@workspace:packages/vitely-vue2"
   dependencies:
     "@vitejs/plugin-vue2": ^1.1.2
-    "@vitely/core": ^0.2.0
+    "@vitely/core": ^0.0.1
     typescript: ^4.7.4
     vite: ^3.0.9
     vue: ^2.7
@@ -1209,7 +1209,7 @@ __metadata:
   resolution: "@vitely/vue@workspace:packages/vitely-vue"
   dependencies:
     "@vitejs/plugin-vue": ^3.0.3
-    "@vitely/core": ^0.2.0
+    "@vitely/core": ^0.0.1
     "@vueuse/head": ^0.7.9
     typescript: ^4.7.4
     vite: ^3.0.9
