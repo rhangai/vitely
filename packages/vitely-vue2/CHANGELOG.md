@@ -1,5 +1,13 @@
 # @vitely/vue2
 
+## 0.0.3
+
+### Patch Changes
+
+-   Improved debugging with sourceMap
+-   Updated dependencies
+    -   @vitely/core@0.0.3
+
 ## 0.0.2
 
 ### Patch Changes
