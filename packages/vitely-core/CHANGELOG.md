@@ -1,5 +1,11 @@
 # @vitely/core
 
+## 0.0.4
+
+### Patch Changes
+
+-   Improved vue2 support
+
 ## 0.0.3
 
 ### Patch Changes
