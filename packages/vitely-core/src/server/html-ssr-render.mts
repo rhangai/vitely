@@ -22,7 +22,9 @@ export type HtmlSsrRender = (
 ) => HtmlSsrRenderResult;
 
 /**
- * Create the html renderer
+ * Simple HTML render
+ *
+ * The input html must be valid, otherwise, undefined behavior
  */
 export async function createHtmlSsrRender(
 	htmlParam: string
@@ -56,7 +58,8 @@ export async function createHtmlSsrRender(
 		throw new Error(`Could not find empty <div id="app"></div>`);
 	}
 
-	const bodyMatch = /<body(.*?)>/.exec(htmlInput);
+	// Improved search using the already found body index
+	const bodyMatch = /^<body(.*?)>/.exec(htmlInput.substring(indexBody));
 	if (!bodyMatch) {
 		throw new Error(`Could not find the <body> tag`);
 	}
@@ -71,7 +74,7 @@ export async function createHtmlSsrRender(
 
 	const bodyAttrs = bodyMatch[1].trim();
 	const bodyStart = htmlInput
-		.substring(bodyMatch.index + bodyMatch[0].length, divAppMatch.index)
+		.substring(indexBody + bodyMatch[0].length, divAppMatch.index)
 		.trim();
 
 	const bodyEnd = htmlInput
