@@ -844,9 +844,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rhangai/eslint-config-typescript@npm:^0.6.2":
-  version: 0.6.2
-  resolution: "@rhangai/eslint-config-typescript@npm:0.6.2"
+"@rhangai/eslint-config-typescript@npm:^0.6.3":
+  version: 0.6.3
+  resolution: "@rhangai/eslint-config-typescript@npm:0.6.3"
   peerDependencies:
     "@typescript-eslint/eslint-plugin": ^4.25.0
     "@typescript-eslint/parser": ^4.25.0
@@ -857,7 +857,7 @@ __metadata:
     eslint-plugin-import: ^2.23.4
     eslint-plugin-prettier: ^3.4.0
     prettier: ^2.3.0
-  checksum: fbe5e4709dca6a428192acba942aee33f9e608079645e7ed5351dad10c273a1a9bebb5f234a58f27fd59d7f80915bd89a0e338ee71d235f5793241d12a607657
+  checksum: a5db15ee97b87d29431a163bf913ba59e68bf5f91bce497c27de7e5fe4e056d4f7cff6233b6c0829f5887af9956554f8d6da8f547b9f35f61d85ff1ee3c3f791
   languageName: node
   linkType: hard
 
@@ -5141,7 +5141,7 @@ __metadata:
   dependencies:
     "@changesets/cli": ^2.24.3
     "@faker-js/faker": ^7.4.0
-    "@rhangai/eslint-config-typescript": ^0.6.2
+    "@rhangai/eslint-config-typescript": ^0.6.3
     "@types/node": ^16
     "@typescript-eslint/eslint-plugin": ^5.33.1
     "@typescript-eslint/parser": ^5.33.1

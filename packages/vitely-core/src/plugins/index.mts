@@ -9,8 +9,7 @@ import { devServerPlugin } from './dev-server.mjs';
 import { middlewaresPlugin } from './middlewares.mjs';
 import { pluginsPlugin } from './plugins.mjs';
 
-export type { VitelyCoreConfig, VitelyCoreConfigResolved };
-export { resolveCoreConfig };
+export { VitelyCoreConfig, VitelyCoreConfigResolved, resolveCoreConfig };
 
 export function corePlugin(config: VitelyCoreConfigResolved): PluginOption {
 	return [
