@@ -8,7 +8,7 @@ import { RawLocation } from 'vue-router';
 import type {
 	VitelyPluginContext,
 	VitelyMiddlewareContext,
-} from '../types.mjs';
+} from '../types/index.mjs';
 
 type SetupAppOptions = {
 	component: Component;
@@ -58,7 +58,7 @@ export async function setupApp({
 
 	// Hooks
 	const setups: Array<() => void> = [];
-	const onAppSetup = (setup: () => void) => {
+	const onRootSetup = (setup: () => void) => {
 		setups.push(setup);
 	};
 
@@ -69,7 +69,7 @@ export async function setupApp({
 			store,
 			options,
 			provide: pluginProvide,
-			onAppSetup,
+			onRootSetup,
 		},
 	});
 

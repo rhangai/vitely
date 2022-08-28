@@ -14,7 +14,7 @@ export type VitelyPluginContext = {
 	store: any;
 	options: Record<string, any>;
 	provide(key: string | symbol, value: unknown): void;
-	onAppSetup(setup: () => void): void;
+	onRootSetup(setup: () => void): void;
 };
 
 export type VitelyPlugin = VitelyCorePlugin<VitelyPluginContext>;

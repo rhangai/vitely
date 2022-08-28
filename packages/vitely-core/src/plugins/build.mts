@@ -1,16 +1,12 @@
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { InlineConfig, Plugin } from 'vite';
-import { vitelyGetTarget } from '../target.mjs';
 import type { VitelyCoreOptions } from './options.mjs';
 
 export function buildPlugin({ config, alias }: VitelyCoreOptions): Plugin {
 	return {
 		name: 'vitely:core',
 		config(c, configEnv) {
-			const target = vitelyGetTarget();
-
-			const isServer = target === 'server';
 			const outDir = c.build?.outDir ?? 'dist';
 
 			const ssr: InlineConfig['ssr'] = {
@@ -36,6 +32,9 @@ export function buildPlugin({ config, alias }: VitelyCoreOptions): Plugin {
 				};
 			}
 
+			// Build options
+			const target = buildGetTarget();
+			const isServer = target === 'server';
 			if (config.ssr && !target) {
 				throw new Error(
 					`\n=========\nError when building with ssr enabled.\n\nYou must set VITELY_TARGET to server or client\n=========\n`
@@ -82,4 +81,18 @@ export function buildPlugin({ config, alias }: VitelyCoreOptions): Plugin {
 			};
 		},
 	};
+}
+
+/**
+ *
+ * @returns
+ */
+function buildGetTarget() {
+	const target = process.env.VITELY_TARGET;
+	if (!target) return null;
+	if (target.toLowerCase() === 'server') return 'server';
+	if (target.toLowerCase() === 'client') return 'client';
+	throw new Error(
+		`Invalid VITELY_TARGET "${target}". Must be empty, client or server`
+	);
 }

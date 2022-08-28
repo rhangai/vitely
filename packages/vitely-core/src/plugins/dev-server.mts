@@ -1,8 +1,8 @@
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 import type { Plugin } from 'vite';
-import { VitelyLogger } from '../index.mjs';
 import { createHtmlSsrRender } from '../server/html-ssr-render.mjs';
+import { VitelyLogger } from '../types/index.mjs';
 import type { VitelyCoreOptions } from './options.mjs';
 
 type RenderModule = typeof import('virtual:vitely/core/render');

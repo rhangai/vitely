@@ -13,10 +13,6 @@
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.mts"
     },
-    "./plugins": {
-      "import": "./dist/plugins/index.mjs",
-      "types": "./dist/plugins/index.d.mts"
-    },
     "./router": {
       "import": "./dist/router/index.mjs",
       "types": "./dist/router/index.d.mts"
