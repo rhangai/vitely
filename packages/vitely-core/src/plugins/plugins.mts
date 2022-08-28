@@ -3,19 +3,6 @@ import { createVirtualModulesPlugin } from '../virtual-modules.mjs';
 import type { VitelyCoreConfigPlugin } from './config.mjs';
 import type { VitelyCoreOptions } from './options.mjs';
 
-// prettier-ignore
-/**
- * Plugin configuration
- */
-export type VitelyCorePlugin<TContext> = (context: TContext) => void | Promise<void>;
-
-/**
- * Middleware options
- */
-export type VitelyCoreSetupPluginsOptions<TContext> = {
-	context: TContext;
-};
-
 function generatePluginModule(plugins: VitelyCoreConfigPlugin[]) {
 	const imports: string[] = [];
 	const pluginsKeys: string[] = [];

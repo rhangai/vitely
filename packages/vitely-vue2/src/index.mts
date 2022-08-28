@@ -1,3 +1,4 @@
+/// <reference path="./virtual-types.mts" />
 import { default as vitePluginVue } from '@vitejs/plugin-vue2';
 import { corePlugin } from '@vitely/core/plugins';
 import { PluginOption } from 'vite';
@@ -5,7 +6,9 @@ import { resolveConfig, VitelyVueConfig } from './config.mjs';
 import headPlugin from './head/index.mjs';
 import routerPlugin from './router/index.mjs';
 import storePlugin from './store/index.mjs';
-import './types.mjs';
+
+// Types
+export * from './types.mjs';
 
 /**
  * Main entrypoint

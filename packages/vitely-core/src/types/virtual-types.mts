@@ -1,12 +1,12 @@
 declare module 'virtual:vitely/core/plugins' {
 	export function setupPlugins<TContext>(
-		options: import('../plugins/plugins.mjs').VitelyCoreSetupPluginsOptions<TContext>
+		options: import('./types.mjs').VitelyCoreSetupPluginsOptions<TContext>
 	): Promise<void>;
 }
 
 declare module 'virtual:vitely/core/middlewares' {
 	export function runMiddlewares<TContext>(
-		options: import('../plugins/middlewares.mjs').VitelyCoreRunMiddlewaresOptions<TContext>
+		options: import('./types.mjs').VitelyCoreRunMiddlewaresOptions<TContext>
 	): Promise<void>;
 }
 

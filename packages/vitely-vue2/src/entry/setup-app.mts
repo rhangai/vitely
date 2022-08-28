@@ -5,13 +5,20 @@ import { createRouter } from 'virtual:vitely/vue2/router';
 import { createStore } from 'virtual:vitely/vue2/store';
 import { default as Vue, Component } from 'vue';
 import { RawLocation } from 'vue-router';
+import type {
+	VitelyPluginContext,
+	VitelyMiddlewareContext,
+} from '../types.mjs';
 
 type SetupAppOptions = {
 	component: Component;
 	provide: undefined | Record<string | symbol, unknown>;
 };
 
-export async function setupApp({ component, provide }: SetupAppOptions) {
+export async function setupApp({
+	component,
+	provide: provideParam,
+}: SetupAppOptions) {
 	const options = {};
 
 	const { router } = createRouter(options);
@@ -25,12 +32,13 @@ export async function setupApp({ component, provide }: SetupAppOptions) {
 			const next = (route: RawLocation) => {
 				nextRoute = route;
 			};
-			await runMiddlewares({
+			await runMiddlewares<VitelyMiddlewareContext>({
 				context: {
 					to,
 					from,
-					next,
+					router,
 					store,
+					next,
 				},
 				routeChanged() {
 					return !!nextRoute;
@@ -42,12 +50,26 @@ export async function setupApp({ component, provide }: SetupAppOptions) {
 		}
 	});
 
+	// Provide plugin
+	const provide = { ...provideParam };
+	const pluginProvide = (key: symbol | string, value: any) => {
+		provide[key] = value;
+	};
+
+	// Hooks
+	const setups: Array<() => void> = [];
+	const onAppSetup = (setup: () => void) => {
+		setups.push(setup);
+	};
+
 	// Setup the plugins
-	await setupPlugins({
+	await setupPlugins<VitelyPluginContext>({
 		context: {
 			router,
 			store,
 			options,
+			provide: pluginProvide,
+			onAppSetup,
 		},
 	});
 
@@ -55,6 +77,11 @@ export async function setupApp({ component, provide }: SetupAppOptions) {
 	const app = new Vue({
 		...options,
 		provide,
+		setup() {
+			for (const setup of setups) {
+				setup();
+			}
+		},
 		render(h) {
 			return h(component);
 		},

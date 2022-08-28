@@ -1,37 +1,32 @@
-declare module 'virtual:vitely/vue2/app.vue' {
-	import { Component } from 'vue';
+import type { VitelyCorePlugin, VitelyCoreMiddleware } from '@vitely/core';
+import type { default as VueRouter, RawLocation, Route } from 'vue-router';
 
-	const vitelyMainComponent: Component;
-	export default vitelyMainComponent;
+export type VitelyMiddlewareContext = {
+	router: VueRouter;
+	store: any;
+	to: Route;
+	from: Route;
+	next(location: RawLocation): void;
+};
+
+export type VitelyPluginContext = {
+	router: VueRouter;
+	store: any;
+	options: Record<string, any>;
+	provide(key: string | symbol, value: unknown): void;
+	onAppSetup(setup: () => void): void;
+};
+
+export type VitelyPlugin = VitelyCorePlugin<VitelyPluginContext>;
+
+export type VitelyMiddleware = VitelyCoreMiddleware<VitelyMiddlewareContext>;
+
+export function definePlugin(plugin: VitelyPlugin): VitelyPlugin {
+	return plugin;
 }
 
-declare module 'virtual:vitely/vue2/router-data' {
-	export const pagesRoot: string;
-	export const pagesModules: Record<string, () => unknown>;
-}
-
-declare module 'virtual:vitely/vue2/router' {
-	import type { default as VueRouter, RouteConfig } from 'vue-router';
-
-	export function createRouter(options: Record<string, any>): {
-		router: VueRouter;
-		routes: RouteConfig[];
-	};
-}
-
-declare module 'virtual:vitely/vue2/store' {
-	import type { Ref } from 'vue';
-
-	type VitelyStore = {
-		state: Ref<Record<string, any>>;
-	};
-
-	export function createStore(options: Record<string, any>): {
-		store: VitelyStore | null;
-		storeState(): Record<string, any>;
-	};
-}
-
-declare module 'virtual:vitely/vue2/head' {
-	export function createHead(options: Record<string, any>): {};
+export function defineMiddleware(
+	middleware: VitelyMiddleware
+): VitelyMiddleware {
+	return middleware;
 }

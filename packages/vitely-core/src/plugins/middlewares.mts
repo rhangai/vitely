@@ -3,20 +3,6 @@ import { createVirtualModulesPlugin } from '../virtual-modules.mjs';
 import type { VitelyCoreConfigMiddleware } from './config.mjs';
 import type { VitelyCoreOptions } from './options.mjs';
 
-// prettier-ignore
-/**
- * Middleware for vitely
- */
-export type VitelyCoreMiddleware<TContext> = (context: TContext) => void | Promise<void>;
-
-/**
- * Middleware options
- */
-export type VitelyCoreRunMiddlewaresOptions<TContext> = {
-	context: TContext;
-	routeChanged(): boolean;
-};
-
 /**
  * Generate the middleware module for ssr or
  */
