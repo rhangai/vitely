@@ -25,7 +25,8 @@
   "dependencies": {
     "@fastify/static": "^6.5.0",
     "@nuxt/devalue": "^2.0.0",
-    "fastify": "^4.5.2"
+    "fastify": "^4.5.2",
+    "minimist": "^1.2.6"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.4.0",

@@ -2,10 +2,10 @@ import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { default as FastifyStatic } from '@fastify/static';
 import { default as Fastify } from 'fastify';
-import { assertClientDir } from './arguments.mjs';
+import { parseArguments } from './arguments.mjs';
 
-async function main(clientDir: string) {
-	assertClientDir(clientDir);
+async function main() {
+	const { clientDir, port, host } = parseArguments(process.argv.slice(2));
 
 	const fastify = Fastify();
 	const html = await readFile(resolve(clientDir, 'index.html'), 'utf8');
@@ -17,8 +17,9 @@ async function main(clientDir: string) {
 		await res.type('text/html').send(html);
 	});
 	await fastify.listen({
-		port: 3000,
+		port,
+		host,
 	});
 }
 
-void main(process.argv[2]);
+void main();

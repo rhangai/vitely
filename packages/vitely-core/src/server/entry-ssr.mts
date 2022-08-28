@@ -3,11 +3,12 @@ import { resolve } from 'node:path';
 import FastifyStatic from '@fastify/static';
 import { default as Fastify } from 'fastify';
 import { render } from 'virtual:vitely/core/render';
-import { assertClientDir } from './arguments.mjs';
+import { parseArguments } from './arguments.mjs';
 import { createHtmlSsrRender } from './html-ssr-render.mjs';
 
-async function main(clientDir: string) {
-	assertClientDir(clientDir);
+async function main() {
+	const { clientDir, port, host } = parseArguments(process.argv.slice(2));
+
 	const fastify = Fastify({
 		logger: true,
 	});
@@ -42,8 +43,9 @@ async function main(clientDir: string) {
 		}
 	});
 	await fastify.listen({
-		port: 3000,
+		port,
+		host,
 	});
 }
 
-void main(process.argv[2]);
+void main();
