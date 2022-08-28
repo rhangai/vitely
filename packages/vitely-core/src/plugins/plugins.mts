@@ -1,21 +1,24 @@
 import type { Plugin as VitePlugin } from 'vite';
 import { createVirtualModulesPlugin } from '../virtual-modules.mjs';
-import type { VitelyConfigPlugin, VitelyConfigResolved } from './config.mjs';
+import type {
+	VitelyCoreConfigPlugin,
+	VitelyCoreConfigResolved,
+} from './config.mjs';
 
 // prettier-ignore
 /**
  * Plugin configuration
  */
-export type VitelyPlugin<TContext> = (context: TContext) => void | Promise<void>;
+export type VitelyCorePlugin<TContext> = (context: TContext) => void | Promise<void>;
 
 /**
  * Middleware options
  */
-export type VitelySetupPluginsOptions<TContext> = {
+export type VitelyCoreSetupPluginsOptions<TContext> = {
 	context: TContext;
 };
 
-function generatePluginModule(plugins: VitelyConfigPlugin[]) {
+function generatePluginModule(plugins: VitelyCoreConfigPlugin[]) {
 	const imports: string[] = [];
 	const pluginsKeys: string[] = [];
 
@@ -41,7 +44,7 @@ export async function setupPlugins(options) {
 /**
  * A basic
  */
-export function pluginsPlugin(config: VitelyConfigResolved): VitePlugin {
+export function pluginsPlugin(config: VitelyCoreConfigResolved): VitePlugin {
 	const clientlugins = config.plugins;
 	const serverPlugins = config.plugins.filter((p) => p.ssr);
 

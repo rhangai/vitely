@@ -1,9 +1,9 @@
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
-	VitelyConfig,
-	VitelyConfigResolved,
-	resolveConfigCore,
+	VitelyCoreConfig,
+	VitelyCoreConfigResolved,
+	resolveCoreConfig,
 } from '@vitely/core/plugins';
 import { type MetaInfo } from 'vue-meta';
 
@@ -30,13 +30,13 @@ export type VitelyVue2Head = Pick<
 	| 'noscript'
 >;
 
-export type VitelyVueConfigResolved = VitelyConfigResolved & {
+export type VitelyVueConfigResolved = VitelyCoreConfigResolved & {
 	pages: string;
 	store: VitelyVue2Store | null;
 	head: VitelyVue2Head;
 };
 
-export type VitelyVueConfig = VitelyConfig & {
+export type VitelyVueConfig = VitelyCoreConfig & {
 	pages?: string;
 	store?: VitelyVue2Store | boolean | null;
 	head?: VitelyVue2Head | null;
@@ -70,7 +70,7 @@ export function resolveConfig(
 ): VitelyVueConfigResolved {
 	const moduleBase = dirname(fileURLToPath(import.meta.url));
 	return {
-		...resolveConfigCore(moduleBase, config),
+		...resolveCoreConfig(moduleBase, config),
 		pages: config?.pages ?? 'pages',
 		store: resolveConfigStore(config?.store ?? null),
 		head: resolveConfigHead(config?.head ?? null),

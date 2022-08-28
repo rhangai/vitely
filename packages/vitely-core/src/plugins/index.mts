@@ -1,18 +1,18 @@
 import type { PluginOption } from 'vite';
 import { buildPlugin } from './build.mjs';
 import {
-	resolveConfigCore,
-	VitelyConfig,
-	VitelyConfigResolved,
+	resolveCoreConfig,
+	VitelyCoreConfig,
+	VitelyCoreConfigResolved,
 } from './config.mjs';
 import { devServerPlugin } from './dev-server.mjs';
 import { middlewaresPlugin } from './middlewares.mjs';
 import { pluginsPlugin } from './plugins.mjs';
 
-export type { VitelyConfig, VitelyConfigResolved };
-export { resolveConfigCore };
+export type { VitelyCoreConfig, VitelyCoreConfigResolved };
+export { resolveCoreConfig };
 
-export function corePlugin(config: VitelyConfigResolved): PluginOption {
+export function corePlugin(config: VitelyCoreConfigResolved): PluginOption {
 	return [
 		//
 		buildPlugin(config),

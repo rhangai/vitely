@@ -1,16 +1,16 @@
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
-	VitelyConfig,
-	VitelyConfigResolved,
-	resolveConfigCore,
+	VitelyCoreConfig,
+	VitelyCoreConfigResolved,
+	resolveCoreConfig,
 } from '@vitely/core/plugins';
 
-export type VitelyReactConfigResolved = VitelyConfigResolved & {
+export type VitelyReactConfigResolved = VitelyCoreConfigResolved & {
 	pages: string;
 };
 
-export type VitelyReactConfig = VitelyConfig & {
+export type VitelyReactConfig = VitelyCoreConfig & {
 	pages?: string;
 };
 
@@ -22,7 +22,7 @@ export function resolveConfig(
 ): VitelyReactConfigResolved {
 	const moduleBase = dirname(fileURLToPath(import.meta.url));
 	return {
-		...resolveConfigCore(moduleBase, config),
+		...resolveCoreConfig(moduleBase, config),
 		pages: config?.pages ?? 'pages',
 	};
 }

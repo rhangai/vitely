@@ -1,20 +1,20 @@
 import type { Plugin as VitePlugin } from 'vite';
 import { createVirtualModulesPlugin } from '../virtual-modules.mjs';
 import type {
-	VitelyConfigMiddleware,
-	VitelyConfigResolved,
+	VitelyCoreConfigMiddleware,
+	VitelyCoreConfigResolved,
 } from './config.mjs';
 
 // prettier-ignore
 /**
  * Middleware for vitely
  */
-export type VitelyMiddleware<TContext> = (context: TContext) => void | Promise<void>;
+export type VitelyCoreMiddleware<TContext> = (context: TContext) => void | Promise<void>;
 
 /**
  * Middleware options
  */
-export type VitelyRunMiddlewaresOptions<TContext> = {
+export type VitelyCoreRunMiddlewaresOptions<TContext> = {
 	context: TContext;
 	routeChanged(): boolean;
 };
@@ -22,7 +22,7 @@ export type VitelyRunMiddlewaresOptions<TContext> = {
 /**
  * Generate the middleware module for ssr or
  */
-function generateMiddlewareModule(middlewares: VitelyConfigMiddleware[]) {
+function generateMiddlewareModule(middlewares: VitelyCoreConfigMiddleware[]) {
 	const imports: string[] = [];
 	const middlewareKeys: string[] = [];
 
@@ -51,7 +51,9 @@ export async function runMiddlewares(options) {
 /**
  * Plugin to run every middleware
  */
-export function middlewaresPlugin(config: VitelyConfigResolved): VitePlugin {
+export function middlewaresPlugin(
+	config: VitelyCoreConfigResolved
+): VitePlugin {
 	const clientMiddlewares = config.middlewares;
 	const serverMiddlewares = config.middlewares.filter((p) => p.ssr);
 

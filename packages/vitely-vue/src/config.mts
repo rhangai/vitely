@@ -1,9 +1,9 @@
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
-	VitelyConfig,
-	VitelyConfigResolved,
-	resolveConfigCore,
+	VitelyCoreConfig,
+	VitelyCoreConfigResolved,
+	resolveCoreConfig,
 } from '@vitely/core/plugins';
 import type { HeadObjectPlain } from '@vueuse/head';
 
@@ -11,14 +11,14 @@ export type VitelyVueStore = 'pinia';
 
 export type VitelyVueHead = HeadObjectPlain;
 
-export type VitelyVueConfigResolved = VitelyConfigResolved & {
+export type VitelyVueConfigResolved = VitelyCoreConfigResolved & {
 	ssr: boolean;
 	pages: string;
 	store: VitelyVueStore | null;
 	head: VitelyVueHead;
 };
 
-export type VitelyVueConfig = VitelyConfig & {
+export type VitelyVueConfig = VitelyCoreConfig & {
 	pages?: string;
 	store?: VitelyVueStore | boolean | null;
 	head?: VitelyVueHead | null;
@@ -52,7 +52,7 @@ export function resolveConfig(
 ): VitelyVueConfigResolved {
 	const moduleBase = dirname(fileURLToPath(import.meta.url));
 	return {
-		...resolveConfigCore(moduleBase, config),
+		...resolveCoreConfig(moduleBase, config),
 		pages: config?.pages ?? 'pages',
 		store: resolveConfigStore(config?.store ?? null),
 		head: resolveConfigHead(config?.head ?? null),
