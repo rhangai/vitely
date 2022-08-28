@@ -1,4 +1,4 @@
-import { createElement, lazy, ReactNode } from 'react';
+import { createElement, ReactNode } from 'react';
 import { Route, Routes as ReactRouterRoutes } from 'react-router-dom';
 import {
 	pagesModules,
@@ -20,7 +20,7 @@ export function createRouter(url: string) {
 		const childrenNodes = children?.map((item) => mapRoute(item)) ?? [];
 		return createElement(
 			Route,
-			{ ...props, element: createElement(lazy(props.element)) },
+			{ ...props, element: createElement(props.Element) },
 			...childrenNodes
 		);
 	};

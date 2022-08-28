@@ -2,17 +2,16 @@ import { PassThrough } from 'node:stream';
 import { serializeValue } from '@vitely/core';
 import { createElement, ReactNode } from 'react';
 import { renderToPipeableStream } from 'react-dom/server';
-import { Helmet } from 'react-helmet';
+import { FilledContext } from 'react-helmet-async';
 import { type RenderResult } from 'virtual:vitely/core/render';
 import { AppContextValue } from '../hook/app-context.mjs';
 import { setupApp } from './setup-app.mjs';
 
 export async function render(url: string): Promise<RenderResult> {
 	const { Root } = await setupApp();
-
+	const helmetContext = {};
 	const { context, resolveServerPrefetch } = createLazyResolver();
-
-	const component = createElement(Root, { context, url });
+	const component = createElement(Root, { context, url, helmetContext });
 
 	/*
 	Must run twice
@@ -20,10 +19,9 @@ export async function render(url: string): Promise<RenderResult> {
 	 - Second time renders using the fetched values
 	 */
 	await renderComponent(component, false);
-	Helmet.renderStatic();
 	await resolveServerPrefetch();
 	const appHtmlBuffers = await renderComponent(component, true);
-	const helmet = Helmet.renderStatic();
+	const { helmet } = helmetContext as unknown as FilledContext;
 
 	return {
 		redirect: null,
@@ -32,6 +30,7 @@ export async function render(url: string): Promise<RenderResult> {
 			htmlAttrs: helmet.htmlAttributes.toString(),
 			head: [
 				helmet.title.toString(),
+				helmet.priority.toString(),
 				helmet.base.toString(),
 				helmet.meta.toString(),
 				helmet.link.toString(),

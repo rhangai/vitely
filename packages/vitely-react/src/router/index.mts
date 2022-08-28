@@ -9,6 +9,7 @@ function moduleRouterData(config: VitelyReactConfigResolved) {
 		pagesRoot = `${pagesRoot}/`;
 	}
 	const pagesGlob = join(pagesRoot, '**/*.{tsx,ts,jsx,js}');
+	// prettier-ignore
 	return `
 import { BrowserRouter } from 'react-router-dom';
 import { StaticRouter } from "react-router-dom/server";

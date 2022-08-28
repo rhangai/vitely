@@ -11,7 +11,7 @@ type BuildRoutesResult<T> = {
 
 export function buildRoutes<T>(
 	base: string,
-	modulesMap: Record<string, () => any>,
+	modulesMap: Record<string, unknown>,
 	mapper: (item: RouteItem) => T
 ): BuildRoutesResult<T> {
 	const tree = new RouteTree();

@@ -1,9 +1,10 @@
 import { buildRoutes } from '@vitely/core/router';
+import { ComponentType, lazy } from 'react';
 
 export type RouteInfo = {
 	path: string;
 	index: boolean;
-	element: () => any;
+	Element: ComponentType;
 };
 
 export function buildRoutesReactRouter(
@@ -32,7 +33,7 @@ export function buildRoutesReactRouter(
 		({ value, fullKey, isWildcard }): RouteInfo => ({
 			path: toPath(fullKey, isWildcard),
 			index: fullKey.length === 0,
-			element: modulesMap[value],
+			Element: lazy(modulesMap[value]),
 		})
 	);
 	return {

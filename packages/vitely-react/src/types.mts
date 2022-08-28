@@ -5,9 +5,9 @@ declare module 'virtual:vitely/react/app.tsx' {
 }
 
 declare module 'virtual:vitely/react/router-data' {
-	import { type Component } from 'react';
+	import { Component } from 'react';
 
 	export const pagesRoot: string;
-	export const pagesModules: Record<string, () => unknown>;
+	export const pagesModules: Record<string, () => any>;
 	export const Router: Component;
 }
