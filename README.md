@@ -6,4 +6,4 @@ Monorepo package for vitely
 
 -   [@vitely/vue](./packages/vitely-vue)
 -   [@vitely/vue2](./packages/vitely-vue2)
--   [@vitely/react](./packages/vitely-react) ** Experimental **
+-   [@vitely/react](./packages/vitely-react) **Experimental**
