@@ -2,15 +2,9 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { InlineConfig, Plugin } from 'vite';
 import { vitelyGetTarget } from '../target.mjs';
+import type { VitelyConfigResolved } from './config.mjs';
 
-export type VitelyConfigCore = {
-	moduleBase: string;
-	ssr: boolean;
-	standaloneServer: boolean;
-	alias: Record<string, string>;
-};
-
-export function corePlugin(config: VitelyConfigCore): Plugin {
+export function buildPlugin(config: VitelyConfigResolved): Plugin {
 	return {
 		name: 'vitely:core',
 		config(c, configEnv) {

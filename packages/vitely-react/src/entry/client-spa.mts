@@ -12,6 +12,7 @@ async function main() {
 
 	// Render
 	const context: AppContextValue = {
+		logger: console,
 		serverPrefetch: {},
 		serverPrefetchState: {},
 	};

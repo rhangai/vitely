@@ -1,10 +1,9 @@
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import {
-	VitelyConfigPlugin,
-	VitelyConfigPluginInput,
-	VitelyConfigMiddleware,
-	VitelyConfigMiddlewareInput,
-	pluginsPluginResolveConfig,
-	middlewaresPluginResolveConfig,
+	VitelyConfig,
+	VitelyConfigResolved,
+	resolveConfigCore,
 } from '@vitely/core/plugins';
 import { type MetaInfo } from 'vue-meta';
 
@@ -31,24 +30,16 @@ export type VitelyVue2Head = Pick<
 	| 'noscript'
 >;
 
-export type VitelyVueConfigResolved = {
-	ssr: boolean;
+export type VitelyVueConfigResolved = VitelyConfigResolved & {
 	pages: string;
 	store: VitelyVue2Store | null;
 	head: VitelyVue2Head;
-	plugins: VitelyConfigPlugin[];
-	middlewares: VitelyConfigMiddleware[];
-	standaloneServer: boolean;
 };
 
-export type VitelyVueConfig = {
-	ssr?: boolean;
+export type VitelyVueConfig = VitelyConfig & {
 	pages?: string;
 	store?: VitelyVue2Store | boolean | null;
 	head?: VitelyVue2Head | null;
-	plugins?: VitelyConfigPluginInput[];
-	middlewares?: VitelyConfigMiddlewareInput[];
-	standaloneServer?: boolean;
 };
 
 /**
@@ -77,13 +68,11 @@ function resolveConfigHead(head: VitelyVue2Head | null): VitelyVue2Head {
 export function resolveConfig(
 	config: VitelyVueConfig | undefined
 ): VitelyVueConfigResolved {
+	const moduleBase = dirname(fileURLToPath(import.meta.url));
 	return {
-		ssr: !!config?.ssr,
+		...resolveConfigCore(moduleBase, config),
 		pages: config?.pages ?? 'pages',
 		store: resolveConfigStore(config?.store ?? null),
 		head: resolveConfigHead(config?.head ?? null),
-		standaloneServer: !!config?.standaloneServer,
-		plugins: pluginsPluginResolveConfig(config?.plugins),
-		middlewares: middlewaresPluginResolveConfig(config?.middlewares),
 	};
 }

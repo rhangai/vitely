@@ -1,19 +1,9 @@
 import type { Plugin as VitePlugin } from 'vite';
 import { createVirtualModulesPlugin } from '../virtual-modules.mjs';
-
-export type VitelyConfigMiddlewareInput =
-	| string
-	| null
-	| undefined
-	| {
-			ssr?: boolean;
-			middleware: string;
-	  };
-
-export type VitelyConfigMiddleware = {
-	ssr: boolean;
-	middleware: string;
-};
+import type {
+	VitelyConfigMiddleware,
+	VitelyConfigResolved,
+} from './config.mjs';
 
 // prettier-ignore
 /**
@@ -29,6 +19,9 @@ export type VitelyRunMiddlewaresOptions<TContext> = {
 	routeChanged(): boolean;
 };
 
+/**
+ * Generate the middleware module for ssr or
+ */
 function generateMiddlewareModule(middlewares: VitelyConfigMiddleware[]) {
 	const imports: string[] = [];
 	const middlewareKeys: string[] = [];
@@ -58,11 +51,9 @@ export async function runMiddlewares(options) {
 /**
  * Plugin to run every middleware
  */
-export function middlewaresPlugin(
-	middlewares: VitelyConfigMiddleware[]
-): VitePlugin {
-	const clientMiddlewares = middlewares;
-	const serverMiddlewares = middlewares.filter((p) => p.ssr);
+export function middlewaresPlugin(config: VitelyConfigResolved): VitePlugin {
+	const clientMiddlewares = config.middlewares;
+	const serverMiddlewares = config.middlewares.filter((p) => p.ssr);
 
 	return createVirtualModulesPlugin({
 		name: 'vitely:core-middlewares',
@@ -79,26 +70,4 @@ export function middlewaresPlugin(
 				}`
 		},
 	});
-}
-
-/**
- * Resolve the middlewares config
- */
-export function middlewaresPluginResolveConfig(
-	items: Array<VitelyConfigMiddlewareInput> | null | undefined
-): VitelyConfigMiddleware[] {
-	if (!items || items.length <= 0) return [];
-	return items
-		.map((item): VitelyConfigMiddleware | null => {
-			if (!item) return null;
-			if (typeof item === 'string') {
-				return { ssr: true, middleware: item };
-			}
-			if (!item.middleware) return null;
-			return { ssr: item.ssr !== false, middleware: item.middleware };
-		})
-		.filter((p): p is VitelyConfigMiddleware => {
-			if (!p) return false;
-			return true;
-		});
 }

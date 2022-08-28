@@ -7,11 +7,17 @@ export function useServerPrefetch<T>(
 	onValue: (value: T) => void
 ): void {
 	const context = useAppContext();
+	if (!import.meta.env.SSR) {
+		console.warn(`Using serverPrefetch without SSR context`);
+	}
 	if (context.serverPrefetchState[key]) {
 		onValue(context.serverPrefetchState[key] as T);
 		return;
 	}
 	if (!context.serverPrefetch[key]) {
+		if (!context.serverPrefetchEnabled) {
+			console.warn(`Option 'serverPrefetch' not enabled`);
+		}
 		context.serverPrefetch[key] = Promise.resolve(fetch());
 		void context.serverPrefetch[key].then((value) => {
 			context.serverPrefetchState[key] = value;

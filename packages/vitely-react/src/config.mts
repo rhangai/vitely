@@ -1,26 +1,17 @@
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import {
-	VitelyConfigPlugin,
-	VitelyConfigPluginInput,
-	VitelyConfigMiddleware,
-	VitelyConfigMiddlewareInput,
-	pluginsPluginResolveConfig,
-	middlewaresPluginResolveConfig,
+	VitelyConfig,
+	VitelyConfigResolved,
+	resolveConfigCore,
 } from '@vitely/core/plugins';
 
-export type VitelyReactConfigResolved = {
-	ssr: boolean;
+export type VitelyReactConfigResolved = VitelyConfigResolved & {
 	pages: string;
-	plugins: VitelyConfigPlugin[];
-	middlewares: VitelyConfigMiddleware[];
-	standaloneServer: boolean;
 };
 
-export type VitelyReactConfig = {
-	ssr?: boolean;
+export type VitelyReactConfig = VitelyConfig & {
 	pages?: string;
-	plugins?: VitelyConfigPluginInput[];
-	middlewares?: VitelyConfigMiddlewareInput[];
-	standaloneServer?: boolean;
 };
 
 /**
@@ -29,11 +20,9 @@ export type VitelyReactConfig = {
 export function resolveConfig(
 	config: VitelyReactConfig | undefined
 ): VitelyReactConfigResolved {
+	const moduleBase = dirname(fileURLToPath(import.meta.url));
 	return {
-		ssr: !!config?.ssr,
+		...resolveConfigCore(moduleBase, config),
 		pages: config?.pages ?? 'pages',
-		standaloneServer: !!config?.standaloneServer,
-		plugins: pluginsPluginResolveConfig(config?.plugins),
-		middlewares: middlewaresPluginResolveConfig(config?.middlewares),
 	};
 }

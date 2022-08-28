@@ -1,19 +1,6 @@
 import type { Plugin as VitePlugin } from 'vite';
 import { createVirtualModulesPlugin } from '../virtual-modules.mjs';
-
-export type VitelyConfigPluginInput =
-	| string
-	| null
-	| undefined
-	| {
-			ssr?: boolean;
-			plugin: string;
-	  };
-
-export type VitelyConfigPlugin = {
-	ssr: boolean;
-	plugin: string;
-};
+import type { VitelyConfigPlugin, VitelyConfigResolved } from './config.mjs';
 
 // prettier-ignore
 /**
@@ -54,9 +41,9 @@ export async function setupPlugins(options) {
 /**
  * A basic
  */
-export function pluginsPlugin(plugins: VitelyConfigPlugin[]): VitePlugin {
-	const clientlugins = plugins;
-	const serverPlugins = plugins.filter((p) => p.ssr);
+export function pluginsPlugin(config: VitelyConfigResolved): VitePlugin {
+	const clientlugins = config.plugins;
+	const serverPlugins = config.plugins.filter((p) => p.ssr);
 
 	return createVirtualModulesPlugin({
 		name: 'vitely:core-plugins',
@@ -74,26 +61,4 @@ export function pluginsPlugin(plugins: VitelyConfigPlugin[]): VitePlugin {
 				}`
 		},
 	});
-}
-
-/**
- * Resolve the plugins config
- */
-export function pluginsPluginResolveConfig(
-	items: Array<VitelyConfigPluginInput> | null | undefined
-): VitelyConfigPlugin[] {
-	if (!items || items.length <= 0) return [];
-	return items
-		.map((item): VitelyConfigPlugin | null => {
-			if (!item) return null;
-			if (typeof item === 'string') {
-				return { ssr: true, plugin: item };
-			}
-			if (!item.plugin) return null;
-			return { ssr: item.ssr !== false, plugin: item.plugin };
-		})
-		.filter((p): p is VitelyConfigPlugin => {
-			if (!p) return false;
-			return true;
-		});
 }

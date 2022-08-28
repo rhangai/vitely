@@ -1,24 +1,29 @@
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 import type { Plugin } from 'vite';
-import {
-	createHtmlSsrRender,
-	HtmlSsrRenderParams,
-} from '../server/html-ssr-render.mjs';
+import { VitelyLogger } from '../index.mjs';
+import { createHtmlSsrRender } from '../server/html-ssr-render.mjs';
+import type { VitelyConfigResolved } from './config.mjs';
 
-export type VitelyConfigDevServerRenderResult = {
-	redirect: string | null;
-	status?: number | undefined;
-	renderParams: HtmlSsrRenderParams;
-};
+type RenderModule = typeof import('virtual:vitely/core/render');
 
-export type VitelyConfigDevServer = {
-	ssr: boolean;
-};
-
-export function devServerPlugin(config: VitelyConfigDevServer): Plugin {
+export function devServerPlugin(config: VitelyConfigResolved): Plugin {
+	let logger: VitelyLogger;
 	return {
 		name: 'vitely:core-dev-server',
+		configResolved(resolved) {
+			logger = {
+				warn(something) {
+					resolved.logger.warn(something);
+				},
+				error(something) {
+					resolved.logger.error(something);
+				},
+				info(something) {
+					resolved.logger.info(something);
+				},
+			};
+		},
 		configureServer(server) {
 			if (!config.ssr) return undefined;
 			return () => {
@@ -42,10 +47,12 @@ export function devServerPlugin(config: VitelyConfigDevServer): Plugin {
 						transformedHtml
 					);
 
-					const { render } = await server.ssrLoadModule(
+					const { render } = (await server.ssrLoadModule(
 						'virtual:vitely/core/render'
-					);
-					const result = await render(req.originalUrl ?? '/');
+					)) as RenderModule;
+					const result = await render(req.originalUrl ?? '/', {
+						logger,
+					});
 					if (result.redirect) {
 						res.writeHead(302, {
 							location: result.redirect,

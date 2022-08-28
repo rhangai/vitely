@@ -3,24 +3,29 @@ import { serializeValue } from '@vitely/core';
 import { createElement, ReactNode } from 'react';
 import { renderToPipeableStream } from 'react-dom/server';
 import { FilledContext } from 'react-helmet-async';
-import { type RenderResult } from 'virtual:vitely/core/render';
+import type { RenderFunction, RenderContext } from 'virtual:vitely/core/render';
 import { AppContextValue } from '../hook/app-context.mjs';
 import { setupApp } from './setup-app.mjs';
 
-export async function render(url: string): Promise<RenderResult> {
+export const render: RenderFunction = async (url, ctx) => {
 	const { Root } = await setupApp();
 	const helmetContext = {};
-	const { context, resolveServerPrefetch } = createLazyResolver();
+	const { context, resolveServerPrefetch } = createLazyResolver(ctx);
 	const component = createElement(Root, { context, url, helmetContext });
 
 	/*
-	Must run twice
+	If serverPrefetch is enabled, the server must run twice
 	 - First time collect the async hooks
 	 - Second time renders using the fetched values
 	 */
-	await renderComponent(component, false);
-	await resolveServerPrefetch();
-	const appHtmlBuffers = await renderComponent(component, true);
+	let appHtml;
+	if (context.serverPrefetchEnabled) {
+		await renderComponent(component, false);
+		await resolveServerPrefetch();
+		appHtml = await renderComponent(component, true);
+	} else {
+		appHtml = await renderComponent(component, true);
+	}
 	const { helmet } = helmetContext as unknown as FilledContext;
 
 	return {
@@ -36,7 +41,7 @@ export async function render(url: string): Promise<RenderResult> {
 				helmet.link.toString(),
 				helmet.style.toString(),
 			],
-			app: appHtmlBuffers.toString('utf8'),
+			app: appHtml,
 			body: [
 				serializeContext({
 					serverPrefetchState: context.serverPrefetchState,
@@ -46,9 +51,9 @@ export async function render(url: string): Promise<RenderResult> {
 			],
 		},
 	};
-}
+};
 
-async function renderComponent(component: ReactNode, returnBuffer: boolean) {
+async function renderComponent(component: ReactNode, returnString: boolean) {
 	const stream = renderToPipeableStream(component);
 	const passThrough = new PassThrough();
 	stream.pipe(passThrough);
@@ -57,19 +62,20 @@ async function renderComponent(component: ReactNode, returnBuffer: boolean) {
 	await new Promise<void>((resolve, reject) => {
 		passThrough
 			.on('data', (buffer) => {
-				// Ignore the data
-				if (returnBuffer) {
+				if (returnString) {
 					buffers.push(buffer);
 				}
 			})
 			.on('error', reject)
 			.on('end', () => resolve());
 	});
-	return Buffer.concat(buffers);
+	return Buffer.concat(buffers).toString('utf8');
 }
 
-function createLazyResolver() {
+function createLazyResolver({ logger }: RenderContext) {
 	const context: AppContextValue = {
+		logger,
+		serverPrefetchEnabled: true,
 		serverPrefetch: {},
 		serverPrefetchState: {},
 	};

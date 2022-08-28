@@ -1,10 +1,9 @@
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import {
-	VitelyConfigPlugin,
-	VitelyConfigPluginInput,
-	VitelyConfigMiddleware,
-	VitelyConfigMiddlewareInput,
-	pluginsPluginResolveConfig,
-	middlewaresPluginResolveConfig,
+	VitelyConfig,
+	VitelyConfigResolved,
+	resolveConfigCore,
 } from '@vitely/core/plugins';
 import type { HeadObjectPlain } from '@vueuse/head';
 
@@ -12,24 +11,17 @@ export type VitelyVueStore = 'pinia';
 
 export type VitelyVueHead = HeadObjectPlain;
 
-export type VitelyVueConfigResolved = {
+export type VitelyVueConfigResolved = VitelyConfigResolved & {
 	ssr: boolean;
 	pages: string;
 	store: VitelyVueStore | null;
 	head: VitelyVueHead;
-	plugins: VitelyConfigPlugin[];
-	middlewares: VitelyConfigMiddleware[];
-	standaloneServer: boolean;
 };
 
-export type VitelyVueConfig = {
-	ssr?: boolean;
+export type VitelyVueConfig = VitelyConfig & {
 	pages?: string;
 	store?: VitelyVueStore | boolean | null;
 	head?: VitelyVueHead | null;
-	plugins?: VitelyConfigPluginInput[];
-	middlewares?: VitelyConfigMiddlewareInput[];
-	standaloneServer?: boolean;
 };
 
 /**
@@ -58,13 +50,11 @@ function resolveConfigHead(head: VitelyVueHead | null): VitelyVueHead {
 export function resolveConfig(
 	config: VitelyVueConfig | undefined
 ): VitelyVueConfigResolved {
+	const moduleBase = dirname(fileURLToPath(import.meta.url));
 	return {
-		ssr: !!config?.ssr,
+		...resolveConfigCore(moduleBase, config),
 		pages: config?.pages ?? 'pages',
 		store: resolveConfigStore(config?.store ?? null),
 		head: resolveConfigHead(config?.head ?? null),
-		standaloneServer: !!config?.standaloneServer,
-		plugins: pluginsPluginResolveConfig(config?.plugins),
-		middlewares: middlewaresPluginResolveConfig(config?.middlewares),
 	};
 }
