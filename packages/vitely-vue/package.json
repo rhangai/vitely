@@ -24,7 +24,8 @@
   },
   "scripts": {
     "clean": "rm -rf dist node_modules .turbo",
-    "build": "tsc -p tsconfig.build.json"
+    "build": "tsc -p tsconfig.build.json",
+    "publish": "yarn run clean && yarn run build"
   },
   "dependencies": {
     "@vitejs/plugin-vue": "^3.0.3",
