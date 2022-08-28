@@ -10,7 +10,7 @@ import routerPlugin from './router/index.mjs';
  * @param configParam
  * @returns A vite plugin object (Or plugins :O)
  */
-export default function vitelyPluginVue(
+export default function vitelyPluginReact(
 	configParam?: VitelyReactConfig
 ): PluginOption {
 	const config = resolveConfig(configParam);
