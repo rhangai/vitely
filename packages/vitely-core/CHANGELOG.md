@@ -1,7 +1,13 @@
 # @vitely/core
 
+## 0.0.2
+
+### Patch Changes
+
+-   Improved publish scripts
+
 ## 0.0.1
 
-### Minor Changes
+### Patch Changes
 
--   Added basic support for vue3
+-   Added base project

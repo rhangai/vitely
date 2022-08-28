@@ -1,4 +1,4 @@
-# @vitely/vue
+# @vitely/vue2
 
 ## 0.0.2
 
