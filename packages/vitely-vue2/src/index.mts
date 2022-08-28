@@ -1,6 +1,6 @@
 /// <reference path="./types/index.mts" />
 import { default as vitePluginVue } from '@vitejs/plugin-vue2';
-import { corePlugin } from '@vitely/core/plugins';
+import { corePlugin } from '@vitely/core';
 import { PluginOption } from 'vite';
 import { resolveConfig, VitelyVueConfig } from './config.mjs';
 import headPlugin from './head/index.mjs';

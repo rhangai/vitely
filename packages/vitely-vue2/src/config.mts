@@ -4,7 +4,7 @@ import {
 	VitelyCoreConfig,
 	VitelyCoreConfigResolved,
 	resolveCoreConfig,
-} from '@vitely/core/plugins';
+} from '@vitely/core';
 import { type MetaInfo } from 'vue-meta';
 
 export type VitelyVue2StorePinia = {

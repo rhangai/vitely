@@ -1,5 +1,5 @@
 import { default as vitePluginReact } from '@vitejs/plugin-react';
-import { corePlugin } from '@vitely/core/plugins';
+import { corePlugin } from '@vitely/core';
 import { PluginOption } from 'vite';
 import { resolveConfig, VitelyReactConfig } from './config.mjs';
 import './types.mjs';

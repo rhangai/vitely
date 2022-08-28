@@ -4,7 +4,7 @@ import {
 	VitelyCoreConfig,
 	VitelyCoreConfigResolved,
 	resolveCoreConfig,
-} from '@vitely/core/plugins';
+} from '@vitely/core';
 
 export type VitelyReactConfigResolved = VitelyCoreConfigResolved & {
 	pages: string;

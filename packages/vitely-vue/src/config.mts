@@ -4,7 +4,7 @@ import {
 	VitelyCoreConfig,
 	VitelyCoreConfigResolved,
 	resolveCoreConfig,
-} from '@vitely/core/plugins';
+} from '@vitely/core';
 import type { HeadObjectPlain } from '@vueuse/head';
 
 export type VitelyVueStore = 'pinia';
