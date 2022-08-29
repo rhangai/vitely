@@ -35,6 +35,9 @@ export type VitelyVueConfigResolved = VitelyCoreConfigResolved & {
 	layouts: string | false;
 	store: VitelyVue2Store | null;
 	head: VitelyVue2Head;
+	shim: {
+		nuxt2: boolean;
+	};
 };
 
 export type VitelyVueConfig = VitelyCoreConfig & {
@@ -42,6 +45,9 @@ export type VitelyVueConfig = VitelyCoreConfig & {
 	layouts?: string | boolean;
 	store?: VitelyVue2Store | boolean | null;
 	head?: VitelyVue2Head | null;
+	shim?: {
+		nuxt2?: boolean;
+	};
 };
 
 /**
@@ -88,5 +94,8 @@ export function resolveConfig(
 		layouts: resolveConfigLayouts(config?.layouts),
 		store: resolveConfigStore(config?.store ?? null),
 		head: resolveConfigHead(config?.head ?? null),
+		shim: {
+			nuxt2: !!config?.shim?.nuxt2,
+		},
 	};
 }

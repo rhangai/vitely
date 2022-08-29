@@ -5,9 +5,20 @@ declare module 'virtual:vitely/vue2/app.vue' {
 	export default vitelyMainComponent;
 }
 
+declare module 'virtual:vitely/vue2/head' {
+	export function createHead(options: Record<string, any>): {};
+}
+
+declare module 'virtual:vitely/vue2/layouts' {
+	import type { Component } from 'vue';
+
+	export const Layouts: Record<string, Component>;
+}
+
 declare module 'virtual:vitely/vue2/router-data' {
-	export const pagesRoot: string;
-	export const pagesModules: Record<string, () => unknown>;
+	export const PagesRoot: string;
+	export const PagesModules: Record<string, () => unknown>;
+	export const PagesMode: 'nuxt2' | 'default';
 }
 
 declare module 'virtual:vitely/vue2/router' {
@@ -17,12 +28,6 @@ declare module 'virtual:vitely/vue2/router' {
 		router: VueRouter;
 		routes: RouteConfig[];
 	};
-}
-
-declare module 'virtual:vitely/vue2/layouts' {
-	import type { Component } from 'vue';
-
-	export const Layouts: Record<string, Component>;
 }
 
 declare module 'virtual:vitely/vue2/store' {
@@ -36,8 +41,4 @@ declare module 'virtual:vitely/vue2/store' {
 		store: VitelyStore | null;
 		storeState(): Record<string, any>;
 	};
-}
-
-declare module 'virtual:vitely/vue2/head' {
-	export function createHead(options: Record<string, any>): {};
 }

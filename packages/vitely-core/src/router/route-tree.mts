@@ -97,7 +97,7 @@ export class RouteTree {
 		}
 		const routeKey = keys[keys.length - 1];
 		const { pageName } = this.parsePage(routeKey);
-		if (pageName === '[404]') {
+		if (pageName === '[[404]]') {
 			item.wildcard = { value, status: 404 };
 		} else if (pageName !== 'index') {
 			item = this.getItem(item, pageName);

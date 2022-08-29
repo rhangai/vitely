@@ -3,14 +3,11 @@ import { RouteConfig } from 'vue-router';
 
 export function buildRoutesVueRouter(
 	base: string,
-	modulesMap: Record<string, () => any>
+	modulesMap: Record<string, () => any>,
+	pagesMode: 'nuxt2' | 'default'
 ) {
-	const replacePath = (key: string) => {
-		if (key.charAt(0) === '[' && key.charAt(key.length - 1) === ']') {
-			return `:${key.substring(1, key.length - 1)}`;
-		}
-		return key;
-	};
+	const { replaceName, replacePath } =
+		pagesMode === 'nuxt2' ? replacerNuxt2() : replacerDefault();
 	const toPath = (keysParam: string[], wildcard: boolean | undefined) => {
 		const keys = keysParam.map(replacePath);
 		if (wildcard) {
@@ -18,13 +15,6 @@ export function buildRoutesVueRouter(
 			return `/${wildcardKeys.join('/')}`;
 		}
 		return keys.length === 0 ? '/' : `/${keys.join('/')}/`;
-	};
-
-	const replaceName = (key: string) => {
-		if (key.charAt(0) === '[' && key.charAt(key.length - 1) === ']') {
-			return key.substring(1, key.length - 1);
-		}
-		return key;
 	};
 	const toName = (keysParam: string[], wildcard: boolean | undefined) => {
 		const keys = keysParam.map(replaceName);
@@ -37,8 +27,8 @@ export function buildRoutesVueRouter(
 	const { routes } = buildRoutes(
 		base,
 		modulesMap,
-		({ value, fullKey, relativeKey, isWildcard, status }): RouteConfig => ({
-			path: toPath(relativeKey, isWildcard),
+		({ value, fullKey, isWildcard, status }): RouteConfig => ({
+			path: toPath(fullKey, isWildcard),
 			meta: { status },
 			name: toName(fullKey, isWildcard),
 			component: modulesMap[value],
@@ -46,5 +36,43 @@ export function buildRoutesVueRouter(
 	);
 	return {
 		routes,
+	};
+}
+
+function replacerNuxt2() {
+	const replacePath = (key: string) => {
+		if (key.charAt(0) === '_') {
+			return `:${key.substring(1)}`;
+		}
+		return key;
+	};
+	const replaceName = (key: string) => {
+		if (key.charAt(0) === '_') {
+			return key.substring(1);
+		}
+		return key;
+	};
+	return {
+		replaceName,
+		replacePath,
+	};
+}
+
+function replacerDefault() {
+	const replacePath = (key: string) => {
+		if (key.charAt(0) === '[' && key.charAt(key.length - 1) === ']') {
+			return `:${key.substring(1, key.length - 1)}`;
+		}
+		return key;
+	};
+	const replaceName = (key: string) => {
+		if (key.charAt(0) === '[' && key.charAt(key.length - 1) === ']') {
+			return key.substring(1, key.length - 1);
+		}
+		return key;
+	};
+	return {
+		replaceName,
+		replacePath,
 	};
 }

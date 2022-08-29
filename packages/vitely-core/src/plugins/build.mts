@@ -3,11 +3,18 @@ import { fileURLToPath } from 'node:url';
 import { InlineConfig, Plugin } from 'vite';
 import type { VitelyCoreOptions } from './options.mjs';
 
-export function buildPlugin({ config, alias }: VitelyCoreOptions): Plugin {
+export function buildPlugin({ config, alias, env }: VitelyCoreOptions): Plugin {
 	return {
 		name: 'vitely:core',
 		config(c, configEnv) {
 			const outDir = c.build?.outDir ?? 'dist';
+
+			const define: InlineConfig['define'] = {};
+			if (env) {
+				Object.entries(env).forEach(([key, value]) => {
+					define[`process.env.${key}`] = JSON.stringify(value);
+				});
+			}
 
 			const ssr: InlineConfig['ssr'] = {
 				noExternal: [/^@vitely/],
@@ -27,6 +34,7 @@ export function buildPlugin({ config, alias }: VitelyCoreOptions): Plugin {
 
 			if (configEnv.command === 'serve') {
 				return {
+					define,
 					resolve,
 					ssr,
 				};
@@ -60,6 +68,7 @@ export function buildPlugin({ config, alias }: VitelyCoreOptions): Plugin {
 							},
 						},
 					},
+					define,
 					resolve,
 					ssr: config.standaloneServer
 						? {
@@ -76,8 +85,9 @@ export function buildPlugin({ config, alias }: VitelyCoreOptions): Plugin {
 					ssrManifest: config.ssr,
 					outDir: target ? join(outDir, 'client') : outDir,
 				},
-				ssr,
+				define,
 				resolve,
+				ssr,
 			};
 		},
 	};

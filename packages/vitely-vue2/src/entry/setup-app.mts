@@ -4,7 +4,7 @@ import { createHead } from 'virtual:vitely/vue2/head';
 import { createRouter } from 'virtual:vitely/vue2/router';
 import { createStore } from 'virtual:vitely/vue2/store';
 import { default as Vue, Component } from 'vue';
-import { RawLocation } from 'vue-router';
+import { RawLocation, RouterLink, RouterView } from 'vue-router';
 import { default as VitelyVuePlugin } from '../runtime/components/index.js';
 import type {
 	VitelyPluginContext,
@@ -17,7 +17,13 @@ type SetupAppOptions = {
 };
 
 // Install plugins
-Vue.use(VitelyVuePlugin);
+if (process.env.VITELY_VUE2_USE_COMPONENTS) {
+	Vue.use(VitelyVuePlugin);
+}
+if (process.env.VITELY_VUE2_SHIM_NUXT2) {
+	Vue.component('nuxt-child', RouterView);
+	Vue.component('nuxt-link', RouterLink);
+}
 
 /**
  * Setup the application
@@ -32,6 +38,18 @@ export async function setupApp({
 	const { store, storeState } = createStore(options);
 	createHead(options);
 
+	// Provide plugin
+	const provideValues = { ...provideParam };
+	const provide = (key: any, value: any): void => {
+		provideValues[key] = value;
+	};
+	const inject = (key: any): any => {
+		if (!(key in provideValues)) {
+			throw new Error(`Value ${key.toString()} not provided.`);
+		}
+		return provideValues[key];
+	};
+
 	// Run the middleware
 	router.beforeEach(async (to, from, routerNext) => {
 		try {
@@ -41,10 +59,11 @@ export async function setupApp({
 			};
 			await runMiddlewares<VitelyMiddlewareContext>({
 				context: {
-					to,
-					from,
+					route: to,
+					routeFrom: from,
 					router,
 					store,
+					inject,
 					next,
 				},
 				routeChanged() {
@@ -56,12 +75,6 @@ export async function setupApp({
 			routerNext();
 		}
 	});
-
-	// Provide plugin
-	const provide = { ...provideParam };
-	const pluginProvide = (key: symbol | string, value: any) => {
-		provide[key] = value;
-	};
 
 	// Hooks
 	const setups: Array<() => void> = [];
@@ -75,7 +88,8 @@ export async function setupApp({
 			router,
 			store,
 			options,
-			provide: pluginProvide,
+			provide,
+			inject,
 			onRootSetup,
 		},
 	});
@@ -83,7 +97,7 @@ export async function setupApp({
 	// Call the constructor
 	const app = new Vue({
 		...options,
-		provide,
+		provide: provideValues,
 		setup() {
 			for (const setup of setups) {
 				setup();
