@@ -31,21 +31,23 @@ export default defineConfig({
 });
 ```
 
-On your `index.ts`
+# Features
 
-```ts
-import 'virtual:vitely/core/entry';
-```
+## App entry file
 
-Create an `app.vue`
+The default app file is an `app.vue` file on your vite root
+
+If there is none, a default one will be used:
 
 ```vue
 <template>
-    <router-view />
+    <vitely-layout-manager>
+        <router-view />
+    </vitely-layout-manager>
 </template>
 ```
 
-# Features
+The App component is the main component of your application, every other component (pages, layout, etc) will be a descendent of the App.
 
 ## Routes
 
@@ -94,20 +96,22 @@ some-dir
 
 By using the `<vitely-layout-manager>` component, you can set the `layout: "layout-name"` property on every page to use a Layout as a wrapper component.
 
-Every file in your `layouts` directory is a layout.
-
-Ex:
-
-On your `app.vue`
+A layout is a normal component with a <slot>
 
 ```vue
 <template>
-    <vitely-layout-manager>
-        <router-view />
-    </vitely-layout-manager>
+    <div>
+        <h1>Some fancy header</h1>
+        <div class="content">
+            <slot />
+        </div>
+    </div>
 </template>
 ```
 
+Every file in your `layouts` directory is a layout.
+
+Ex:
 With a filesystem like this
 
 ```
@@ -118,6 +122,7 @@ layouts
 ```
 
 Now you can use `layout: "admin"` (or client or default) on every page.
+The layout `default` will be used if no layout is used in the chain or no layout can be found.
 
 ## Plugins
 
@@ -246,18 +251,6 @@ By using this `shim.nuxt2` config, you will enable a few features
     ```
 
 1. Change your layouts from `<nuxt/>` to `<slot />`
-1. Create an `app.vue`
-    ```vue
-    <template>
-        <vitely-layout-manager>
-            <router-view />
-        </vitely-layout-manager>
-    </template>
-    ```
-1. Create an `index.ts`
-    ```ts
-    import 'virtual:vitely/core/entry';
-    ```
 1. Create an `index.html`
     ```html
     <!DOCTYPE html>
@@ -273,7 +266,6 @@ By using this `shim.nuxt2` config, you will enable a few features
         </head>
         <body>
             <div id="app"></div>
-            <script type="module" src="/index.ts"></script>
         </body>
     </html>
     ```
