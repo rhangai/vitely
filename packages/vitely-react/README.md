@@ -1,14 +1,10 @@
-# @vitely/vue
+# @vitely/react
 
-Vitely driven by vue
+<div style="padding: 1rem; border: 1px solid #c22; margin-bottom: 2rem; text-align: center; font-size: 1.8rem;">
+* Work in Progress *
+</div>
 
-## Introduction
+For now see the vue packages
 
-Vitely is a simple (yet powerful) framework built to enhance your vite experience and boost your productivity.
-It has builtin support for:
-
--   Routes from Directory
--   Store (Pinia)
--   Plugins
--   Middlewares
--   Server Side Rendering
+-   [@vitely/vue](https://github.com/rhangai/vitely/tree/main/packages/vitely-vue)
+-   [@vitely/vue2](https://github.com/rhangai/vitely/tree/main/packages/vitely-vue2)
