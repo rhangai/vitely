@@ -1,6 +1,6 @@
 {
   "name": "@vitely/vue2",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "keywords": [
     "vite",
     "plugin",
@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@vitejs/plugin-vue2": "^1.1.2",
-    "@vitely/core": "^0.0.4",
+    "@vitely/core": "^0.0.5",
     "vue-meta": "^2.4.0",
     "vue-router": "^3"
   },

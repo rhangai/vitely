@@ -1171,7 +1171,7 @@ __metadata:
     "@types/react-dom": ^18.0.6
     "@types/react-helmet": ^6.1.5
     "@vitejs/plugin-react": ^2.0.1
-    "@vitely/core": ^0.0.4
+    "@vitely/core": ^0.0.5
     react: ^18.2.0
     react-dom: ^18.2.0
     react-helmet-async: ^1.3.0
@@ -1192,7 +1192,7 @@ __metadata:
   resolution: "@vitely/vue2@workspace:packages/vitely-vue2"
   dependencies:
     "@vitejs/plugin-vue2": ^1.1.2
-    "@vitely/core": ^0.0.4
+    "@vitely/core": ^0.0.5
     typescript: ^4.7.4
     vite: ^3.0.9
     vue: ^2.7
@@ -1210,7 +1210,7 @@ __metadata:
   resolution: "@vitely/vue@workspace:packages/vitely-vue"
   dependencies:
     "@vitejs/plugin-vue": ^3.0.3
-    "@vitely/core": ^0.0.4
+    "@vitely/core": ^0.0.5
     "@vueuse/head": ^0.7.9
     typescript: ^4.7.4
     vite: ^3.0.9
