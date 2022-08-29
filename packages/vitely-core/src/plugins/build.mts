@@ -90,6 +90,23 @@ export function buildPlugin({ config, alias, env }: VitelyCoreOptions): Plugin {
 				ssr,
 			};
 		},
+		transformIndexHtml: {
+			enforce: 'pre',
+			transform(html) {
+				if (!config.injectEntry) return undefined;
+				return {
+					html,
+					tags: [
+						{
+							tag: 'script',
+							attrs: { type: 'module' },
+							injectTo: 'body',
+							children: `import 'virtual:vitely/core/entry';`,
+						},
+					],
+				};
+			},
+		},
 	};
 }
 

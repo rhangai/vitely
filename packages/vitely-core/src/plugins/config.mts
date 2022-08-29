@@ -29,6 +29,7 @@ export type VitelyCoreConfigPlugin = {
 export type VitelyCoreConfig = {
 	ssr?: boolean | undefined;
 	standaloneServer?: boolean | undefined;
+	injectEntry?: boolean;
 	middlewares?: VitelyCoreConfigMiddlewareInput[] | undefined | null;
 	plugins?: VitelyCoreConfigPluginInput[] | undefined | null;
 };
@@ -37,6 +38,7 @@ export type VitelyCoreConfigResolved = {
 	moduleBase: string;
 	ssr: boolean;
 	standaloneServer: boolean;
+	injectEntry: boolean;
 	middlewares: VitelyCoreConfigMiddleware[];
 	plugins: VitelyCoreConfigPlugin[];
 };
@@ -96,6 +98,7 @@ export function resolveCoreConfig(
 		moduleBase,
 		ssr: !!config?.ssr,
 		standaloneServer: !!config?.standaloneServer,
+		injectEntry: config?.injectEntry !== false,
 		middlewares: resolveCoreConfigMiddlewares(config?.middlewares),
 		plugins: resolveCoreConfigPlugins(config?.plugins),
 	};
