@@ -5,6 +5,9 @@ import type {
 	VitelyMiddleware,
 } from '../types/index.mjs';
 
+export * from './composition/index.mjs';
+export * from './router/index.mjs';
+
 export type {
 	VitelyPluginContext,
 	VitelyMiddlewareContext,

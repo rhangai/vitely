@@ -13,14 +13,6 @@
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.mts"
     },
-    "./router/runtime": {
-      "import": "./dist/router/runtime/index.mjs",
-      "types": "./dist/router/runtime/index.d.mts"
-    },
-    "./composition": {
-      "import": "./dist/composition/index.mjs",
-      "types": "./dist/composition/index.d.mts"
-    },
     "./runtime": {
       "import": "./dist/runtime/index.mjs",
       "types": "./dist/runtime/index.d.mts"

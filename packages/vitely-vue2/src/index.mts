@@ -3,9 +3,9 @@ import { default as vitePluginVue } from '@vitejs/plugin-vue2';
 import { corePlugin } from '@vitely/core';
 import { PluginOption } from 'vite';
 import { resolveConfig, VitelyVueConfig } from './config.mjs';
-import headPlugin from './head/index.mjs';
-import routerPlugin from './router/index.mjs';
-import storePlugin from './store/index.mjs';
+import headPlugin from './plugins/head.mjs';
+import routerPlugin from './plugins/router.mjs';
+import storePlugin from './plugins/store.mjs';
 
 /**
  * Main entrypoint

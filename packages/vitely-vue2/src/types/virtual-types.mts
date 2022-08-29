@@ -19,6 +19,12 @@ declare module 'virtual:vitely/vue2/router' {
 	};
 }
 
+declare module 'virtual:vitely/vue2/layouts' {
+	import type { Component } from 'vue';
+
+	export const Layouts: Record<string, Component>;
+}
+
 declare module 'virtual:vitely/vue2/store' {
 	import type { Ref } from 'vue';
 

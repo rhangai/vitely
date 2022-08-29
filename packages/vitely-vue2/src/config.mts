@@ -32,12 +32,14 @@ export type VitelyVue2Head = Pick<
 
 export type VitelyVueConfigResolved = VitelyCoreConfigResolved & {
 	pages: string;
+	layouts: string | false;
 	store: VitelyVue2Store | null;
 	head: VitelyVue2Head;
 };
 
 export type VitelyVueConfig = VitelyCoreConfig & {
 	pages?: string;
+	layouts?: string | boolean;
 	store?: VitelyVue2Store | boolean | null;
 	head?: VitelyVue2Head | null;
 };
@@ -51,6 +53,17 @@ function resolveConfigStore(
 	if (store == null || store === false) return null;
 	if (store === true) return { lib: 'pinia' };
 	return store;
+}
+
+/**
+ * Resolve the layouts config
+ */
+function resolveConfigLayouts(
+	layouts: string | boolean | undefined
+): string | false {
+	if (layouts === false) return false;
+	if (!layouts || layouts === true) return 'layouts';
+	return layouts;
 }
 
 /**
@@ -72,6 +85,7 @@ export function resolveConfig(
 	return {
 		...resolveCoreConfig(moduleBase, config),
 		pages: config?.pages ?? 'pages',
+		layouts: resolveConfigLayouts(config?.layouts),
 		store: resolveConfigStore(config?.store ?? null),
 		head: resolveConfigHead(config?.head ?? null),
 	};

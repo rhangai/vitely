@@ -5,6 +5,7 @@ import { createRouter } from 'virtual:vitely/vue2/router';
 import { createStore } from 'virtual:vitely/vue2/store';
 import { default as Vue, Component } from 'vue';
 import { RawLocation } from 'vue-router';
+import { default as VitelyVuePlugin } from '../runtime/components/index.js';
 import type {
 	VitelyPluginContext,
 	VitelyMiddlewareContext,
@@ -15,6 +16,12 @@ type SetupAppOptions = {
 	provide: undefined | Record<string | symbol, unknown>;
 };
 
+// Install plugins
+Vue.use(VitelyVuePlugin);
+
+/**
+ * Setup the application
+ */
 export async function setupApp({
 	component,
 	provide: provideParam,
