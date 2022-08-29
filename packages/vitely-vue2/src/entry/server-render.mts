@@ -1,6 +1,5 @@
 import { serializeValue } from '@vitely/core';
 import { type RenderResult } from 'virtual:vitely/core/render';
-import App from 'virtual:vitely/vue2/app.vue';
 import { VueMetaPlugin } from 'vue-meta';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { createRenderer } from 'vue-server-renderer';
@@ -19,7 +18,6 @@ type SetupAppSSR = {
 
 export async function render(url: string): Promise<RenderResult> {
 	const { app, router, storeState } = await setupApp({
-		component: App,
 		provide: undefined,
 	});
 

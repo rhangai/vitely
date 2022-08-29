@@ -53,7 +53,7 @@ export async function createHtmlSsrRender(
 	}
 
 	// prettier-ignore
-	const divAppMatch = /<div\s+id=["']app["']\s*>.*?<\/div>/m.exec(htmlInput);
+	const divAppMatch = /<div\s+id=["']app["']\s*>([\s\S]*?)<\/div>/m.exec(htmlInput);
 	if (!divAppMatch) {
 		throw new Error(`Could not find empty <div id="app"></div>`);
 	}

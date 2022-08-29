@@ -1,9 +1,10 @@
 import { runMiddlewares } from 'virtual:vitely/core/middlewares';
 import { setupPlugins } from 'virtual:vitely/core/plugins';
+import { App } from 'virtual:vitely/vue2/app';
 import { createHead } from 'virtual:vitely/vue2/head';
 import { createRouter } from 'virtual:vitely/vue2/router';
 import { createStore } from 'virtual:vitely/vue2/store';
-import { default as Vue, Component } from 'vue';
+import { default as Vue } from 'vue';
 import { RawLocation, RouterLink, RouterView } from 'vue-router';
 import { default as VitelyVuePlugin } from '../runtime/components/index.js';
 import type {
@@ -12,7 +13,6 @@ import type {
 } from '../types/index.mjs';
 
 type SetupAppOptions = {
-	component: Component;
 	provide: undefined | Record<string | symbol, unknown>;
 };
 
@@ -28,10 +28,7 @@ if (process.env.VITELY_VUE2_SHIM_NUXT2) {
 /**
  * Setup the application
  */
-export async function setupApp({
-	component,
-	provide: provideParam,
-}: SetupAppOptions) {
+export async function setupApp({ provide: provideParam }: SetupAppOptions) {
 	const options = {};
 
 	const { router } = createRouter(options);
@@ -104,7 +101,7 @@ export async function setupApp({
 			}
 		},
 		render(h) {
-			return h(component);
+			return h(App);
 		},
 	});
 

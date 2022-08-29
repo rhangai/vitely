@@ -26,8 +26,18 @@ function parseLayout() {
 		}
 	);
 
+	// No layouts files
+	if (Object.keys(layoutImports).length <= 0) {
+		const layoutDefault = {
+			render(h) {
+				return h('div', {}, this.$slots.default);
+			}
+		};
+		return { default: layoutDefault };
+	}
+
 	const layouts = {};
-	// eslint-disable-next-line guard-for-in
+	// Loop through every layout
 	for (const key in layoutImports) {
 		const layoutComponent =
 			layoutImports[key].default ?? layoutImports[key];

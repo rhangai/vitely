@@ -3,6 +3,7 @@ import { default as vitePluginVue } from '@vitejs/plugin-vue2';
 import { corePlugin } from '@vitely/core';
 import { PluginOption } from 'vite';
 import { resolveConfig, VitelyVueConfig } from './config.mjs';
+import appPlugin from './plugins/app.mjs';
 import headPlugin from './plugins/head.mjs';
 import layoutsPlugin from './plugins/layouts.mjs';
 import routerPlugin from './plugins/router.mjs';
@@ -23,14 +24,13 @@ export default function vitelyPluginVue(
 		vitePluginVue(),
 		corePlugin({
 			config,
-			alias: {
-				'virtual:vitely/vue2/app.vue': '/app.vue',
-			},
+			alias: {},
 			env: {
 				VITELY_VUE2_USE_COMPONENTS: true,
 				VITELY_VUE2_SHIM_NUXT2: config.shim.nuxt2,
 			},
 		}),
+		appPlugin(config),
 		headPlugin(config),
 		layoutsPlugin(config),
 		routerPlugin(config),
