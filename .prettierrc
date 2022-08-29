@@ -9,6 +9,13 @@
         "useTabs": false,
         "tabWidth": 2
       }
+    },
+    {
+      "files": ["*.md"],
+      "options": {
+        "useTabs": false,
+        "tabWidth": 4
+      }
     }
   ]
 }
