@@ -1,21 +1,17 @@
 /// <reference types="vite/client" />
 import { Layouts } from 'virtual:vitely/vue2/layouts';
-import { computed, defineComponent, getCurrentInstance } from 'vue';
+import { defineComponent } from 'vue';
 import type { default as VueRouter } from 'vue-router';
 
 export default defineComponent({
-	setup() {
-		const vm = getCurrentInstance()!;
-		const router: VueRouter = (vm.proxy as any).$router;
-		const layout = computed(() => {
+	computed: {
+		layout() {
+			const router: VueRouter = (this as any).$router;
 			const { matched } = router.currentRoute;
 			return matched.reduce((previous, item: any) => {
 				return item.components?.default?.layout || previous;
 			}, 'default');
-		});
-		return {
-			layout,
-		};
+		},
 	},
 	render(h) {
 		const component = Layouts[this.layout] ?? Layouts.default;
