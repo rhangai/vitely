@@ -31,6 +31,7 @@ export type VitelyVue2Head = Pick<
 >;
 
 export type VitelyVueConfigResolved = VitelyCoreConfigResolved & {
+	app: string | false;
 	pages: string;
 	layouts: string | false;
 	store: VitelyVue2Store | null;
@@ -41,6 +42,7 @@ export type VitelyVueConfigResolved = VitelyCoreConfigResolved & {
 };
 
 export type VitelyVueConfig = VitelyCoreConfig & {
+	app?: string | boolean;
 	pages?: string;
 	layouts?: string | boolean;
 	store?: VitelyVue2Store | boolean | null;
@@ -62,13 +64,14 @@ function resolveConfigStore(
 }
 
 /**
- * Resolve the layouts config
+ * Resolve a string or false config
  */
-function resolveConfigLayouts(
-	layouts: string | boolean | undefined
+function resolveConfigStringFalse(
+	layouts: string | boolean | undefined,
+	defaultValue: string
 ): string | false {
 	if (layouts === false) return false;
-	if (!layouts || layouts === true) return 'layouts';
+	if (!layouts || layouts === true) return defaultValue;
 	return layouts;
 }
 
@@ -90,8 +93,9 @@ export function resolveConfig(
 	const moduleBase = dirname(fileURLToPath(import.meta.url));
 	return {
 		...resolveCoreConfig(moduleBase, config),
+		app: resolveConfigStringFalse(config?.app, '/app.vue'),
 		pages: config?.pages ?? 'pages',
-		layouts: resolveConfigLayouts(config?.layouts),
+		layouts: resolveConfigStringFalse(config?.layouts, 'layouts'),
 		store: resolveConfigStore(config?.store ?? null),
 		head: resolveConfigHead(config?.head ?? null),
 		shim: {
