@@ -1,5 +1,13 @@
 # @vitely/vue
 
+## 0.0.6
+
+### Patch Changes
+
+-   Improved documentation
+-   Updated dependencies
+    -   @vitely/core@0.0.6
+
 ## 0.0.5
 
 ### Patch Changes

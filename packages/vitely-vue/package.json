@@ -1,6 +1,6 @@
 {
   "name": "@vitely/vue",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "repository": {
     "type": "git",
     "url": "https://github.com/rhangai/vitely/tree/main/packages/vitely-vue"
@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@vitejs/plugin-vue": "^3.0.3",
-    "@vitely/core": "^0.0.5",
+    "@vitely/core": "^0.0.6",
     "@vueuse/head": "^0.7.9"
   },
   "devDependencies": {
