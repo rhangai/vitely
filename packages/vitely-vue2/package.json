@@ -1,6 +1,14 @@
 {
   "name": "@vitely/vue2",
   "version": "0.0.4",
+  "keywords": [
+    "vite",
+    "plugin",
+    "vue",
+    "vue2",
+    "ssr",
+    "pages"
+  ],
   "publishConfig": {
     "access": "public"
   },
