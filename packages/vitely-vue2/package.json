@@ -1,6 +1,10 @@
 {
   "name": "@vitely/vue2",
   "version": "0.0.5",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rhangai/vitely/tree/main/packages/vitely-vue2"
+  },
   "keywords": [
     "vite",
     "plugin",
