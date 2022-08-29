@@ -1,5 +1,11 @@
 # @vitely/core
 
+## 0.0.7
+
+### Patch Changes
+
+-   Fixed repository in package.json
+
 ## 0.0.6
 
 ### Patch Changes

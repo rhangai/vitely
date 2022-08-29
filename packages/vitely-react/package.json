@@ -1,6 +1,6 @@
 {
   "name": "@vitely/react",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "repository": {
     "type": "git",
     "url": "https://github.com/rhangai/vitely.git",
@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@vitejs/plugin-react": "^2.0.1",
-    "@vitely/core": "^0.0.6"
+    "@vitely/core": "^0.0.7"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",
