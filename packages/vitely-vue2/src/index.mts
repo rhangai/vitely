@@ -4,6 +4,7 @@ import { corePlugin } from '@vitely/core';
 import { PluginOption } from 'vite';
 import { resolveConfig, VitelyVueConfig } from './config.mjs';
 import headPlugin from './plugins/head.mjs';
+import layoutsPlugin from './plugins/layouts.mjs';
 import routerPlugin from './plugins/router.mjs';
 import storePlugin from './plugins/store.mjs';
 
@@ -25,8 +26,9 @@ export default function vitelyPluginVue(
 				'virtual:vitely/vue2/app.vue': '/app.vue',
 			},
 		}),
+		headPlugin(config),
+		layoutsPlugin(config),
 		routerPlugin(config),
 		storePlugin(config),
-		headPlugin(config),
 	];
 }

@@ -19,14 +19,14 @@ export const Layouts = parseLayout();
 
 function parseLayout() {
 	const layoutDir = ${JSON.stringify(layoutsRoot)};
-	const layoutImports: Record<string, any> = import.meta.glob(
+	const layoutImports = import.meta.glob(
 		${JSON.stringify(layoutsGlob)},
 		{
 			eager: true,
 		}
 	);
 
-	const layouts: Record<string, Component> = {};
+	const layouts = {};
 	// eslint-disable-next-line guard-for-in
 	for (const key in layoutImports) {
 		const layoutComponent =
