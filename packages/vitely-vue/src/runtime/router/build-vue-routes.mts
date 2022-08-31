@@ -34,7 +34,6 @@ export function buildRoutesVueRouter(
 			component: modulesMap[value],
 		})
 	);
-	console.log(routes);
 	return {
 		routes,
 	};
