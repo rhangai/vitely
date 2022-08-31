@@ -4,11 +4,8 @@ import { renderToPipeableStream } from 'react-dom/server';
 import { FilledContext } from 'react-helmet-async';
 import type { RenderFunction, RenderContext } from 'virtual:vitely/core/render';
 import { AppContextValue } from '../hook/app-context.mjs';
+import type { VitelyReactRuntimeContext } from '../runtime/runtime-context.mjs';
 import { setupApp } from './setup-app.mjs';
-
-type VitelyReactRuntimeContext = {
-	serverPrefetchState: Record<string, any>;
-};
 
 export const render: RenderFunction<VitelyReactRuntimeContext> = async (
 	url,

@@ -22,9 +22,9 @@
       "import": "./dist/hook/index.mjs",
       "types": "./dist/hook/index.d.mts"
     },
-    "./router/runtime": {
-      "import": "./dist/router/runtime/index.mjs",
-      "types": "./dist/router/runtime/index.d.mts"
+    "./runtime": {
+      "import": "./dist/runtime/index.mjs",
+      "types": "./dist/runtime/index.d.mts"
     }
   },
   "scripts": {

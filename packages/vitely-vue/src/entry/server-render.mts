@@ -1,13 +1,15 @@
-import { serializeValue } from '@vitely/core';
 import { renderHeadToString } from '@vueuse/head';
-import { type RenderResult } from 'virtual:vitely/core/render';
+import { RenderFunction, type RenderParams } from 'virtual:vitely/core/render';
 import App from 'virtual:vitely/vue/app.vue';
 import { createSSRApp } from 'vue';
 // @ts-ignore
 import { renderToString } from 'vue/server-renderer';
+import { VitelyVueRuntimeContext } from '../runtime/runtime-context.mjs';
 import { setupApp } from './setup-app.mjs';
 
-export async function render(url: string): Promise<RenderResult> {
+export const render: RenderFunction<VitelyVueRuntimeContext> = async (
+	url: string
+) => {
 	const app = createSSRApp(App);
 	const { router, storeState, head } = await setupApp(app);
 
@@ -18,7 +20,6 @@ export async function render(url: string): Promise<RenderResult> {
 	if (router.currentRoute.value.path !== url) {
 		return {
 			redirect: router.currentRoute.value.path,
-			renderParams: {},
 		};
 	}
 
@@ -30,33 +31,20 @@ export async function render(url: string): Promise<RenderResult> {
 	const { headTags, htmlAttrs, /* bodyAttrs, */ bodyTags } =
 		renderHeadToString(head);
 
-	const renderParams: RenderResult['renderParams'] = {
+	const renderParams: RenderParams = {
 		htmlAttrs,
 		head: headTags,
-		body: [
-			bodyTags,
-			serializeContext({
-				fetchState: ssrContext.fetchState,
-				store: storeState(),
-			}),
-		],
+		body: [bodyTags],
 		app: renderedApp,
 	};
 
 	return {
 		redirect: null,
 		status: router.currentRoute.value?.meta?.status as number | undefined,
+		context: {
+			fetchState: ssrContext.fetchState,
+			store: storeState(),
+		},
 		renderParams,
 	};
-}
-
-type SerializeContextParam = {
-	fetchState: Record<string, any>;
-	store: Record<string, any> | undefined;
 };
-function serializeContext(context: SerializeContextParam) {
-	const serialized = serializeValue({
-		context,
-	});
-	return `<script>window.__VITELY__=${serialized}</script>`;
-}

@@ -53,7 +53,7 @@ export function devServerPlugin({ config }: VitelyCoreOptions): Plugin {
 					const result = await render(req.originalUrl ?? '/', {
 						logger,
 					});
-					if (result.redirect) {
+					if ('redirect' in result) {
 						res.writeHead(302, {
 							location: result.redirect,
 						});

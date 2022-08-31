@@ -1,4 +1,4 @@
-import { buildRoutes } from '@vitely/core/router';
+import { buildRoutes } from '@vitely/core/runtime';
 import { ComponentType, lazy } from 'react';
 
 export type RouteInfo = {

@@ -33,6 +33,12 @@ async function main() {
 			const result = await render(req.url, {
 				logger: req.log,
 			});
+
+			if ('redirect' in result) {
+				await res.redirect(result.status ?? 302, result.redirect);
+				return;
+			}
+
 			const serialized = serializeValue({
 				context: result.context,
 			});

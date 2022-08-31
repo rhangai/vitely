@@ -30,8 +30,16 @@ declare module 'virtual:vitely/core/render' {
 		app?: string;
 	};
 
-	export type RenderResult<TContext = unknown> = {
-		redirect?: string | null | undefined;
+	export type RenderResult<TContext = unknown> =
+		| RenderResultRedirect
+		| RenderResultNormal<TContext>;
+
+	export type RenderResultRedirect = {
+		redirect: string;
+		status?: number | null | undefined;
+	};
+
+	export type RenderResultNormal<TContext = unknown> = {
 		status?: number | null | undefined;
 		context: TContext;
 		renderParams: RenderParams;
