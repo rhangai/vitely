@@ -1,4 +1,4 @@
-/// <reference path="./types/index.mts" />
+/// <reference path="../types/virtual.d.ts" />
 import { default as vitePluginVue } from '@vitejs/plugin-vue2';
 import { corePlugin } from '@vitely/core';
 import { PluginOption } from 'vite';

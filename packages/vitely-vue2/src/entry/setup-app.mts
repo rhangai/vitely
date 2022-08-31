@@ -10,7 +10,7 @@ import { default as VitelyVuePlugin } from '../runtime/components/index.js';
 import type {
 	VitelyPluginContext,
 	VitelyMiddlewareContext,
-} from '../types.mjs';
+} from '../runtime/types.mjs';
 
 type SetupAppOptions = {
 	provide: undefined | Record<string | symbol, unknown>;
