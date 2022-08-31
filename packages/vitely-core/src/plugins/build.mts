@@ -94,6 +94,16 @@ export function buildPlugin({ config, alias, env }: VitelyCoreOptions): Plugin {
 			enforce: 'pre',
 			transform(html) {
 				if (!config.injectEntry) return undefined;
+
+				const getEntries = () => {
+					const entries = ['virtual:vitely/core/entry'];
+					if (Array.isArray(config.injectEntry)) {
+						entries.push(...config.injectEntry);
+					}
+					return entries.filter(Boolean);
+				};
+				const entries = getEntries();
+
 				return {
 					html,
 					tags: [
@@ -101,7 +111,9 @@ export function buildPlugin({ config, alias, env }: VitelyCoreOptions): Plugin {
 							tag: 'script',
 							attrs: { type: 'module' },
 							injectTo: 'body',
-							children: `import 'virtual:vitely/core/entry';`,
+							children: `
+							    ${entries.map((entry) => `import ${JSON.stringify(entry)};`)}
+							`,
 						},
 					],
 				};
