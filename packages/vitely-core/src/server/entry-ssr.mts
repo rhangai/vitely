@@ -3,6 +3,7 @@ import { resolve } from 'node:path';
 import FastifyStatic from '@fastify/static';
 import { default as Fastify } from 'fastify';
 import { render } from 'virtual:vitely/core/render';
+import { serializeValue } from '../serialize-value.mjs';
 import { parseArguments } from './arguments.mjs';
 import { createHtmlSsrRender } from './html-ssr-render.mjs';
 
@@ -32,7 +33,15 @@ async function main() {
 			const result = await render(req.url, {
 				logger: req.log,
 			});
-			const { html } = renderHtml(result.renderParams);
+			const serialized = serializeValue({
+				context: result.context,
+			});
+			const { html } = renderHtml({
+				...result.renderParams,
+				body: ([] as Array<string | null | undefined>)
+					.concat(result.renderParams.body)
+					.concat(`<script>window.__VITELY__=${serialized}</script>`),
+			});
 			await res
 				.status(result.status ?? 200)
 				.type('text/html')

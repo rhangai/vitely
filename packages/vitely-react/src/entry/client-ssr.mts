@@ -8,10 +8,7 @@ async function main() {
 	const { Root } = await setupApp();
 
 	//
-	const serverPrefetchState =
-		// @ts-ignore
-		// eslint-disable-next-line no-underscore-dangle, no-undef
-		window?.__VITELY__?.context.serverPrefetchState;
+	const serverPrefetchState = getVitelyRuntimeContext()?.serverPrefetchState;
 
 	// Render
 	const context: AppContextValue = {

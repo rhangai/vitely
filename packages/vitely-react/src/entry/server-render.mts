@@ -1,5 +1,4 @@
 import { PassThrough } from 'node:stream';
-import { serializeValue } from '@vitely/core';
 import { createElement, ReactNode } from 'react';
 import { renderToPipeableStream } from 'react-dom/server';
 import { FilledContext } from 'react-helmet-async';
@@ -7,7 +6,14 @@ import type { RenderFunction, RenderContext } from 'virtual:vitely/core/render';
 import { AppContextValue } from '../hook/app-context.mjs';
 import { setupApp } from './setup-app.mjs';
 
-export const render: RenderFunction = async (url, ctx) => {
+type VitelyReactRuntimeContext = {
+	serverPrefetchState: Record<string, any>;
+};
+
+export const render: RenderFunction<VitelyReactRuntimeContext> = async (
+	url,
+	ctx
+) => {
 	const { Root } = await setupApp();
 	const helmetContext = {};
 	const { context, resolveServerPrefetch } = createLazyResolver(ctx);
@@ -31,6 +37,9 @@ export const render: RenderFunction = async (url, ctx) => {
 	return {
 		redirect: null,
 		status: null,
+		context: {
+			serverPrefetchState: context.serverPrefetchState,
+		},
 		renderParams: {
 			htmlAttrs: helmet.htmlAttributes.toString(),
 			head: [
@@ -42,13 +51,7 @@ export const render: RenderFunction = async (url, ctx) => {
 				helmet.style.toString(),
 			],
 			app: appHtml,
-			body: [
-				serializeContext({
-					serverPrefetchState: context.serverPrefetchState,
-				}),
-				helmet.script.toString(),
-				helmet.noscript.toString(),
-			],
+			body: [helmet.script.toString(), helmet.noscript.toString()],
 		},
 	};
 };
@@ -90,14 +93,4 @@ function createLazyResolver({ logger }: RenderContext) {
 			);
 		},
 	};
-}
-
-type SerializeContextParam = {
-	serverPrefetchState: Record<string, any>;
-};
-function serializeContext(context: SerializeContextParam) {
-	const serialized = serializeValue({
-		context,
-	});
-	return `<script>window.__VITELY__=${serialized}</script>`;
 }

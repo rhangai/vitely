@@ -30,9 +30,10 @@ declare module 'virtual:vitely/core/render' {
 		app?: string;
 	};
 
-	export type RenderResult = {
+	export type RenderResult<TContext = unknown> = {
 		redirect?: string | null | undefined;
 		status?: number | null | undefined;
+		context: TContext;
 		renderParams: RenderParams;
 	};
 
@@ -40,10 +41,10 @@ declare module 'virtual:vitely/core/render' {
 		logger: import('@vitely/core').VitelyLogger;
 	};
 
-	export type RenderFunction = (
+	export type RenderFunction<TContext = unknown> = (
 		url: string,
 		ctx: RenderContext
-	) => Promise<RenderResult> | RenderResult;
+	) => Promise<RenderResult<TContext>> | RenderResult<TContext>;
 
 	export const render: RenderFunction;
 }
