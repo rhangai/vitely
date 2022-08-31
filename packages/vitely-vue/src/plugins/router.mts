@@ -22,7 +22,7 @@ function moduleRouter() {
 	return `
 import { pagesModules, pagesRoot, createHistory } from 'virtual:vitely/vue/router-data';
 import { createRouter as createVueRouter } from 'vue-router';
-import { buildRoutesVueRouter } from '@vitely/vue/router/runtime';
+import { buildRoutesVueRouter } from '@vitely/vue/runtime';
 
 const { routes } = buildRoutesVueRouter(pagesRoot, pagesModules);
 
