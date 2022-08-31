@@ -8,12 +8,12 @@ export type AppContextValue = {
 	serverPrefetchState: Record<string, unknown>;
 };
 
-export const AppContext = createContext<AppContextValue>({
+export const VitelyAppContext = createContext<AppContextValue>({
 	logger: console,
 	serverPrefetch: {},
 	serverPrefetchState: {},
 });
 
-export function useAppContext() {
-	return useContext(AppContext);
+export function useVitelyContext() {
+	return useContext(VitelyAppContext);
 }

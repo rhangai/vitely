@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { useAppContext } from './app-context.mjs';
+import { useVitelyContext } from './app-context.mjs';
 
 export function useServerPrefetch<T>(
 	key: string,
 	fetch: () => Promise<T> | T,
 	onValue: (value: T) => void
 ): void {
-	const context = useAppContext();
+	const context = useVitelyContext();
 	if (!import.meta.env.SSR) {
-		console.warn(`Using serverPrefetch without SSR context`);
+		context.logger.warn(`Using serverPrefetch without SSR context`);
 	}
 	if (context.serverPrefetchState[key]) {
 		onValue(context.serverPrefetchState[key] as T);
@@ -16,7 +16,7 @@ export function useServerPrefetch<T>(
 	}
 	if (!context.serverPrefetch[key]) {
 		if (!context.serverPrefetchEnabled) {
-			console.warn(`Option 'serverPrefetch' not enabled`);
+			context.logger.warn(`Option 'serverPrefetch' not enabled`);
 		}
 		context.serverPrefetch[key] = Promise.resolve(fetch());
 		void context.serverPrefetch[key].then((value) => {
@@ -30,6 +30,6 @@ export function useServerPrefetch<T>(
 }
 
 export function useServerPrefetchState<T>(key: string) {
-	const context = useAppContext();
+	const context = useVitelyContext();
 	return useState<T>(() => (context.serverPrefetchState[key] as any) ?? null);
 }
