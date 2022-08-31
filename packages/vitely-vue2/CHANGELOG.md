@@ -1,5 +1,13 @@
 # @vitely/vue2
 
+## 0.0.9
+
+### Patch Changes
+
+-   Updated runtime and scripts
+-   Updated dependencies
+    -   @vitely/core@0.0.9
+
 ## 0.0.8
 
 ### Patch Changes

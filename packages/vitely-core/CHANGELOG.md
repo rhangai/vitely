@@ -1,5 +1,11 @@
 # @vitely/core
 
+## 0.0.9
+
+### Patch Changes
+
+-   Updated runtime and scripts
+
 ## 0.0.8
 
 ### Patch Changes
