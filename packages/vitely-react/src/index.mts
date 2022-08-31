@@ -1,8 +1,8 @@
+/// <reference path="../types/virtual.d.ts" />
 import { default as vitePluginReact } from '@vitejs/plugin-react';
 import { corePlugin } from '@vitely/core';
 import { PluginOption } from 'vite';
 import { resolveConfig, VitelyReactConfig } from './config.mjs';
-import './types.mjs';
 import routerPlugin from './router/index.mjs';
 
 /**
