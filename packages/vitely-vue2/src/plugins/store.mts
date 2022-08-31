@@ -10,13 +10,14 @@ import type {
 function moduleStorePinia(_store: VitelyVue2StorePinia) {
 	return `
 import { createPinia, PiniaVuePlugin } from 'pinia';
+import { getVitelyRuntimeContext } from "@vitely/core/runtime";
 import Vue from 'vue';
 
 Vue.use(PiniaVuePlugin);
 export function createStore(options) {
 	const store = createPinia();
 	if (!import.meta.env.SSR) {
-		store.state.value = (window?.__VITELY__?.context?.store)
+		store.state.value = getVitelyRuntimeContext()?.store;
 	}
 	options.pinia = store;
 	return {
@@ -34,6 +35,7 @@ function moduleStoreVuex(store: VitelyVue2StoreVuex) {
 	return `
 import Vue, { computed } from 'vue';
 import Vuex from 'vuex';
+import { getVitelyRuntimeContext } from "@vitely/core/runtime";
 import entry from ${JSON.stringify(store.entry)};
 
 Vue.use(Vuex);
@@ -41,7 +43,7 @@ Vue.use(Vuex);
 export function createStore(options) {
 	const store = new Vuex.Store(entry());
 	if (!import.meta.env.SSR) {
-		const storeState = window?.__VITELY__?.context?.store;
+		const storeState = getVitelyRuntimeContext()?.store;
 		if (storeState)
 			store.replaceState(storeState);
 	}

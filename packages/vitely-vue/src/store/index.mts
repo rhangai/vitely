@@ -6,11 +6,12 @@ import type { VitelyVueConfigResolved } from '../config.mjs';
 function moduleStorePinia() {
 	return `
 import { createPinia } from 'pinia';
+import { getVitelyRuntimeContext } from "@vitely/core/runtime";
 
 export function createStore() {
 	const store = createPinia();
 	if (!import.meta.env.SSR) {
-		store.state.value = (window?.__VITELY__?.context?.store)
+		store.state.value = getVitelyRuntimeContext()?.store;
 	}
 	return { 
 		store,

@@ -1,14 +1,9 @@
-import { serializeValue } from '@vitely/core';
-import { type RenderResult } from 'virtual:vitely/core/render';
+import type { RenderFunction, RenderParams } from 'virtual:vitely/core/render';
 import { VueMetaPlugin } from 'vue-meta';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { createRenderer } from 'vue-server-renderer';
+import { VitelyVue2RuntimeContext } from '../runtime/runtime-context.mjs';
 import { setupApp } from './setup-app.mjs';
-
-type SSRContext = {
-	fetchState: Record<string, any>;
-	store: Record<string, any> | undefined;
-};
 
 type SetupAppSSR = {
 	fetchState: Record<string, any>;
@@ -16,7 +11,9 @@ type SetupAppSSR = {
 	meta: VueMetaPlugin;
 };
 
-export async function render(url: string): Promise<RenderResult> {
+export const render: RenderFunction<VitelyVue2RuntimeContext> = async (
+	url: string
+) => {
 	const { app, router, storeState } = await setupApp({
 		provide: undefined,
 	});
@@ -40,7 +37,6 @@ export async function render(url: string): Promise<RenderResult> {
 	if (router.currentRoute.path !== url) {
 		return {
 			redirect: router.currentRoute.path,
-			renderParams: {},
 		};
 	}
 	const renderer = createRenderer();
@@ -49,7 +45,7 @@ export async function render(url: string): Promise<RenderResult> {
 	const { title, htmlAttrs, link, style, script, noscript, meta } =
 		ssrContext.meta.inject();
 
-	const renderParams: RenderResult['renderParams'] = {
+	const renderParams: RenderParams = {
 		htmlAttrs: htmlAttrs?.text(),
 		head: [
 			//
@@ -67,10 +63,6 @@ export async function render(url: string): Promise<RenderResult> {
 			noscript?.text({ pbody: true }),
 		],
 		body: [
-			serializeContext({
-				fetchState: ssrContext.fetchState,
-				store: storeState(),
-			}),
 			style?.text({ body: true }),
 			script?.text({ body: true }),
 			noscript?.text({ body: true }),
@@ -80,13 +72,10 @@ export async function render(url: string): Promise<RenderResult> {
 	return {
 		redirect: null,
 		status: router.currentRoute?.meta?.status as number | undefined,
+		context: {
+			fetchState: ssrContext.fetchState,
+			store: storeState(),
+		},
 		renderParams,
 	};
-}
-
-function serializeContext(context: SSRContext) {
-	const serialized = serializeValue({
-		context,
-	});
-	return `<script>window.__VITELY__=${serialized}</script>`;
-}
+};

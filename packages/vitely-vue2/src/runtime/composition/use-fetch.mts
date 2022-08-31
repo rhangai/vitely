@@ -1,4 +1,6 @@
+import { getVitelyRuntimeContext } from '@vitely/core/runtime';
 import { onMounted, onServerPrefetch, Ref, ref } from 'vue';
+import type { VitelyVue2RuntimeContext } from '../runtime-context.mjs';
 import { useSSRContext } from './internals.js';
 
 export type UseFetchResult<T> = [result: Ref<T | null>, loading: Ref<boolean>];
@@ -35,8 +37,8 @@ function useFetchClient<T>(
 	key: string,
 	cb: () => T | Promise<T>
 ): UseFetchResult<T> {
-	// eslint-disable-next-line no-underscore-dangle, no-undef
-	const fetchState = (window as any)?.__VITELY__?.context?.fetchState;
+	const fetchState =
+		getVitelyRuntimeContext<VitelyVue2RuntimeContext>()?.fetchState;
 	const result: Ref<T | null> = ref(null);
 	const loading = ref(true);
 	if (fetchState && typeof fetchState === 'object' && key in fetchState) {
