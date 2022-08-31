@@ -3,7 +3,7 @@ import type {
 	VitelyMiddlewareContext,
 	VitelyPlugin,
 	VitelyMiddleware,
-} from '../types/index.mjs';
+} from '../types.mjs';
 
 export * from './composition/index.mjs';
 export * from './router/index.mjs';

@@ -8,7 +8,7 @@ import type { RouteLocationRaw } from 'vue-router';
 import type {
 	VitelyMiddlewareContext,
 	VitelyPluginContext,
-} from '../types/index.mjs';
+} from '../types.mjs';
 
 export async function setupApp(app: App) {
 	const { router } = createRouter();

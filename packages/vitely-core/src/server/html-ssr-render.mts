@@ -1,25 +1,10 @@
-type HtmlSsrRenderItem =
-	| Array<string | null | undefined>
-	| string
-	| null
-	| undefined;
+import type { RenderParams, RenderItem } from 'virtual:vitely/core/render';
 
-export type HtmlSsrRenderParams = {
-	htmlAttrs?: HtmlSsrRenderItem;
-	head?: HtmlSsrRenderItem;
-	bodyAttrs?: HtmlSsrRenderItem;
-	bodyPrepend?: HtmlSsrRenderItem;
-	body?: HtmlSsrRenderItem;
-	app?: string;
-};
-
-export type HtmlSsrRenderResult = {
+type HtmlSsrRenderResult = {
 	html: string;
 };
 
-export type HtmlSsrRender = (
-	params: HtmlSsrRenderParams
-) => HtmlSsrRenderResult;
+type HtmlSsrRender = (params: RenderParams) => HtmlSsrRenderResult;
 
 /**
  * Simple HTML render
@@ -81,7 +66,7 @@ export async function createHtmlSsrRender(
 		.substring(divAppMatch.index + divAppMatch[0].length)
 		.trim();
 
-	return (data: HtmlSsrRenderParams = {}) => {
+	return (data: RenderParams = {}) => {
 		const renderedHead = toString(data.head);
 		const renderedBody = toString(data.body);
 		const renderedBodyPrepend = toString(data.bodyPrepend);
@@ -97,7 +82,7 @@ export async function createHtmlSsrRender(
 	};
 }
 
-function toAttrs(defaultAttrs: string, attrs: HtmlSsrRenderItem) {
+function toAttrs(defaultAttrs: string, attrs: RenderItem) {
 	const renderedAttrs = toString(attrs, ' ');
 	if (defaultAttrs) {
 		if (renderedAttrs) return ` ${defaultAttrs} ${renderedAttrs}`;
@@ -108,7 +93,7 @@ function toAttrs(defaultAttrs: string, attrs: HtmlSsrRenderItem) {
 	return '';
 }
 
-function toString(item: HtmlSsrRenderItem, join: string = '') {
+function toString(item: RenderItem, join: string = '') {
 	if (item == null) return '';
 	if (typeof item === 'string') return item;
 	return item.filter(Boolean).join(join);

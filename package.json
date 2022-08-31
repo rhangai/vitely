@@ -36,6 +36,7 @@
     "@vitely/vue": "workspace:*",
     "@vitely/vue2": "workspace:*",
     "vite": "^3.0.9",
-    "vitest": "^0.22.1"
+    "vitest": "^0.22.1",
+    "typescript": "^4.8"
   }
 }

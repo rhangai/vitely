@@ -29,7 +29,7 @@ export function buildRoutes<T>(
 				children: item.children.map(mapItem),
 			};
 		}
-		return value;
+		return value as RouteMappedItem<T>;
 	};
 	const routes = originalRoutes.map(mapItem);
 	return { routes, originalRoutes };
