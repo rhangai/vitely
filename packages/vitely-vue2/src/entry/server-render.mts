@@ -70,7 +70,6 @@ export const render: RenderFunction<VitelyVue2RuntimeContext> = async (
 	};
 
 	return {
-		redirect: null,
 		status: router.currentRoute?.meta?.status as number | undefined,
 		context: {
 			fetchState: ssrContext.fetchState,

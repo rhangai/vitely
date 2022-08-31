@@ -32,7 +32,6 @@ export const render: RenderFunction<VitelyReactRuntimeContext> = async (
 	const { helmet } = helmetContext as unknown as FilledContext;
 
 	return {
-		redirect: null,
 		status: null,
 		context: {
 			serverPrefetchState: context.serverPrefetchState,
