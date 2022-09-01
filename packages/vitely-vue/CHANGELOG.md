@@ -1,5 +1,13 @@
 # @vitely/vue
 
+## 0.0.10
+
+### Patch Changes
+
+-   Added new options server.standalone and server.setup
+-   Updated dependencies
+    -   @vitely/core@0.0.10
+
 ## 0.0.9
 
 ### Patch Changes
