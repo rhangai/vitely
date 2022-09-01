@@ -3,6 +3,7 @@ import { resolve } from 'node:path';
 import FastifyStatic from '@fastify/static';
 import { default as Fastify } from 'fastify';
 import { render } from 'virtual:vitely/core/render';
+import { serverSetup } from 'virtual:vitely/core/server';
 import { serializeValue } from '../serialize-value.mjs';
 import { parseArguments } from './arguments.mjs';
 import { createHtmlSsrRender } from './html-ssr-render.mjs';
@@ -13,13 +14,13 @@ async function main() {
 	const fastify = Fastify({
 		logger: true,
 	});
-
 	process.on('uncaughtException', (error) => {
 		fastify.log.error(error);
 	});
 	process.on('unhandledRejection', (error) => {
 		fastify.log.error(error);
 	});
+	await serverSetup(fastify);
 
 	const inputHtml = await readFile(resolve(clientDir, 'index.html'), 'utf8');
 	const renderHtml = await createHtmlSsrRender(inputHtml);

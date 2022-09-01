@@ -1,4 +1,4 @@
-type VitelyCoreConfigMiddlewareInput =
+type VitelyCoreConfigMiddleware =
 	| string
 	| null
 	| undefined
@@ -7,12 +7,12 @@ type VitelyCoreConfigMiddlewareInput =
 			middleware: string;
 	  };
 
-export type VitelyCoreConfigMiddleware = {
+export type VitelyCoreConfigMiddlewareResolved = {
 	ssr: boolean;
 	middleware: string;
 };
 
-type VitelyCoreConfigPluginInput =
+type VitelyCoreConfigPlugin =
 	| string
 	| null
 	| undefined
@@ -21,37 +21,47 @@ type VitelyCoreConfigPluginInput =
 			plugin: string;
 	  };
 
-export type VitelyCoreConfigPlugin = {
+export type VitelyCoreConfigPluginResolved = {
 	ssr: boolean;
 	plugin: string;
 };
 
+export type VitelyCoreConfigServer = {
+	standalone?: boolean;
+	setup?: string | null;
+};
+
+export type VitelyCoreConfigServerResolved = {
+	standalone: boolean;
+	setup: string | null;
+};
+
 export type VitelyCoreConfig = {
 	ssr?: boolean | undefined;
-	standaloneServer?: boolean | undefined;
+	server?: VitelyCoreConfigServer;
 	injectEntry?: boolean | string[];
-	middlewares?: VitelyCoreConfigMiddlewareInput[] | undefined | null;
-	plugins?: VitelyCoreConfigPluginInput[] | undefined | null;
+	middlewares?: VitelyCoreConfigMiddleware[] | undefined | null;
+	plugins?: VitelyCoreConfigPlugin[] | undefined | null;
 };
 
 export type VitelyCoreConfigResolved = {
 	moduleBase: string;
 	ssr: boolean;
-	standaloneServer: boolean;
+	server: VitelyCoreConfigServerResolved;
 	injectEntry: boolean | string[];
-	middlewares: VitelyCoreConfigMiddleware[];
-	plugins: VitelyCoreConfigPlugin[];
+	middlewares: VitelyCoreConfigMiddlewareResolved[];
+	plugins: VitelyCoreConfigPluginResolved[];
 };
 
 /**
  * Resolve the middlewares config
  */
 function resolveCoreConfigMiddlewares(
-	items: Array<VitelyCoreConfigMiddlewareInput> | null | undefined
-): VitelyCoreConfigMiddleware[] {
+	items: Array<VitelyCoreConfigMiddleware> | null | undefined
+): VitelyCoreConfigMiddlewareResolved[] {
 	if (!items || items.length <= 0) return [];
 	return items
-		.map((item): VitelyCoreConfigMiddleware | null => {
+		.map((item): VitelyCoreConfigMiddlewareResolved | null => {
 			if (!item) return null;
 			if (typeof item === 'string') {
 				return { ssr: true, middleware: item };
@@ -59,7 +69,7 @@ function resolveCoreConfigMiddlewares(
 			if (!item.middleware) return null;
 			return { ssr: item.ssr !== false, middleware: item.middleware };
 		})
-		.filter((p): p is VitelyCoreConfigMiddleware => {
+		.filter((p): p is VitelyCoreConfigMiddlewareResolved => {
 			if (!p) return false;
 			return true;
 		});
@@ -69,11 +79,11 @@ function resolveCoreConfigMiddlewares(
  * Resolve the plugin config
  */
 function resolveCoreConfigPlugins(
-	items: Array<VitelyCoreConfigPluginInput> | null | undefined
-): VitelyCoreConfigPlugin[] {
+	items: Array<VitelyCoreConfigPlugin> | null | undefined
+): VitelyCoreConfigPluginResolved[] {
 	if (!items || items.length <= 0) return [];
 	return items
-		.map((item): VitelyCoreConfigPlugin | null => {
+		.map((item): VitelyCoreConfigPluginResolved | null => {
 			if (!item) return null;
 			if (typeof item === 'string') {
 				return { ssr: true, plugin: item };
@@ -81,7 +91,7 @@ function resolveCoreConfigPlugins(
 			if (!item.plugin) return null;
 			return { ssr: item.ssr !== false, plugin: item.plugin };
 		})
-		.filter((p): p is VitelyCoreConfigPlugin => {
+		.filter((p): p is VitelyCoreConfigPluginResolved => {
 			if (!p) return false;
 			return true;
 		});
@@ -97,7 +107,10 @@ export function resolveCoreConfig(
 	return {
 		moduleBase,
 		ssr: !!config?.ssr,
-		standaloneServer: !!config?.standaloneServer,
+		server: {
+			standalone: !!config?.server?.standalone,
+			setup: config?.server?.setup ?? null,
+		},
 		injectEntry: config?.injectEntry ?? true,
 		middlewares: resolveCoreConfigMiddlewares(config?.middlewares),
 		plugins: resolveCoreConfigPlugins(config?.plugins),

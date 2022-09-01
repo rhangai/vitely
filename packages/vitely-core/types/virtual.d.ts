@@ -56,3 +56,9 @@ declare module 'virtual:vitely/core/render' {
 
 	export const render: RenderFunction;
 }
+
+declare module 'virtual:vitely/core/server' {
+	import type { FastifyInstance } from 'fastify';
+
+	export function serverSetup(fastify: FastifyInstance): void | Promise<void>;
+}

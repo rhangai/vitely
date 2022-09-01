@@ -1,9 +1,9 @@
 import type { Plugin as VitePlugin } from 'vite';
 import { createVirtualModulesPlugin } from '../virtual-modules.mjs';
-import type { VitelyCoreConfigPlugin } from './config.mjs';
+import type { VitelyCoreConfigPluginResolved } from './config.mjs';
 import type { VitelyCoreOptions } from './options.mjs';
 
-function generatePluginModule(plugins: VitelyCoreConfigPlugin[]) {
+function generatePluginModule(plugins: VitelyCoreConfigPluginResolved[]) {
 	const imports: string[] = [];
 	const pluginsKeys: string[] = [];
 

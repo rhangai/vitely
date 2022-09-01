@@ -1,12 +1,14 @@
 import type { Plugin as VitePlugin } from 'vite';
 import { createVirtualModulesPlugin } from '../virtual-modules.mjs';
-import type { VitelyCoreConfigMiddleware } from './config.mjs';
+import type { VitelyCoreConfigMiddlewareResolved } from './config.mjs';
 import type { VitelyCoreOptions } from './options.mjs';
 
 /**
  * Generate the middleware module for ssr or
  */
-function generateMiddlewareModule(middlewares: VitelyCoreConfigMiddleware[]) {
+function generateMiddlewareModule(
+	middlewares: VitelyCoreConfigMiddlewareResolved[]
+) {
 	const imports: string[] = [];
 	const middlewareKeys: string[] = [];
 

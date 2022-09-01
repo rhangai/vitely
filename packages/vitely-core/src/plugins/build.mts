@@ -70,7 +70,7 @@ export function buildPlugin({ config, alias, env }: VitelyCoreOptions): Plugin {
 					},
 					define,
 					resolve,
-					ssr: config.standaloneServer
+					ssr: config.server.standalone
 						? {
 								...ssr,
 								noExternal: [/^(?!node:)/],
