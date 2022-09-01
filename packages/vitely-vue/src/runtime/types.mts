@@ -7,7 +7,7 @@ import type {
 	RouteLocationNormalized,
 } from 'vue-router';
 
-export type VitelyMiddlewareContext = {
+export type VitelyVueMiddlewareContext = {
 	router: Router;
 	store: any;
 	to: RouteLocationNormalized;
@@ -15,13 +15,14 @@ export type VitelyMiddlewareContext = {
 	next(location: RouteLocationRaw): void;
 };
 
-export type VitelyPluginContext = {
+export type VitelyVuePluginContext = {
 	app: App;
 	head: HeadClient;
 	router: Router;
 	store: any;
 };
 
-export type VitelyPlugin = VitelyCorePlugin<VitelyPluginContext>;
+export type VitelyVuePlugin = VitelyCorePlugin<VitelyVuePluginContext>;
 
-export type VitelyMiddleware = VitelyCoreMiddleware<VitelyMiddlewareContext>;
+export type VitelyVueMiddleware =
+	VitelyCoreMiddleware<VitelyVueMiddlewareContext>;

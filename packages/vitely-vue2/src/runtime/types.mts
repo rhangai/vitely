@@ -12,7 +12,7 @@ type ProvideFn = {
 	(key: symbol | string, value: unknown): void;
 };
 
-export type VitelyMiddlewareContext = {
+export type VitelyVue2MiddlewareContext = {
 	router: VueRouter;
 	store: any;
 	route: Route;
@@ -21,7 +21,7 @@ export type VitelyMiddlewareContext = {
 	next(location: RawLocation): void;
 };
 
-export type VitelyPluginContext = {
+export type VitelyVue2PluginContext = {
 	router: VueRouter;
 	store: any;
 	options: Record<string, any>;
@@ -30,6 +30,7 @@ export type VitelyPluginContext = {
 	onRootSetup(setup: () => void): void;
 };
 
-export type VitelyPlugin = VitelyCorePlugin<VitelyPluginContext>;
+export type VitelyVue2Plugin = VitelyCorePlugin<VitelyVue2PluginContext>;
 
-export type VitelyMiddleware = VitelyCoreMiddleware<VitelyMiddlewareContext>;
+export type VitelyVue2Middleware =
+	VitelyCoreMiddleware<VitelyVue2MiddlewareContext>;

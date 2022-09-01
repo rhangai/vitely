@@ -6,9 +6,9 @@ import { createStore } from 'virtual:vitely/vue/store';
 import type { App } from 'vue';
 import type { RouteLocationRaw } from 'vue-router';
 import type {
-	VitelyMiddlewareContext,
-	VitelyPluginContext,
-} from '../types.mjs';
+	VitelyVueMiddlewareContext,
+	VitelyVuePluginContext,
+} from '../runtime/types.mjs';
 
 export async function setupApp(app: App) {
 	const { router } = createRouter();
@@ -31,7 +31,7 @@ export async function setupApp(app: App) {
 			const next = (route: RouteLocationRaw) => {
 				nextRoute = route;
 			};
-			await runMiddlewares<VitelyMiddlewareContext>({
+			await runMiddlewares<VitelyVueMiddlewareContext>({
 				context: {
 					to,
 					from,
@@ -48,7 +48,7 @@ export async function setupApp(app: App) {
 	);
 
 	// Setup the plugins
-	await setupPlugins<VitelyPluginContext>({
+	await setupPlugins<VitelyVuePluginContext>({
 		context: {
 			app,
 			router,

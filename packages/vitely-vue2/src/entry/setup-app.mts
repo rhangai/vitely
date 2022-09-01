@@ -8,8 +8,8 @@ import { default as Vue } from 'vue';
 import { RawLocation, RouterLink, RouterView } from 'vue-router';
 import { default as VitelyVuePlugin } from '../runtime/components/index.js';
 import type {
-	VitelyPluginContext,
-	VitelyMiddlewareContext,
+	VitelyVue2PluginContext,
+	VitelyVue2MiddlewareContext,
 } from '../runtime/types.mjs';
 
 type SetupAppOptions = {
@@ -54,7 +54,7 @@ export async function setupApp({ provide: provideParam }: SetupAppOptions) {
 			const next = (route: RawLocation) => {
 				nextRoute = route;
 			};
-			await runMiddlewares<VitelyMiddlewareContext>({
+			await runMiddlewares<VitelyVue2MiddlewareContext>({
 				context: {
 					route: to,
 					routeFrom: from,
@@ -80,7 +80,7 @@ export async function setupApp({ provide: provideParam }: SetupAppOptions) {
 	};
 
 	// Setup the plugins
-	await setupPlugins<VitelyPluginContext>({
+	await setupPlugins<VitelyVue2PluginContext>({
 		context: {
 			router,
 			store,
