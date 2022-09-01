@@ -1,4 +1,4 @@
-import App from 'virtual:vitely/vue/app.vue';
+import { App } from 'virtual:vitely/vue/app';
 import { createSSRApp } from 'vue';
 import { setupApp } from './setup-app.mjs';
 

@@ -3,6 +3,7 @@ import { default as vitePluginVue } from '@vitejs/plugin-vue';
 import { corePlugin } from '@vitely/core';
 import { PluginOption } from 'vite';
 import { resolveConfig, VitelyVueConfig } from './config.mjs';
+import appPlugin from './plugins/app.mjs';
 import headPlugin from './plugins/head.mjs';
 import routerPlugin from './plugins/router.mjs';
 import storePlugin from './plugins/store.mjs';
@@ -25,6 +26,7 @@ export default function vitelyPluginVue(
 				'virtual:vitely/vue/app.vue': '/app.vue',
 			},
 		}),
+		appPlugin(config),
 		routerPlugin(config),
 		storePlugin(config),
 		headPlugin(config),

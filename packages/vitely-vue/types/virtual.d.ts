@@ -1,8 +1,7 @@
-declare module 'virtual:vitely/vue/app.vue' {
+declare module 'virtual:vitely/vue/app' {
 	import { Component } from 'vue';
 
-	const vitelyMainComponent: Component;
-	export default vitelyMainComponent;
+	export const App: Component;
 }
 
 declare module 'virtual:vitely/vue/router-data' {

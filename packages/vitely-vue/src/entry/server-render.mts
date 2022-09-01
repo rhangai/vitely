@@ -1,6 +1,6 @@
 import { renderHeadToString } from '@vueuse/head';
 import { RenderFunction, type RenderParams } from 'virtual:vitely/core/render';
-import App from 'virtual:vitely/vue/app.vue';
+import { App } from 'virtual:vitely/vue/app';
 import { createSSRApp } from 'vue';
 // @ts-ignore
 import { renderToString } from 'vue/server-renderer';
