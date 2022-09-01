@@ -166,7 +166,7 @@ Vitely also supports a custom server build. (This is what allows standalone serv
 
 ### Standalone server (_Experimental_)
 
-Using the `standaloneServer: true `option, vitely will create a full server contained build powered by [fastify](https://www.fastify.io/)
+Using the `server: { standalone: true }`option, vitely will create a full server contained build powered by [fastify](https://www.fastify.io/)
 
 Everything your bundle will need will be on the dist folder
 
@@ -182,7 +182,7 @@ With the `ssr: true ` option, vitely will render your apps on the server side. T
 
 Enables or disable SSR. See [Server Build](#server-build)
 
-## `standaloneServer?: boolean (default: false)`
+## `server.standalone?: boolean (default: false)`
 
 Enables or disable the standalone server build. See [Server Build](#server-build)
 
